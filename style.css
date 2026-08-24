@@ -173,12 +173,12 @@ a:hover { text-decoration: underline; }
   display: inline-block;
   padding: 8px 14px;
   background: #2875cf;
-  color: #ffffff;
+  color: #ff72dc;
   font-size: 11px;
 }
 
 .button:hover {
-  background: #1f63b4;
+  background: #ed17b8;
   text-decoration: none;
 }
 
@@ -441,14 +441,14 @@ a:hover { text-decoration: underline; }
   gap: 5px;
   padding: 8px 11px;
   background: #2875cf;
-  color: #ffffff;
+  color: #ff72dc;
   border-radius: 2px;
   font-size: 11px;
   box-shadow: 0 2px 7px rgba(0,0,0,.2);
 }
 
 .back-to-top:hover {
-  background: #1f63b4;
+  background: #ed17b8;
   text-decoration: none;
 }
 
