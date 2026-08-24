@@ -322,10 +322,11 @@ a:hover { text-decoration: underline; }
   font-weight: 700;
   line-height: 1;
   text-decoration: none;
+   margin: 4px;
 }
 
 .play-button {
-  background: #286fc2;
+  background: #000000;
   color: #ffffff;
 }
 
@@ -335,8 +336,8 @@ a:hover { text-decoration: underline; }
 }
 
 .imdb-button {
-  background: #eeeeee;
-  color: #111111;
+  background: #f5c518;
+  color: #ffffff;
   border: 1px solid #d0d0d0;
 }
 
