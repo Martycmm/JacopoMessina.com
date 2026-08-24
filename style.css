@@ -204,6 +204,7 @@ a:hover { text-decoration: underline; }
 
 .intro-grid {
   display: grid;
+     margin: 5px 0 5px 50px;
   grid-template-columns: 170px 1fr;
   align-items: center;
   gap: 22px;
