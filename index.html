@@ -6,6 +6,7 @@
   <meta name="description" content="Jacopo Messina — portfolio and work.">
   <title>Jacopo Messina</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="favicon.png">
 </head>
 
 <body>
@@ -13,23 +14,22 @@
   <!-- =========================
        HEADER
   ========================== -->
-  <header class="site-header">
+  <header class="site-header" id="top">
     <nav class="main-nav" aria-label="Main navigation">
-      <div class="nav-links">
-        <a href="#home">Link</a>
-        <a href="#work">Link</a>
-        <a href="#films">Link</a>
-        <a href="#contact">Link</a>
-        <a href="#about">Link</a>
+      <div class="nav-links desktop-nav">
+        <a href="#home">Link</a><a href="#work">Link</a><a href="#films">Link</a><a href="#contact">Link</a><a href="#about">Link</a>
       </div>
-
-      <a class="site-title" href="#home">JACOPO MESSINA</a>
-
-      <div class="contact-links">
-        <a href="mailto:jacopo@example.com">Link a email</a>
-        <a href="tel:+390000000000">Link a telefono</a>
+      <a class="site-title" href="#top">JACOPO MESSINA</a>
+      <div class="contact-links desktop-nav">
+        <a href="mailto:jacopo@example.com">Link a email</a><a href="tel:+390000000000">Link a telefono</a>
       </div>
+      <button class="hamburger" type="button" aria-label="Apri menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
     </nav>
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="#home">Home</a><a href="#work">My work</a><a href="#films">Films</a><a href="#about">About</a><a href="#contact">Contact</a>
+    </div>
   </header>
 
 
@@ -40,7 +40,7 @@
     ========================== -->
     <section class="hero">
       <div class="hero-inner">
-        <img class="profile-image" src="Foto/1.png" alt="Jacopo Messina">
+        <img class="profile-image" src="Foto/profile.png" alt="Jacopo Messina">
 
         <div class="hero-copy">
           <h1>Testo di sottotitolo</h1>
@@ -58,7 +58,7 @@
       <h2>My work</h2>
 
       <div class="intro-grid">
-        <img class="profile-image profile-small" src="Foto/2.jpeg" alt="">
+        <img class="profile-image profile-small" src="Foto/profile.png" alt="">
 
         <p>
           You can use GitHub Pages to showcase open source projects, host a blog,
@@ -69,15 +69,18 @@
         </p>
       </div>
 
-      <div class="wide-image" id="behind the scenes">
-        <div class="cards">
-          <a class="card" href="#"><img src="Foto/Ashley Johnson.png" alt="Project 1"></a>
-          <a class="card" href="#"><img src="Foto/Chiara Ferragni.jpg" alt="Project 2"></a>
-          <a class="card" href="#"><img src="Foto/Costa Rica.png" alt="Project 3"></a>
-          <a class="card" href="#"><img src="Foto/Dreamkatcher 1.png" alt="Project 4"></a>
-          <a class="card" href="#"><img src="Foto/Dreamkatcher 2.png" alt="Project 5"></a>
-          <a class="card" href="#"><img src="Foto/Randy Quaid.png" alt="Project 6"></a>
-        </div>
+      <div class="behind-the-scenes" aria-label="Behind the scenes">
+        <a class="card" href="#"><img src="Foto/Ashley Johnson.png" alt="Project 1"></a>
+        <a class="card" href="#"><img src="Foto/Chiara Ferragni.jpg" alt="Project 2"></a>
+        <a class="card" href="#"><img src="Foto/Costa Rica.png" alt="Project 3"></a>
+        <a class="card" href="#"><img src="Foto/Dreamkatcher 1.png" alt="Project 4"></a>
+        <a class="card" href="#"><img src="Foto/Dreamkatcher 2.png" alt="Project 5"></a>
+        <a class="card" href="#"><img src="Foto/Randy Quaid.png" alt="Project 6"></a>
+      </div>
+
+      <div class="wide-image">
+        <img src="Foto/intro-work.png" alt="Work samples">
+      </div>
 
       <p class="intro-text">
         You can use GitHub Pages to showcase open source projects, host a blog,
@@ -99,21 +102,21 @@
       <div class="work-category" id="films">
         <h3>Feature and short films</h3>
         <div class="cards">
-          <a class="card" href="#"><img src="images/work-1.png" alt="Project 1"></a>
-          <a class="card" href="#"><img src="images/work-2.png" alt="Project 2"></a>
-          <a class="card" href="#"><img src="images/work-3.png" alt="Project 3"></a>
-          <a class="card" href="#"><img src="images/work-4.png" alt="Project 4"></a>
-          <a class="card" href="#"><img src="images/work-5.png" alt="Project 5"></a>
-          <a class="card" href="#"><img src="images/work-6.png" alt="Project 6"></a>
+          <a class="card" href="#"><img src="Foto/work-1.png" alt="Project 1"></a>
+          <a class="card" href="#"><img src="Foto/work-2.png" alt="Project 2"></a>
+          <a class="card" href="#"><img src="Foto/work-3.png" alt="Project 3"></a>
+          <a class="card" href="#"><img src="Foto/work-4.png" alt="Project 4"></a>
+          <a class="card" href="#"><img src="Foto/work-5.png" alt="Project 5"></a>
+          <a class="card" href="#"><img src="Foto/work-6.png" alt="Project 6"></a>
         </div>
 
         <div class="cards">
-          <a class="card" href="#"><img src="images/work-1.png" alt="Project 1"></a>
-          <a class="card" href="#"><img src="images/work-2.png" alt="Project 2"></a>
-          <a class="card" href="#"><img src="images/work-3.png" alt="Project 3"></a>
-          <a class="card" href="#"><img src="images/work-4.png" alt="Project 4"></a>
-          <a class="card" href="#"><img src="images/work-5.png" alt="Project 5"></a>
-          <a class="card" href="#"><img src="images/work-6.png" alt="Project 6"></a>
+          <a class="card" href="#"><img src="Foto/work-1.png" alt="Project 1"></a>
+          <a class="card" href="#"><img src="Foto/work-2.png" alt="Project 2"></a>
+          <a class="card" href="#"><img src="Foto/work-3.png" alt="Project 3"></a>
+          <a class="card" href="#"><img src="Foto/work-4.png" alt="Project 4"></a>
+          <a class="card" href="#"><img src="Foto/work-5.png" alt="Project 5"></a>
+          <a class="card" href="#"><img src="Foto/work-6.png" alt="Project 6"></a>
         </div>
 
         <a class="more-link" href="#">Click here for the full list on IMDB</a>
@@ -123,12 +126,12 @@
       <div class="work-category">
         <h3>Documentaries</h3>
         <div class="cards">
-          <a class="card" href="#"><img src="images/work-1.png" alt="Project 1"></a>
-          <a class="card" href="#"><img src="images/work-2.png" alt="Project 2"></a>
-          <a class="card" href="#"><img src="images/work-3.png" alt="Project 3"></a>
-          <a class="card" href="#"><img src="images/work-4.png" alt="Project 4"></a>
-          <a class="card" href="#"><img src="images/work-5.png" alt="Project 5"></a>
-          <a class="card" href="#"><img src="images/work-6.png" alt="Project 6"></a>
+          <a class="card" href="#"><img src="Foto/work-1.png" alt="Project 1"></a>
+          <a class="card" href="#"><img src="Foto/work-2.png" alt="Project 2"></a>
+          <a class="card" href="#"><img src="Foto/work-3.png" alt="Project 3"></a>
+          <a class="card" href="#"><img src="Foto/work-4.png" alt="Project 4"></a>
+          <a class="card" href="#"><img src="Foto/work-5.png" alt="Project 5"></a>
+          <a class="card" href="#"><img src="Foto/work-6.png" alt="Project 6"></a>
         </div>
         <a class="more-link" href="#">Click here for the full list on IMDB</a>
       </div>
@@ -137,12 +140,12 @@
       <div class="work-category">
         <h3>Web commercials</h3>
         <div class="cards">
-          <a class="card" href="#"><img src="images/work-1.png" alt="Project 1"></a>
-          <a class="card" href="#"><img src="images/work-2.png" alt="Project 2"></a>
-          <a class="card" href="#"><img src="images/work-3.png" alt="Project 3"></a>
-          <a class="card" href="#"><img src="images/work-4.png" alt="Project 4"></a>
-          <a class="card" href="#"><img src="images/work-5.png" alt="Project 5"></a>
-          <a class="card" href="#"><img src="images/work-6.png" alt="Project 6"></a>
+          <a class="card" href="#"><img src="Foto/work-1.png" alt="Project 1"></a>
+          <a class="card" href="#"><img src="Foto/work-2.png" alt="Project 2"></a>
+          <a class="card" href="#"><img src="Foto/work-3.png" alt="Project 3"></a>
+          <a class="card" href="#"><img src="Foto/work-4.png" alt="Project 4"></a>
+          <a class="card" href="#"><img src="Foto/work-5.png" alt="Project 5"></a>
+          <a class="card" href="#"><img src="Foto/work-6.png" alt="Project 6"></a>
         </div>
         <a class="more-link" href="#">Click here for the full list on IMDB</a>
       </div>
@@ -151,11 +154,11 @@
       <div class="work-category">
         <h3>Corporate and Promo videos</h3>
         <div class="cards cards-five">
-          <a class="card" href="#"><img src="images/work-1.png" alt="Project 1"></a>
-          <a class="card" href="#"><img src="images/work-2.png" alt="Project 2"></a>
-          <a class="card" href="#"><img src="images/work-3.png" alt="Project 3"></a>
-          <a class="card" href="#"><img src="images/work-4.png" alt="Project 4"></a>
-          <a class="card" href="#"><img src="images/work-5.png" alt="Project 5"></a>
+          <a class="card" href="#"><img src="Foto/work-1.png" alt="Project 1"></a>
+          <a class="card" href="#"><img src="Foto/work-2.png" alt="Project 2"></a>
+          <a class="card" href="#"><img src="Foto/work-3.png" alt="Project 3"></a>
+          <a class="card" href="#"><img src="Foto/work-4.png" alt="Project 4"></a>
+          <a class="card" href="#"><img src="Foto/work-5.png" alt="Project 5"></a>
         </div>
         <a class="more-link" href="#">Click here for the full list on IMDB</a>
       </div>
@@ -242,5 +245,27 @@
     </nav>
   </footer>
 
+  <a class="back-to-top" href="#top" aria-label="Torna su">↑ <span>Torna su</span></a>
+
+  <script>
+    const hamburger = document.querySelector('.hamburger');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('is-open');
+      hamburger.classList.toggle('is-open', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen);
+      hamburger.setAttribute('aria-label', isOpen ? 'Chiudi menu' : 'Apri menu');
+    });
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('is-open');
+        hamburger.classList.remove('is-open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        hamburger.setAttribute('aria-label', 'Apri menu');
+      });
+    });
+  </script>
+
 </body>
 </html>
+
