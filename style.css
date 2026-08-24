@@ -456,12 +456,12 @@ a:hover { text-decoration: underline; }
 .footer-item small { display: block; }
 
 .footer-item strong {
-  font-size: 7px;
+  font-size: 12px;
   line-height: 1.1;
 }
 
 .footer-item small {
-  font-size: 6px;
+  font-size: 12px;
   line-height: 1.1;
 }
 
@@ -471,7 +471,7 @@ a:hover { text-decoration: underline; }
   align-items: center;
 }
 
-.footer-nav a { font-size: 8px; }
+.footer-nav a { font-size: 12px; }
 
 
 /* =========================================================
