@@ -171,7 +171,7 @@ a:hover { text-decoration: underline; }
 
 .button {
   display: inline-block;
-  padding: 8px 14px;
+  padding: 8px 35px;
   background: #ff72dc;
   color: #ffffff;
   font-size: 11px;
