@@ -150,8 +150,6 @@ a:hover { text-decoration: underline; }
   flex: 0 0 100px;
   object-fit: cover;
   border-radius: 50%;
-  border: 5px solid #dddddd;
-  box-shadow: 0 0 0 5px #777777;
 }
 
 .hero-copy {
