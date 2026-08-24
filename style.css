@@ -136,7 +136,7 @@ a:hover { text-decoration: underline; }
 
 .hero-inner {
   min-height: 200px;
-  width: min(600px, calc(100% - 64px));
+  width: min(800px, calc(100% - 64px));
   margin: 0 auto;
   padding: 54px 35px 45px;
   display: flex;
@@ -188,7 +188,7 @@ a:hover { text-decoration: underline; }
    ========================================================= */
 
 .section {
-  width: min(600px, calc(100% - 64px));
+  width: min(800px, calc(100% - 64px));
   margin: 0 auto;
 }
 
@@ -245,7 +245,7 @@ a:hover { text-decoration: underline; }
 .behind-the-scenes {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 3px;
+  gap: 8px;
   width: 100%;
   margin: 13px 0;
 }
