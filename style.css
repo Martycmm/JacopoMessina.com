@@ -66,7 +66,7 @@ a:hover { text-decoration: underline; }
 .contact-links a:last-child { border-right: 1px solid #d0d0d0; }
 
 .site-title {
-  font-size: 20px;
+  font-size: 35px;
   line-height: 30px;
   font-weight: 700;
   padding: 0 16px;
@@ -165,7 +165,7 @@ a:hover { text-decoration: underline; }
 
 .hero-copy p {
   margin: 0 0 14px;
-  font-size: 14px;
+  font-size: 20px;
   line-height: 1.35;
 }
 
