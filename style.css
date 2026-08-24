@@ -118,7 +118,7 @@ a:hover { text-decoration: underline; }
 .mobile-menu a {
   padding: 12px 20px;
   border-bottom: 1px solid #e5e5e5;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
 }
 
@@ -570,6 +570,6 @@ a:hover { text-decoration: underline; }
   }
 }
   .hero-copy p {
-    font-size: 11px;
+    font-size: 20px;
   }
 }
