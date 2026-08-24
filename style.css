@@ -145,8 +145,8 @@ a:hover { text-decoration: underline; }
 }
 
 .profile-image {
-  width: 150px;
-  height: 150px;
+  width: 220px;
+  height: 220px;
   flex: 0 0 100px;
   object-fit: cover;
   border-radius: 50%;
@@ -210,8 +210,8 @@ a:hover { text-decoration: underline; }
 }
 
 .profile-small {
-  width: 125px;
-  height: 125px;
+  width: 150px;
+  height: 150px;
   flex-basis: 84px;
   margin-left: 5px;
 }
@@ -515,8 +515,8 @@ a:hover { text-decoration: underline; }
   }
 
   .profile-image {
-    width: 76px;
-    height: 76px;
+    width: 100px;
+    height: 100px;
     flex-basis: 76px;
   }
 
@@ -526,8 +526,8 @@ a:hover { text-decoration: underline; }
   }
 
   .profile-small {
-    width: 72px;
-    height: 72px;
+    width: 80px;
+    height: 80px;
     flex-basis: 72px;
   }
 
