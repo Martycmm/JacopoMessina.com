@@ -493,8 +493,8 @@ a:hover { text-decoration: underline; }
     flex-basis: 88px;
   }
 
-  .hero-copy h1 { font-size: 16px; }
-  .hero-copy p { font-size: 13px; }
+  .hero-copy h1 { font-size: 30px; }
+  .hero-copy p { font-size: 20px; }
 
   .section,
   .site-footer {
