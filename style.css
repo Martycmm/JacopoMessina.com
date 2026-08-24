@@ -1,15 +1,10 @@
 /* =========================================================
    JACOPO MESSINA — SITE STYLE
-   Clean layout based on the supplied reference image.
    ========================================================= */
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
@@ -20,19 +15,10 @@ body {
   line-height: 1.35;
 }
 
-img {
-  display: block;
-  max-width: 100%;
-}
+img { display: block; max-width: 100%; }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
+a { color: inherit; text-decoration: none; }
+a:hover { text-decoration: underline; }
 
 
 /* =========================================================
@@ -43,6 +29,8 @@ a:hover {
   height: 30px;
   background: #ffffff;
   border-bottom: 1px solid #d5d5d5;
+  position: relative;
+  z-index: 1000;
 }
 
 .main-nav {
@@ -60,13 +48,8 @@ a:hover {
   align-items: center;
 }
 
-.nav-links {
-  justify-content: space-around;
-}
-
-.contact-links {
-  justify-content: flex-end;
-}
+.nav-links { justify-content: space-around; }
+.contact-links { justify-content: flex-end; }
 
 .nav-links a,
 .contact-links a {
@@ -80,9 +63,7 @@ a:hover {
   white-space: nowrap;
 }
 
-.contact-links a:last-child {
-  border-right: 1px solid #d0d0d0;
-}
+.contact-links a:last-child { border-right: 1px solid #d0d0d0; }
 
 .site-title {
   font-size: 20px;
@@ -91,6 +72,57 @@ a:hover {
   padding: 0 16px;
   white-space: nowrap;
 }
+
+
+/* =========================================================
+   MOBILE MENU
+   Hidden on desktop. Visible only <= 700px.
+   ========================================================= */
+
+.hamburger,
+.mobile-menu {
+  display: none;
+}
+
+.hamburger {
+  border: 0;
+  background: transparent;
+  padding: 4px 6px;
+  width: 36px;
+  height: 30px;
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+}
+
+.hamburger span {
+  display: block;
+  width: 23px;
+  height: 2px;
+  background: #111111;
+  transition: transform .2s ease, opacity .2s ease;
+}
+
+.mobile-menu {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border-bottom: 1px solid #d0d0d0;
+  box-shadow: 0 3px 8px rgba(0,0,0,.12);
+  flex-direction: column;
+}
+
+.mobile-menu a {
+  padding: 12px 20px;
+  border-bottom: 1px solid #e5e5e5;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.mobile-menu a:last-child { border-bottom: 0; }
 
 
 /* =========================================================
@@ -104,7 +136,7 @@ a:hover {
 
 .hero-inner {
   min-height: 200px;
-  max-width: 480px;
+  width: min(1100px, calc(100% - 64px));
   margin: 0 auto;
   padding: 54px 18px 45px;
   display: flex;
@@ -145,7 +177,6 @@ a:hover {
   background: #2875cf;
   color: #ffffff;
   font-size: 11px;
-  text-decoration: none;
 }
 
 .button:hover {
@@ -159,7 +190,7 @@ a:hover {
    ========================================================= */
 
 .section {
-  width: min(480px, calc(100% - 64px));
+  width: min(1100px, calc(100% - 64px));
   margin: 0 auto;
 }
 
@@ -171,9 +202,7 @@ a:hover {
   font-weight: 700;
 }
 
-.intro-section {
-  padding-top: 2px;
-}
+.intro-section { padding-top: 2px; }
 
 .intro-grid {
   display: grid;
@@ -183,8 +212,8 @@ a:hover {
 }
 
 .profile-small {
-  width: 84px;
-  height: 84px;
+  width: 100px;
+  height: 100px;
   flex-basis: 84px;
   margin-left: 5px;
 }
@@ -199,7 +228,7 @@ a:hover {
 
 .wide-image {
   width: 100%;
-  margin: 12px 0 12px;
+  margin: 12px 0;
 }
 
 .wide-image img {
@@ -208,8 +237,30 @@ a:hover {
   object-fit: cover;
 }
 
-.intro-text {
-  text-align: center;
+.intro-text { text-align: center; }
+
+
+/* =========================================================
+   BEHIND THE SCENES
+   ========================================================= */
+
+.behind-the-scenes {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 3px;
+  width: 100%;
+  margin: 13px 0;
+}
+
+.behind-the-scenes .card {
+  display: block;
+  min-width: 0;
+}
+
+.behind-the-scenes .card img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
 }
 
 
@@ -217,17 +268,11 @@ a:hover {
    WORK
    ========================================================= */
 
-.work-section {
-  padding-top: 28px;
-}
+.work-section { padding-top: 28px; }
 
-.work-section > h2 {
-  margin-bottom: 8px;
-}
+.work-section > h2 { margin-bottom: 8px; }
 
-.work-category {
-  margin-bottom: 20px;
-}
+.work-category { margin-bottom: 20px; }
 
 .work-category h3 {
   margin: 0 0 8px;
@@ -251,7 +296,7 @@ a:hover {
 
 .card img {
   width: 100%;
-  aspect-ratio: 0.68;
+  aspect-ratio: .68;
   object-fit: cover;
 }
 
@@ -269,7 +314,7 @@ a:hover {
 
 
 /* =========================================================
-   TIMELINE / COMMERCIALS AND OTHERS
+   TIMELINE
    ========================================================= */
 
 .timeline {
@@ -299,13 +344,8 @@ a:hover {
   top: 3px;
 }
 
-.timeline strong {
-  font-weight: 700;
-}
-
-.timeline span {
-  font-weight: 400;
-}
+.timeline strong { font-weight: 700; }
+.timeline span { font-weight: 400; }
 
 
 /* =========================================================
@@ -317,9 +357,7 @@ a:hover {
   padding-bottom: 35px;
 }
 
-.bottom-section h2 {
-  margin-bottom: 18px;
-}
+.bottom-section h2 { margin-bottom: 18px; }
 
 .lists {
   display: grid;
@@ -341,7 +379,7 @@ a:hover {
    ========================================================= */
 
 .site-footer {
-  width: min(480px, calc(100% - 64px));
+  width: min(1100px, calc(100% - 64px));
   margin: 0 auto;
   padding: 15px 0 5px;
   display: grid;
@@ -361,9 +399,7 @@ a:hover {
   gap: 5px;
 }
 
-.footer-item:hover {
-  text-decoration: none;
-}
+.footer-item:hover { text-decoration: none; }
 
 .icon {
   font-size: 15px;
@@ -371,9 +407,7 @@ a:hover {
 }
 
 .footer-item strong,
-.footer-item small {
-  display: block;
-}
+.footer-item small { display: block; }
 
 .footer-item strong {
   font-size: 7px;
@@ -391,23 +425,48 @@ a:hover {
   align-items: center;
 }
 
-.footer-nav a {
-  font-size: 8px;
+.footer-nav a { font-size: 8px; }
+
+
+/* =========================================================
+   BACK TO TOP
+   ========================================================= */
+
+.back-to-top {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 11px;
+  background: #2875cf;
+  color: #ffffff;
+  border-radius: 2px;
+  font-size: 11px;
+  box-shadow: 0 2px 7px rgba(0,0,0,.2);
+}
+
+.back-to-top:hover {
+  background: #1f63b4;
+  text-decoration: none;
 }
 
 
 /* =========================================================
-   RESPONSIVE
+   TABLET + MOBILE
+   Desktop menu hidden; hamburger visible.
    ========================================================= */
 
 @media (max-width: 700px) {
 
-  .main-nav {
-    grid-template-columns: 1fr auto;
+  .desktop-nav {
+    display: none;
   }
 
-  .nav-links {
-    display: none;
+  .main-nav {
+    grid-template-columns: 1fr auto;
   }
 
   .site-title {
@@ -415,16 +474,16 @@ a:hover {
     padding-left: 12px;
   }
 
-  .contact-links {
-    justify-content: flex-end;
+  .hamburger {
+    display: flex;
   }
 
-  .contact-links a {
-    padding: 0 8px;
-    font-size: 7px;
+  .mobile-menu.is-open {
+    display: flex;
   }
 
   .hero-inner {
+    width: calc(100% - 42px);
     padding: 45px 22px 40px;
     gap: 24px;
   }
@@ -435,22 +494,21 @@ a:hover {
     flex-basis: 88px;
   }
 
-  .hero-copy h1 {
-    font-size: 16px;
-  }
-
-  .hero-copy p {
-    font-size: 13px;
-  }
-}
-
-
-@media (max-width: 480px) {
+  .hero-copy h1 { font-size: 16px; }
+  .hero-copy p { font-size: 13px; }
 
   .section,
   .site-footer {
     width: calc(100% - 42px);
   }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
 
   .hero-inner {
     min-height: 190px;
@@ -475,30 +533,31 @@ a:hover {
     flex-basis: 72px;
   }
 
-  .cards {
-    gap: 2px;
-  }
+  .cards { gap: 2px; }
 
   .cards-five {
     grid-template-columns: repeat(5, 1fr);
   }
 
-  .lists {
-    gap: 10px;
+  .lists { gap: 10px; }
+
+  .back-to-top {
+    right: 12px;
+    bottom: 12px;
+    padding: 7px 9px;
   }
+
+  .back-to-top span { display: none; }
 }
 
 
+/* =========================================================
+   VERY SMALL MOBILE
+   ========================================================= */
+
 @media (max-width: 360px) {
 
-  .site-title {
-    font-size: 16px;
-  }
-
-  .contact-links a {
-    padding: 0 5px;
-    font-size: 6px;
-  }
+  .site-title { font-size: 16px; }
 
   .hero-inner {
     padding-left: 12px;
@@ -511,7 +570,7 @@ a:hover {
     height: 68px;
     flex-basis: 68px;
   }
-
+}
   .hero-copy p {
     font-size: 11px;
   }
