@@ -440,15 +440,15 @@ a:hover { text-decoration: underline; }
   align-items: center;
   gap: 5px;
   padding: 8px 11px;
-  background: #2875cf;
-  color: #ff72dc;
+  background: #ff72dc;
+  color: #ffffff;
   border-radius: 2px;
   font-size: 11px;
   box-shadow: 0 2px 7px rgba(0,0,0,.2);
 }
 
 .back-to-top:hover {
-  background: #ed17b8;
+  background: #ff21c8;
   text-decoration: none;
 }
 
