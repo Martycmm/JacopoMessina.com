@@ -136,9 +136,9 @@ a:hover { text-decoration: underline; }
 
 .hero-inner {
   min-height: 200px;
-  width: min(1100px, calc(100% - 64px));
+  width: min(600px, calc(100% - 64px));
   margin: 0 auto;
-  padding: 54px 18px 45px;
+  padding: 54px 35px 45px;
   display: flex;
   align-items: center;
   gap: 34px;
@@ -190,7 +190,7 @@ a:hover { text-decoration: underline; }
    ========================================================= */
 
 .section {
-  width: min(1100px, calc(100% - 64px));
+  width: min(600px, calc(100% - 64px));
   margin: 0 auto;
 }
 
