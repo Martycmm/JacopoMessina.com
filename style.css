@@ -53,7 +53,7 @@ a:hover { text-decoration: underline; }
 
 .nav-links a,
 .contact-links a {
-  height: 30px;
+  height: 45px;
   display: flex;
   align-items: center;
   padding: 0 25px 0;
@@ -145,8 +145,8 @@ a:hover { text-decoration: underline; }
 }
 
 .profile-image {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   flex: 0 0 100px;
   object-fit: cover;
   border-radius: 50%;
