@@ -632,7 +632,570 @@ a:hover { text-decoration: underline; }
   text-decoration: none;
 }
 
+/* =========================================================
+   AUDIO NAVIGATION TIMELINE
+   Pro Tools / DAW inspired
+   ========================================================= */
 
+.audio-timeline {
+  --timeline-bg: #151515;
+  --timeline-border: #3a3a3a;
+  --timeline-text: #d6d6d6;
+
+  width: 100%;
+  margin: 35px 0;
+  background: var(--timeline-bg);
+  border: 1px solid var(--timeline-border);
+  border-radius: 7px;
+  overflow: hidden;
+
+  position: relative;
+
+  font-family:
+    "SFMono-Regular",
+    Consolas,
+    "Liberation Mono",
+    monospace;
+
+  color: var(--timeline-text);
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.timeline-header {
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+
+  border-bottom: 1px solid #333;
+
+  background:
+    linear-gradient(
+      to bottom,
+      #202020,
+      #171717
+    );
+
+  font-size: 11px;
+}
+
+
+/* NAV label */
+
+.timeline-track-label {
+  width: 90px;
+  min-width: 90px;
+
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding-left: 14px;
+
+  border-right: 1px solid #333;
+
+  color: #cfcfcf;
+  font-weight: 600;
+}
+
+.track-icon {
+  font-size: 14px;
+}
+
+
+/* Timecode */
+
+.timeline-timecode {
+  flex: 1;
+
+  display: flex;
+  justify-content: space-around;
+
+  color: #a7a7a7;
+  font-size: 10px;
+}
+
+
+/* =========================================================
+   MAIN TRACK
+   ========================================================= */
+
+.timeline-body {
+  display: flex;
+
+  min-height: 100px;
+
+  background-color: #101010;
+
+  position: relative;
+}
+
+
+/* =========================================================
+   TRACK CONTROLS
+   ========================================================= */
+
+.track-controls {
+  width: 90px;
+  min-width: 90px;
+
+  padding: 10px;
+
+  border-right: 1px solid #333;
+
+  background:
+    linear-gradient(
+      to right,
+      #202020,
+      #171717
+    );
+
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+
+  position: relative;
+
+  z-index: 3;
+}
+
+
+/* S / M buttons */
+
+.track-controls button {
+  width: 25px;
+  height: 23px;
+
+  border: 1px solid #444;
+  border-radius: 3px;
+
+  background: #252525;
+
+  color: #ddd;
+
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+.track-controls button:hover {
+  background: #333;
+}
+
+
+/* Volume */
+
+.track-volume {
+  position: absolute;
+
+  left: 10px;
+  right: 10px;
+  bottom: 8px;
+
+  display: flex;
+  justify-content: space-between;
+
+  font-size: 8px;
+
+  color: #777;
+}
+
+
+/* =========================================================
+   NAVIGATION CLIPS
+   ========================================================= */
+
+.timeline-clip {
+  position: relative;
+
+  flex: 1;
+
+  min-width: 130px;
+
+  height: 100px;
+
+  padding: 10px;
+
+  border-right: 1px solid rgba(255,255,255,0.15);
+
+  text-decoration: none;
+
+  overflow: hidden;
+
+  transition:
+    background-color 0.2s ease,
+    filter 0.2s ease;
+}
+
+
+/* Clip number */
+
+.clip-number {
+  display: block;
+
+  position: relative;
+
+  z-index: 2;
+
+  font-size: 17px;
+  font-weight: bold;
+}
+
+
+/* Clip title */
+
+.clip-title {
+  position: absolute;
+
+  left: 10px;
+  bottom: 10px;
+
+  z-index: 3;
+
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+
+/* =========================================================
+   WAVEFORM
+   ========================================================= */
+
+.waveform {
+  position: absolute;
+
+  left: 8px;
+  right: 8px;
+
+  top: 40px;
+
+  height: 30px;
+
+  display: flex;
+  align-items: center;
+  gap: 2px;
+
+  opacity: 0.8;
+}
+
+
+/* Individual waveform bars */
+
+.waveform i {
+  display: block;
+
+  width: 2px;
+
+  min-height: 4px;
+
+  border-radius: 1px;
+
+  background: currentColor;
+}
+
+
+/* Different waveform shapes */
+
+.waveform i:nth-child(1)  { height: 8px; }
+.waveform i:nth-child(2)  { height: 15px; }
+.waveform i:nth-child(3)  { height: 23px; }
+.waveform i:nth-child(4)  { height: 11px; }
+.waveform i:nth-child(5)  { height: 27px; }
+.waveform i:nth-child(6)  { height: 18px; }
+.waveform i:nth-child(7)  { height: 9px; }
+.waveform i:nth-child(8)  { height: 25px; }
+.waveform i:nth-child(9)  { height: 14px; }
+.waveform i:nth-child(10) { height: 30px; }
+.waveform i:nth-child(11) { height: 18px; }
+.waveform i:nth-child(12) { height: 8px; }
+.waveform i:nth-child(13) { height: 22px; }
+.waveform i:nth-child(14) { height: 12px; }
+.waveform i:nth-child(15) { height: 27px; }
+.waveform i:nth-child(16) { height: 17px; }
+.waveform i:nth-child(17) { height: 8px; }
+.waveform i:nth-child(18) { height: 20px; }
+.waveform i:nth-child(19) { height: 13px; }
+.waveform i:nth-child(20) { height: 25px; }
+
+
+/* =========================================================
+   COLORS
+   ========================================================= */
+
+
+/* HOME - green */
+
+.clip-home {
+  color: #7bdc52;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(77, 180, 52, 0.18),
+      rgba(20, 50, 20, 0.35)
+    );
+}
+
+.clip-home:hover {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(77, 180, 52, 0.30),
+      rgba(20, 50, 20, 0.45)
+    );
+}
+
+
+/* BIO - blue */
+
+.clip-bio {
+  color: #52b9e8;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(52, 150, 200, 0.18),
+      rgba(15, 40, 55, 0.35)
+    );
+}
+
+.clip-bio:hover {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(52, 150, 200, 0.30),
+      rgba(15, 40, 55, 0.45)
+    );
+}
+
+
+/* PORTFOLIO - purple */
+
+.clip-portfolio {
+  color: #c477e8;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(150, 70, 190, 0.22),
+      rgba(50, 20, 65, 0.40)
+    );
+}
+
+.clip-portfolio:hover {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(150, 70, 190, 0.35),
+      rgba(50, 20, 65, 0.50)
+    );
+}
+
+
+/* EQUIPMENT - orange */
+
+.clip-equipment {
+  color: #f0a43c;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(210, 120, 20, 0.20),
+      rgba(60, 35, 10, 0.40)
+    );
+}
+
+.clip-equipment:hover {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(210, 120, 20, 0.32),
+      rgba(60, 35, 10, 0.50)
+    );
+}
+
+
+/* CONTACT - red */
+
+.clip-contact {
+  color: #ee5555;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(200, 45, 45, 0.20),
+      rgba(60, 15, 15, 0.40)
+    );
+}
+
+.clip-contact:hover {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(200, 45, 45, 0.32),
+      rgba(60, 15, 15, 0.50)
+    );
+}
+
+
+/* =========================================================
+   CURRENT PAGE
+   ========================================================= */
+
+.timeline-clip.current {
+  filter: brightness(1.25);
+
+  box-shadow:
+    inset 0 0 0 1px currentColor,
+    inset 0 0 20px rgba(255,255,255,0.05);
+}
+
+
+/* Current waveform */
+
+.timeline-clip.current .waveform {
+  opacity: 1;
+
+  filter:
+    drop-shadow(0 0 4px currentColor);
+}
+
+
+/* =========================================================
+   TIME SCALE
+   ========================================================= */
+
+.timeline-scale {
+  height: 20px;
+
+  padding-left: 90px;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  border-top: 1px solid #333;
+
+  background: #111;
+
+  color: #666;
+
+  font-size: 8px;
+}
+
+
+/* =========================================================
+   PLAYHEAD
+   ========================================================= */
+
+.timeline-playhead {
+  position: absolute;
+
+  top: 34px;
+  bottom: 20px;
+
+  left: 51%;
+
+  width: 1px;
+
+  background: #eeeeee;
+
+  opacity: 0.9;
+
+  z-index: 10;
+
+  pointer-events: none;
+
+  box-shadow:
+    0 0 5px rgba(255,255,255,0.6);
+}
+
+
+/* Triangle marker */
+
+.playhead-marker {
+  position: absolute;
+
+  top: 0;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  width: 0;
+  height: 0;
+
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 9px solid #eeeeee;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .timeline-track-label,
+  .track-controls {
+    width: 60px;
+    min-width: 60px;
+  }
+
+  .timeline-timecode span:nth-child(even),
+  .timeline-scale span:nth-child(even) {
+    display: none;
+  }
+
+  .timeline-clip {
+    min-width: 100px;
+  }
+
+  .clip-title {
+    font-size: 9px;
+  }
+
+  .timeline-scale {
+    padding-left: 60px;
+  }
+}
+
+
+@media (max-width: 650px) {
+
+  .audio-timeline {
+    overflow-x: auto;
+  }
+
+  .timeline-header,
+  .timeline-body,
+  .timeline-scale {
+    min-width: 700px;
+  }
+
+  .timeline-playhead {
+    display: none;
+  }
+
+  .timeline-track-label,
+  .track-controls {
+    width: 60px;
+    min-width: 60px;
+  }
+
+  .timeline-clip {
+    min-width: 125px;
+  }
+} 
 /* =========================================================
    TABLET + MOBILE
    Desktop menu hidden; hamburger visible.
