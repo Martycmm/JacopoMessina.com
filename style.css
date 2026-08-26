@@ -642,6 +642,7 @@ a:hover { text-decoration: underline; }
   --timeline-border: #3a3a3a;
   --timeline-text: #d6d6d6;
 
+   scroll-margin-top: 20px;
   width: 100%;
   margin: 35px 0;
   background: var(--timeline-bg);
@@ -660,6 +661,13 @@ a:hover { text-decoration: underline; }
   color: var(--timeline-text);
 }
 
+.audio-timeline .timeline-clip {
+  cursor: pointer;
+}
+
+.audio-timeline .timeline-clip:hover {
+  text-decoration: none;
+}
 
 /* =========================================================
    HEADER
