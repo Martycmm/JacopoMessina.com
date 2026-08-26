@@ -402,6 +402,24 @@ a:hover { text-decoration: underline; }
 /* =========================================================
    CARD ACTIONS — PLAY + IMDB
    ========================================================= */
+.card-info {
+  padding: 5px 2px 4px;
+  text-align: center;
+  line-height: 1.15;
+}
+
+.card-info strong {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.card-info span {
+  display: block;
+  margin-top: 2px;
+  font-size: 8px;
+  font-weight: 400;
+}
 
 .card {
   display: block;
@@ -409,10 +427,10 @@ a:hover { text-decoration: underline; }
 }
 
 .card-actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  width: 100%;
-  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
   margin-top: 3px;
 }
 
@@ -427,25 +445,36 @@ a:hover { text-decoration: underline; }
    margin: 4px;
 }
 
+.play-button,
+.imdb-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 19px;
+  font-size: 8px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
 .play-button {
-  background: #000000;
+  width: 19px;
+  border-radius: 50%;
+  background: #2875cf;
   color: #ffffff;
 }
 
-.play-button:hover {
-  background: #1f5fa8;
-  text-decoration: none;
-}
-
 .imdb-button {
-  background: #f5c518;
-  color: #000000;
-  border: 1px solid #d0d0d0;
+  min-width: 28px;
+  padding: 0 4px;
+  background: #111111;
+  color: #ffffff;
+  border-radius: 2px;
 }
 
+.play-button:hover,
 .imdb-button:hover {
-  background: #dddddd;
   text-decoration: none;
+  opacity: .8;
 }
 
 .cards-five {
