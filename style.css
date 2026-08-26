@@ -136,7 +136,7 @@ a:hover { text-decoration: underline; }
 
 .hero-inner {
   min-height: 200px;
-  width: min(800px, calc(100% - 64px));
+  width: min(80%, calc(100% - 64px));
   margin: 0 auto;
   padding: 130px 35px 130px;
   display: flex;
@@ -188,7 +188,7 @@ a:hover { text-decoration: underline; }
    ========================================================= */
 
 .section {
-  width: min(800px, calc(100% - 64px));
+  width: min(80%, calc(100% - 64px));
   margin: 30px auto;
 }
 
