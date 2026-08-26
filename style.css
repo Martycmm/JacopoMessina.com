@@ -172,13 +172,13 @@ a:hover { text-decoration: underline; }
 .button {
   display: inline-block;
   padding: 8px 35px;
-  background: #ff72dc;
+  background: #2756f9;
   color: #ffffff;
   font-size: 15px;
 }
 
 .button:hover {
-  background: #ff21c8;
+  background: #183fc6;
   text-decoration: none;
 }
 
@@ -588,7 +588,7 @@ a:hover { text-decoration: underline; }
   align-items: center;
   gap: 5px;
   padding: 8px 11px;
-  background: #ff72dc;
+  background: #2756f9;
   color: #ffffff;
   border-radius: 2px;
   font-size: 11px;
@@ -596,7 +596,7 @@ a:hover { text-decoration: underline; }
 }
 
 .back-to-top:hover {
-  background: #ff21c8;
+  background: #183fc6;
   text-decoration: none;
 }
 
