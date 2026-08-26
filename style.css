@@ -223,6 +223,7 @@ a:hover { text-decoration: underline; }
   margin: 0;
   font-size: 16px;
   line-height: 1.35;
+   text-align: justify;
 }
 
 .wide-image {
@@ -236,7 +237,7 @@ a:hover { text-decoration: underline; }
   object-fit: cover;
 }
 
-.intro-text { text-align: center; }
+.intro-text { text-align: justify; }
 
 
 /* =========================================================
