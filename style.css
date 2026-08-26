@@ -174,7 +174,8 @@ a:hover { text-decoration: underline; }
   padding: 8px 35px;
   background: #2756f9;
   color: #ffffff;
-  font-size: 15px;
+  font-size: 16px;
+  letter-spacing: 1px;
 }
 
 .button:hover {
@@ -587,12 +588,14 @@ a:hover { text-decoration: underline; }
   display: flex;
   align-items: center;
   gap: 5px;
-  padding: 8px 11px;
+  padding: 8px 16px;
   background: #2756f9;
   color: #ffffff;
   border-radius: 2px;
-  font-size: 11px;
+  font-size: 16px;
+  letter-spacing: 1px;
   box-shadow: 0 2px 7px rgba(0,0,0,.2);
+
 }
 
 .back-to-top:hover {
