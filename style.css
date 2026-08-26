@@ -264,6 +264,106 @@ a:hover { text-decoration: underline; }
 }
 
 /* =========================================================
+   BEHIND THE SCENES — LIGHTBOX
+   No JavaScript required
+   ========================================================= */
+
+.lightbox-toggle {
+  display: none;
+}
+
+.behind-the-scenes .card {
+  cursor: pointer;
+}
+
+.behind-the-scenes .card img {
+  transition: opacity 0.2s ease;
+}
+
+.behind-the-scenes .card:hover img {
+  opacity: 0.75;
+}
+
+
+/* Overlay */
+
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+
+/* Dark background */
+
+.lightbox-background {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  cursor: pointer;
+}
+
+
+/* Enlarged image */
+
+.lightbox > img {
+  position: relative;
+  z-index: 2;
+  max-width: 90vw;
+  max-height: 90vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+
+/* Close button */
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  z-index: 3;
+  color: #ffffff;
+  font-size: 32px;
+  line-height: 1;
+  font-weight: 300;
+  cursor: pointer;
+}
+
+
+/* Show selected image */
+
+.lightbox-toggle:checked + .card + .lightbox {
+  display: flex;
+}
+
+
+/* Mobile */
+
+@media (max-width: 480px) {
+
+  .lightbox {
+    padding: 20px;
+  }
+
+  .lightbox > img {
+    max-width: 94vw;
+    max-height: 85vh;
+  }
+
+  .lightbox-close {
+    top: 12px;
+    right: 18px;
+    font-size: 28px;
+  }
+}
+
+/* =========================================================
    WORK
    ========================================================= */
 
