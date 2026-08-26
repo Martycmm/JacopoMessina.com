@@ -453,10 +453,10 @@ a:hover { text-decoration: underline; }
 }
 
 .more-link {
-  display: block;
-  font-size: 13px;
-  line-height: 1.2;
-  margin-top: 5px;
+    display: block;
+    font-size: 18px;
+    line-height: 1.2;
+    margin-top: 10px;
 }
 
 
