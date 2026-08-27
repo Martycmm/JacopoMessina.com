@@ -429,7 +429,7 @@ a:hover { text-decoration: underline; }
    ========================================================= */
 
 .cards-video {
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(6, 1fr);
 }
 
 .video-card {
@@ -494,6 +494,43 @@ a:hover { text-decoration: underline; }
   opacity: .82;
 }
 
+/* =========================================================
+   VIDEO PROMO — 4 PLAY
+   ========================================================= */
+
+.video-image {
+  position: relative;
+}
+
+.video-play-group {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 7px;
+}
+
+.video-play-small {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.75);
+  color: #ffffff;
+  font-size: 10px;
+  text-decoration: none;
+  opacity: 0.45;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.video-play-small:hover {
+  opacity: 1;
+  transform: scale(1.15);
+  text-decoration: none;
+}
 /* =========================================================
    TIMELINE
    ========================================================= */
