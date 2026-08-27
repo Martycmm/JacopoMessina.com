@@ -721,6 +721,7 @@ a:hover { text-decoration: underline; }
     visibility: visible;
     pointer-events: auto;
     transform: translateX(-50%) translateY(0);
+}
 
 /* =========================================================
    HEADER
