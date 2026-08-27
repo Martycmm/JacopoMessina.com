@@ -561,39 +561,59 @@ a:hover { text-decoration: underline; }
    ========================================================= */
 
 .audio-timeline {
+    --timeline-bg: rgba(18, 18, 18, 0.96);
+    --timeline-border: #3a3a3a;
+    --timeline-text: #d6d6d6;
 
-  --timeline-bg: rgba(18, 18, 18, 0.97);
-  --timeline-border: #3a3a3a;
-  --timeline-text: #d6d6d6;
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
 
-  position: fixed;
+    z-index: 1500;
 
-  /* IN ALTO */
-  top: 10px;
-  bottom: auto;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1500;
-  width: min(1000px, calc(100% - 30px));
-  height: 65px;
-  margin: 0;
-  background: var(--timeline-bg);
-  border: 1px solid var(--timeline-border);
-  border-radius: 5px;
-  overflow: hidden;
-  box-shadow:
-    0 5px 25px rgba(0,0,0,.30),
-    0 1px 4px rgba(0,0,0,.25);
+    width: min(900px, calc(100% - 30px));
+    height: 62px;
 
-  font-family:
-    "SFMono-Regular",
-    Consolas,
-    "Liberation Mono",
-    monospace;
+    margin: 0;
 
-  color: var(--timeline-text);
+    background: var(--timeline-bg);
+    border: 1px solid var(--timeline-border);
+    border-radius: 5px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 5px 25px rgba(0,0,0,.30),
+        0 1px 4px rgba(0,0,0,.25);
+
+    font-family:
+        "SFMono-Regular",
+        Consolas,
+        "Liberation Mono",
+        monospace;
+
+    color: var(--timeline-text);
+
+    /* NASCOSTA */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease,
+        visibility 0.25s ease;
 }
+/* =========================================================
+   AUDIO TIMELINE — VISIBILE DOPO L'HEADER
+========================================================= */
 
+.audio-timeline.is-visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
 
 /* =========================================================
    HEADER
@@ -780,7 +800,6 @@ a:hover { text-decoration: underline; }
 
   position: absolute;
     left: 8px;
-    bottom: 8px;
     z-index: 3;
     font-size: 11px;
     font-weight: bold;
@@ -1005,8 +1024,6 @@ a:hover { text-decoration: underline; }
   position: absolute;
 
   top: 19px;
-  bottom: 0;
-
   left: 51%;
 
   width: 1px;
@@ -1056,7 +1073,6 @@ a:hover { text-decoration: underline; }
     width: calc(100% - 24px);
 
     top: 8px;
-    bottom: auto;
   }
 
   .timeline-track-label,
@@ -1089,8 +1105,6 @@ a:hover { text-decoration: underline; }
     width: calc(100% - 14px);
 
     top: 6px;
-    bottom: auto;
-
     height: 58px;
 
     overflow-x: auto;
@@ -1191,7 +1205,6 @@ a:hover { text-decoration: underline; }
   .audio-timeline {
     width: calc(100vw - 14px);
     height: 44px;
-    bottom: 6px;
     overflow-x: auto;
     overflow-y: hidden;
   }
@@ -1221,7 +1234,6 @@ a:hover { text-decoration: underline; }
 
   .clip-title {
     left: 4px;
-    bottom: 2px;
     font-size: 5px;
   }
 
@@ -1281,7 +1293,6 @@ a:hover { text-decoration: underline; }
 
   .back-to-top {
     right: 12px;
-    bottom: 58px;
     padding: 7px 9px;
   }
 
@@ -1289,7 +1300,6 @@ a:hover { text-decoration: underline; }
 
   .audio-timeline {
     width: calc(100vw - 12px);
-    bottom: 5px;
     height: 42px;
   }
 
@@ -1335,7 +1345,6 @@ a:hover { text-decoration: underline; }
   .audio-timeline {
     width: calc(100vw - 8px);
     height: 40px;
-    bottom: 4px;
   }
 
   .timeline-track-label,
