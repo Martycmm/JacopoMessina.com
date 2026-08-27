@@ -755,25 +755,15 @@ a:hover { text-decoration: underline; }
 
 .timeline-clip {
 
-  position: relative;
-
-  flex: 1;
-
-  min-width: 100px;
-
-  height: 52px;
-
-  padding: 5px 8px;
-
-  border-right: 1px solid rgba(255,255,255,0.12);
-
-  text-decoration: none;
-
-  overflow: hidden;
-
-  transition:
-    background-color 0.2s ease,
-    filter 0.2s ease;
+      position: relative;
+    flex: 1;
+    min-width: 100px;
+    height: 55px;
+    padding: 3px 8px;
+    border-right: 1px solid rgba(255, 255, 255, 0.12);
+    text-decoration: none;
+    overflow: hidden;
+    transition: background-color 0.2s ease, filter 0.2s ease;
 }
 
 
