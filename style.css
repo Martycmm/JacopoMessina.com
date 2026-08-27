@@ -137,7 +137,7 @@ a:hover { text-decoration: underline; }
   min-height: 200px;
   width: min(80%, calc(100% - 64px));
   margin: 0 auto;
-  padding: 130px 35px;
+  padding: 200px 35px;
   display: flex;
   align-items: center;
   gap: 34px;
