@@ -62,7 +62,18 @@ document.addEventListener("DOMContentLoaded", () => {
      
      --------------------------------------------------------- */
 
+    /* ---------------------------------------------------------
+     AUDIO NAVIGATION TIMELINE
+     ---------------------------------------------------------
+     
+     Evidenzia automaticamente la sezione attualmente
+     visibile e sposta la freccia sulla sezione attiva.
+     
+     --------------------------------------------------------- */
+
   const clips = document.querySelectorAll(".timeline-clip");
+  const playhead = document.querySelector(".timeline-playhead");
+  const audioTimeline = document.querySelector(".audio-timeline");
 
   if (clips.length) {
 
@@ -91,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* -------------------------------------------------------
-       AGGIORNA LA CLIP ATTIVA
+       AGGIORNA SEZIONE ATTIVA + FRECCIA
        ------------------------------------------------------- */
 
     const updateCurrentClip = () => {
@@ -104,24 +115,62 @@ document.addEventListener("DOMContentLoaded", () => {
 
       sectionMap.forEach(item => {
 
-        if (item.section.offsetTop <= marker) {
+        const sectionTop =
+          item.section.getBoundingClientRect().top +
+          window.scrollY;
+
+        if (sectionTop <= marker) {
           current = item;
         }
 
       });
 
 
+      /* Rimuove lo stato attivo */
+
       clips.forEach(clip => {
         clip.classList.remove("current");
       });
 
 
+      /* Attiva la sezione corrente */
+
       if (current) {
+
         current.clip.classList.add("current");
+
+
+        /* ---------------------------------------------------
+           SPOSTA LA FRECCIA AL CENTRO DELLA CLIP ATTIVA
+           --------------------------------------------------- */
+
+        if (playhead && audioTimeline) {
+
+          const clipRect =
+            current.clip.getBoundingClientRect();
+
+          const timelineRect =
+            audioTimeline.getBoundingClientRect();
+
+          const clipCenter =
+            clipRect.left +
+            (clipRect.width / 2);
+
+          const playheadPosition =
+            clipCenter -
+            timelineRect.left;
+
+          playhead.style.left =
+            `${playheadPosition}px`;
+
+        }
+
       }
 
     };
 
+
+    /* Scroll */
 
     window.addEventListener(
       "scroll",
@@ -131,11 +180,16 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     );
 
+
+    /* Resize */
+
     window.addEventListener(
       "resize",
       updateCurrentClip
     );
 
+
+    /* Prima inizializzazione */
 
     updateCurrentClip();
 
