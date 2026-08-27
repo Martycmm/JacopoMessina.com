@@ -8,7 +8,7 @@
 html { scroll-behavior: smooth; }
 
 body {
-  margin: 0;
+  margin: 80px 0 0;
   background: #ffffff;
   color: #111111;
   font-family: Montserrat, Helvetica, sans-serif;
@@ -26,7 +26,6 @@ a:hover { text-decoration: underline; }
    ========================================================= */
 
 .site-header {
-  top: 60px;
   height: 50px;
   background: #ffffff;
   border-bottom: 1px solid #d5d5d5;
