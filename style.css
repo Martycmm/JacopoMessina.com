@@ -1804,3 +1804,58 @@ a:hover { text-decoration: underline; }
     font-size: 5px;
   }
 }
+
+/* =========================================================
+   AUDIO WAVE DIVIDER
+========================================================= */
+
+.audio-divider {
+  width: min(900px, 85%);
+  height: 90px;
+  margin: 40px auto;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+
+  opacity: 0.75;
+}
+
+.audio-divider span {
+  display: block;
+  width: 3px;
+  height: 12px;
+
+  background: #111111;
+  border-radius: 10px;
+
+  transform-origin: center;
+}
+
+/* Forma della waveform */
+
+.audio-divider span:nth-child(1)  { height: 8px; }
+.audio-divider span:nth-child(2)  { height: 15px; }
+.audio-divider span:nth-child(3)  { height: 25px; }
+.audio-divider span:nth-child(4)  { height: 42px; }
+.audio-divider span:nth-child(5)  { height: 65px; }
+.audio-divider span:nth-child(6)  { height: 38px; }
+.audio-divider span:nth-child(7)  { height: 22px; }
+.audio-divider span:nth-child(8)  { height: 12px; }
+
+.audio-divider span:nth-child(9)  { height: 20px; }
+.audio-divider span:nth-child(10) { height: 35px; }
+.audio-divider span:nth-child(11) { height: 55px; }
+.audio-divider span:nth-child(12) { height: 75px; }
+.audio-divider span:nth-child(13) { height: 48px; }
+
+.audio-divider span:nth-child(14) { height: 28px; }
+.audio-divider span:nth-child(15) { height: 15px; }
+.audio-divider span:nth-child(16) { height: 10px; }
+
+.audio-divider span:nth-child(17) { height: 18px; }
+.audio-divider span:nth-child(18) { height: 35px; }
+.audio-divider span:nth-child(19) { height: 55px; }
+.audio-divider span:nth-child(20) { height: 30px; }
+.audio-divider span:nth-child(21) { height: 12px; }
