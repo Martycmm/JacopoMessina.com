@@ -425,6 +425,76 @@ a:hover { text-decoration: underline; }
 }
 
 /* =========================================================
+   VIDEO PROMO + ADVERTISING CARDS
+   ========================================================= */
+
+.cards-video {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.video-card {
+  position: relative;
+}
+
+.video-image {
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+
+.video-image img {
+  width: 100%;
+  aspect-ratio: .68;
+  object-fit: cover;
+}
+
+.video-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  width: 52px;
+  height: 52px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: rgba(0,0,0,.72);
+  color: #ffffff;
+
+  font-size: 22px;
+  line-height: 1;
+
+  opacity: .65;
+
+  transition:
+    opacity .2s ease,
+    transform .2s ease,
+    background-color .2s ease;
+
+  pointer-events: none;
+}
+
+.video-image:hover .video-play {
+  opacity: 1;
+
+  transform:
+    translate(-50%, -50%)
+    scale(1.10);
+
+  background: rgba(0,0,0,.88);
+}
+
+.video-image:hover img {
+  opacity: .82;
+}
+
+/* =========================================================
    TIMELINE
    ========================================================= */
 
