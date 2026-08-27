@@ -197,7 +197,65 @@ document.addEventListener("DOMContentLoaded", () => {
 
   }
 
+  /* ---------------------------------------------------------
+     AUDIO TIMELINE — MOSTRA DOPO IL MENU
+     ---------------------------------------------------------
+     
+     La timeline rimane nascosta finché il menu/header
+     superiore è visibile.
+     
+     Quando l'utente supera completamente l'header,
+     la timeline compare in alto e rimane fixed.
+     
+     --------------------------------------------------------- */
 
+  const audioTimeline =
+    document.querySelector(".audio-timeline");
+
+  const siteHeader =
+    document.querySelector(".site-header");
+
+
+  if (audioTimeline && siteHeader) {
+
+    const updateTimelineVisibility = () => {
+
+      const headerBottom =
+        siteHeader.getBoundingClientRect().bottom;
+
+
+      if (headerBottom <= 0) {
+
+        audioTimeline.classList.add("is-visible");
+
+      } else {
+
+        audioTimeline.classList.remove("is-visible");
+
+      }
+
+    };
+
+
+    window.addEventListener(
+      "scroll",
+      updateTimelineVisibility,
+      {
+        passive: true
+      }
+    );
+
+
+    window.addEventListener(
+      "resize",
+      updateTimelineVisibility
+    );
+
+
+    updateTimelineVisibility();
+
+  }
+   
   /* ---------------------------------------------------------
      BACK TO TOP
      --------------------------------------------------------- */
