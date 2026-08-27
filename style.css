@@ -571,25 +571,16 @@ a:hover { text-decoration: underline; }
   /* IN ALTO */
   top: 10px;
   bottom: auto;
-
   left: 50%;
   transform: translateX(-50%);
-
   z-index: 1500;
-
   width: min(1000px, calc(100% - 30px));
-
-  height: 72px;
-
+  height: 65px;
   margin: 0;
-
   background: var(--timeline-bg);
-
   border: 1px solid var(--timeline-border);
   border-radius: 5px;
-
   overflow: hidden;
-
   box-shadow:
     0 5px 25px rgba(0,0,0,.30),
     0 1px 4px rgba(0,0,0,.25);
@@ -610,7 +601,7 @@ a:hover { text-decoration: underline; }
 
 .timeline-header {
 
-  height: 19px;
+  height: 15px;
 
   display: flex;
   align-items: center;
@@ -663,7 +654,7 @@ a:hover { text-decoration: underline; }
 
   color: #777;
 
-  font-size: 8px;
+  font-size: 11px;
 }
 
 
