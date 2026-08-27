@@ -51,17 +51,17 @@ a:hover { text-decoration: underline; }
 .nav-links { justify-content: space-around; }
 .contact-links { justify-content: flex-end; }
 
-.nav-links a,
-.contact-links a {
-  height: 45px;
-  display: flex;
-  align-items: center;
-  padding: 0 25px;
-  border-left: 1px solid #d0d0d0;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.2px
-  white-space: nowrap;
+.nav-links a, 
+.contact-links a { 
+  height: 45px; 
+  display: flex; 
+  align-items: center; 
+  padding: 0 25px; 
+  border-left: 1px solid #d0d0d0; 
+  font-size: 12px; 
+  font-weight: 600; 
+  letter-spacing: 0.2px;
+  white-space: nowrap; 
 }
 
 .contact-links a:last-child { border-right: 1px solid #d0d0d0; }
@@ -246,7 +246,7 @@ a:hover { text-decoration: underline; }
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 8px;
   width: 100%;
-  margin: 40px 10px;
+  margin: 40px 0;
 }
 
 .behind-the-scenes .card {
@@ -1174,148 +1174,413 @@ a:hover { text-decoration: underline; }
 
 
 /* =========================================================
-   TABLET
+   TABLET / SMALL DESKTOP
+   1050px AND BELOW
    ========================================================= */
 
-@media (max-width: 900px) {
+@media (max-width: 1050px) {
 
-  .audio-timeline {
+  /* -------------------------------------------------------
+     HEADER
+     ------------------------------------------------------- */
 
-    width: calc(100% - 24px);
-
-    top: 8px;
-  }
-
-  .timeline-track-label,
-  .track-controls {
-
-    width: 48px;
-    min-width: 48px;
-  }
-
-  .timeline-clip {
-
-    min-width: 90px;
-  }
-
-  .clip-title {
-
-    font-size: 8px;
-  }
-}
-
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media (max-width: 650px) {
-
-  .audio-timeline {
-
-    width: calc(100% - 14px);
-
-    top: 6px;
-    height: 58px;
-
-    overflow-x: auto;
-  }
-
-  .timeline-header {
-
-    min-width: 620px;
-
-    height: 15px;
-  }
-
-  .timeline-body {
-
-    min-width: 620px;
-
-    height: 42px;
-  }
-
-  .timeline-scale {
+  .desktop-nav {
     display: none;
   }
-
-  .timeline-playhead {
-    display: none;
-  }
-
-  .timeline-track-label,
-  .track-controls {
-
-    width: 45px;
-    min-width: 45px;
-  }
-
-  .timeline-clip {
-
-    min-width: 115px;
-
-    height: 42px;
-  }
-
-  .clip-number {
-    font-size: 9px;
-  }
-
-  .clip-title {
-    font-size: 8px;
-  }
-
-  .waveform {
-    top: 16px;
-    height: 15px;
-  }
-}
-
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media (max-width: 700px) {
-
-  .desktop-nav { display: none; }
 
   .main-nav {
     grid-template-columns: 1fr auto;
   }
 
   .site-title {
-    font-size: 18px;
-    padding-left: 12px;
+    font-size: 28px;
+    padding-left: 18px;
   }
 
-  .hamburger { display: flex; }
+  .hamburger {
+    display: flex;
+    margin-right: 12px;
+  }
 
-  .mobile-menu.is-open { display: flex; }
+  .mobile-menu.is-open {
+    display: flex;
+  }
+
+
+  /* -------------------------------------------------------
+     HERO
+     ------------------------------------------------------- */
 
   .hero-inner {
-    width: calc(100% - 42px);
-    padding: 45px 22px 40px;
-    gap: 24px;
+    width: calc(100% - 48px);
+    padding: 80px 30px;
+    gap: 30px;
   }
 
   .profile-image {
-    width: 88px;
-    height: 88px;
-    flex-basis: 88px;
+    width: 180px;
+    height: 180px;
+    flex-basis: 180px;
   }
 
-  .hero-copy h1 { font-size: 30px; }
-  .hero-copy p { font-size: 20px; }
+  .hero-copy h1 {
+    font-size: 32px;
+  }
 
-  .section,
+  .hero-copy p {
+    font-size: 18px;
+  }
+
+
+  /* -------------------------------------------------------
+     SECTIONS
+     ------------------------------------------------------- */
+
+  .section {
+    width: calc(100% - 48px);
+  }
+
+  .section h2 {
+    font-size: 30px;
+  }
+
+
+  /* -------------------------------------------------------
+     BEHIND THE SCENES
+     ------------------------------------------------------- */
+
+  .behind-the-scenes {
+    grid-template-columns: repeat(3, 1fr);
+    margin: 30px 0;
+  }
+
+
+  /* -------------------------------------------------------
+     WORK CARDS
+     ------------------------------------------------------- */
+
+  .cards {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .cards-five {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .cards-video {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .card-info strong {
+    font-size: 15px;
+  }
+
+  .card-info span {
+    font-size: 13px;
+  }
+
+
+  /* -------------------------------------------------------
+     LISTS
+     ------------------------------------------------------- */
+
+  .lists {
+    gap: 30px;
+  }
+
+
+  /* -------------------------------------------------------
+     FOOTER
+     ------------------------------------------------------- */
+
   .site-footer {
-    width: calc(100% - 42px);
+    width: calc(100% - 48px);
+  }
+
+
+  /* -------------------------------------------------------
+     AUDIO TIMELINE
+     ------------------------------------------------------- */
+
+  .audio-timeline {
+    width: calc(100% - 30px);
+    max-width: 900px;
+  }
+
+  .timeline-track-label,
+  .track-controls {
+    width: 48px;
+    min-width: 48px;
+  }
+
+  .timeline-clip {
+    min-width: 95px;
+  }
+
+  .clip-title {
+    font-size: 9px;
+  }
+
+
+  /* -------------------------------------------------------
+     BACK TO TOP
+     ------------------------------------------------------- */
+
+  .back-to-top {
+    right: 14px;
+    bottom: 25px;
+    padding: 7px 12px;
+    font-size: 14px;
+  }
+}
+
+
+/* =========================================================
+   TABLET
+   900px AND BELOW
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .hero-inner {
+    padding: 65px 25px;
+  }
+
+  .profile-image {
+    width: 155px;
+    height: 155px;
+    flex-basis: 155px;
+  }
+
+  .hero-copy h1 {
+    font-size: 29px;
+  }
+
+  .hero-copy p {
+    font-size: 17px;
+  }
+
+  .intro-grid {
+    grid-template-columns: 130px 1fr;
+    gap: 20px;
+  }
+
+  .profile-small {
+    width: 120px;
+    height: 120px;
+  }
+
+  .section h2 {
+    font-size: 28px;
+  }
+
+  .work-category h3 {
+    font-size: 22px;
   }
 
   .audio-timeline {
-    width: calc(100vw - 14px);
+    top: 8px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   700px AND BELOW
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  /* -------------------------------------------------------
+     HEADER
+     ------------------------------------------------------- */
+
+  .site-header {
+    height: 50px;
+  }
+
+  .main-nav {
+    height: 50px;
+  }
+
+  .site-title {
+    font-size: 20px;
+    padding-left: 12px;
+  }
+
+  .hamburger {
+    margin-right: 8px;
+  }
+
+
+  /* -------------------------------------------------------
+     HERO
+     ------------------------------------------------------- */
+
+  .hero-inner {
+    width: calc(100% - 32px);
+    min-height: 190px;
+    padding: 45px 18px 40px;
+    gap: 20px;
+  }
+
+  .profile-image {
+    width: 100px;
+    height: 100px;
+    flex-basis: 100px;
+  }
+
+  .hero-copy h1 {
+    font-size: 27px;
+  }
+
+  .hero-copy p {
+    font-size: 16px;
+    margin-bottom: 22px;
+  }
+
+  .button {
+    padding: 8px 24px;
+    font-size: 14px;
+  }
+
+
+  /* -------------------------------------------------------
+     SECTIONS
+     ------------------------------------------------------- */
+
+  .section {
+    width: calc(100% - 32px);
+    margin: 25px auto;
+  }
+
+  .section h2 {
+    font-size: 27px;
+  }
+
+
+  /* -------------------------------------------------------
+     INTRO
+     ------------------------------------------------------- */
+
+  .intro-grid {
+    grid-template-columns: 85px 1fr;
+    gap: 14px;
+  }
+
+  .profile-small {
+    width: 80px;
+    height: 80px;
+    margin-left: 0;
+  }
+
+  .intro-grid p,
+  .intro-text,
+  .bottom-description {
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+
+  /* -------------------------------------------------------
+     BEHIND THE SCENES
+     ------------------------------------------------------- */
+
+  .behind-the-scenes {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    margin: 25px 0;
+  }
+
+
+  /* -------------------------------------------------------
+     WORK
+     ------------------------------------------------------- */
+
+  .cards,
+  .cards-five,
+  .cards-video {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+  }
+
+  .card-info {
+    padding: 5px 1px;
+  }
+
+  .card-info strong {
+    font-size: 13px;
+  }
+
+  .card-info span {
+    font-size: 11px;
+  }
+
+  .card-actions {
+    gap: 2px;
+  }
+
+  .card-actions a {
+    margin: 2px;
+  }
+
+
+  /* -------------------------------------------------------
+     LISTS
+     ------------------------------------------------------- */
+
+  .lists {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+
+  /* -------------------------------------------------------
+     FOOTER
+     ------------------------------------------------------- */
+
+  .site-footer {
+    width: calc(100% - 32px);
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding-bottom: 20px;
+  }
+
+  .footer-contact {
+    flex-wrap: wrap;
+  }
+
+  .footer-nav {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+
+  /* -------------------------------------------------------
+     BACK TO TOP
+     ------------------------------------------------------- */
+
+  .back-to-top {
+    right: 10px;
+    bottom: 18px;
+    padding: 7px 10px;
+  }
+
+  .back-to-top span {
+    display: none;
+  }
+
+
+  /* -------------------------------------------------------
+     AUDIO TIMELINE
+     ------------------------------------------------------- */
+
+  .audio-timeline {
+    width: calc(100vw - 12px);
     height: 44px;
+    top: 6px;
     overflow-x: auto;
     overflow-y: hidden;
   }
@@ -1337,15 +1602,18 @@ a:hover { text-decoration: underline; }
   }
 
   .timeline-clip {
+    min-width: 95px;
     height: 32px;
     padding: 2px 4px;
   }
 
-  .clip-number { font-size: 7px; }
+  .clip-number {
+    font-size: 7px;
+  }
 
   .clip-title {
     left: 4px;
-    font-size: 5px;
+    font-size: 6px;
   }
 
   .waveform {
@@ -1368,49 +1636,84 @@ a:hover { text-decoration: underline; }
   .timeline-timecode {
     font-size: 5px;
   }
+
+  .timeline-playhead {
+    display: none;
+  }
 }
+
 
 /* =========================================================
    SMALL MOBILE
+   480px AND BELOW
    ========================================================= */
 
 @media (max-width: 480px) {
 
+  .site-title {
+    font-size: 18px;
+  }
+
   .hero-inner {
-    min-height: 190px;
-    padding: 38px 20px;
-    gap: 20px;
-  }
-
-  .profile-image {
-    width: 100px;
-    height: 100px;
-    flex-basis: 76px;
-  }
-
-  .intro-grid {
-    grid-template-columns: 85px 1fr;
+    width: calc(100% - 24px);
+    padding: 35px 12px;
     gap: 14px;
   }
 
+  .profile-image {
+    width: 78px;
+    height: 78px;
+    flex-basis: 78px;
+  }
+
+  .hero-copy h1 {
+    font-size: 23px;
+  }
+
+  .hero-copy p {
+    font-size: 14px;
+  }
+
+  .section {
+    width: calc(100% - 24px);
+  }
+
+  .section h2 {
+    font-size: 24px;
+  }
+
+  .intro-grid {
+    grid-template-columns: 75px 1fr;
+    gap: 10px;
+  }
+
   .profile-small {
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
   }
 
-  .cards { gap: 2px; }
-  .cards-five { grid-template-columns: repeat(5, 1fr); }
-  .lists { gap: 10px; }
-
-  .back-to-top {
-    right: 12px;
-    padding: 7px 9px;
+  .behind-the-scenes {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .back-to-top span { display: none; }
+  .cards,
+  .cards-five,
+  .cards-video {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+  }
+
+  .lists ul {
+    font-size: 14px;
+  }
+
+  .footer-contact {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
   .audio-timeline {
-    width: calc(100vw - 12px);
+    width: calc(100vw - 10px);
     height: 42px;
   }
 
@@ -1422,39 +1725,51 @@ a:hover { text-decoration: underline; }
     height: 31px;
   }
 
-  .timeline-clip {
-    min-width: 0;
-  }
-
   .timeline-track-label,
   .track-controls {
     width: 34px;
     min-width: 34px;
   }
+
+  .timeline-clip {
+    min-width: 88px;
+  }
 }
+
 
 /* =========================================================
    VERY SMALL MOBILE
+   360px AND BELOW
    ========================================================= */
 
 @media (max-width: 360px) {
 
-  .site-title { font-size: 16px; }
+  .site-title {
+    font-size: 16px;
+  }
 
   .hero-inner {
-    padding-left: 12px;
-    padding-right: 12px;
-    gap: 12px;
+    padding-left: 8px;
+    padding-right: 8px;
+    gap: 10px;
   }
 
   .profile-image {
-    width: 68px;
-    height: 68px;
-    flex-basis: 68px;
+    width: 65px;
+    height: 65px;
+    flex-basis: 65px;
+  }
+
+  .hero-copy h1 {
+    font-size: 20px;
+  }
+
+  .hero-copy p {
+    font-size: 13px;
   }
 
   .audio-timeline {
-    width: calc(100vw - 8px);
+    width: calc(100vw - 6px);
     height: 40px;
   }
 
@@ -1477,7 +1792,11 @@ a:hover { text-decoration: underline; }
     height: 11px;
   }
 
+  .timeline-clip {
+    min-width: 78px;
+  }
+
   .clip-title {
-    font-size: 4.5px;
+    font-size: 5px;
   }
 }
