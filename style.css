@@ -808,22 +808,15 @@ a:hover { text-decoration: underline; }
 
 .waveform {
 
-  position: absolute;
-
-  left: 8px;
-  right: 8px;
-
-  top: 20px;
-
-  height: 18px;
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 2px;
-
-  opacity: .65;
+    position: absolute;
+    left: 8px;
+    right: 8px;
+    top: 14px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    opacity: .65;
 }
 
 
