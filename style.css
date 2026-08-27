@@ -329,7 +329,7 @@ a:hover { text-decoration: underline; }
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 3px;
-  margin-bottom: 3px;
+  margin: 15px 0 0;
 }
 
 .card {
