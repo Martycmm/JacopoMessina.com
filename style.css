@@ -15,6 +15,8 @@ body {
   font-size: 16px;
   line-height: 1.35;
   padding-bottom: 0px;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
 img { display: block; max-width: 100%; }
@@ -595,11 +597,13 @@ a:hover { text-decoration: underline; }
 .site-footer {
   width: min(1100px, calc(100% - 64px));
   margin: 0 auto;
-  padding: 15px 0 5px;
+  padding: 15px 0 20px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: end;
   gap: 20px;
+  position: relative;
+  z-index: 1;
 }
 
 .footer-contact {
