@@ -159,89 +159,58 @@ document.addEventListener("DOMContentLoaded", () => {
        AGGIORNA SEZIONE ATTIVA + PLAYHEAD
        ------------------------------------------------------- */
 
-    const updateCurrentClip = () => {
+const updateCurrentClip = () => {
 
-      if (!sectionMap.length) {
-        return;
-      }
+  if (!sectionMap.length) {
+    return;
+  }
 
+  const marker = window.innerHeight * 0.30;
 
-      const marker =
-        window.scrollY +
-        (window.innerHeight * 0.30);
+  let current = sectionMap[0];
 
+  sectionMap.forEach(item => {
 
-      let current =
-        sectionMap[0];
+    const rect =
+      item.section.getBoundingClientRect();
 
+    if (rect.top <= marker) {
+      current = item;
+    }
 
-      sectionMap.forEach(item => {
+  });
 
-        const sectionTop =
-          item.section.getBoundingClientRect().top +
-          window.scrollY;
+  clips.forEach(clip => {
+    clip.classList.remove("current");
+  });
 
+  current.clip.classList.add("current");
 
-        if (sectionTop <= marker) {
+  if (
+    playhead &&
+    audioTimeline
+  ) {
 
-          current = item;
+    const clipRect =
+      current.clip.getBoundingClientRect();
 
-        }
+    const timelineRect =
+      audioTimeline.getBoundingClientRect();
 
-      });
+    const clipCenter =
+      clipRect.left +
+      (clipRect.width / 2);
 
+    const playheadPosition =
+      clipCenter -
+      timelineRect.left;
 
-      /* Rimuove stato attivo */
+    playhead.style.left =
+      `${playheadPosition}px`;
 
-      clips.forEach(clip => {
+  }
 
-        clip.classList.remove("current");
-
-      });
-
-
-      /* Attiva sezione corrente */
-
-      if (current) {
-
-        current.clip.classList.add("current");
-
-
-        /* ---------------------------------------------------
-           SPOSTA PLAYHEAD AL CENTRO DELLA CLIP
-           --------------------------------------------------- */
-
-        if (
-          playhead &&
-          audioTimeline
-        ) {
-
-          const clipRect =
-            current.clip.getBoundingClientRect();
-
-
-          const timelineRect =
-            audioTimeline.getBoundingClientRect();
-
-
-          const clipCenter =
-            clipRect.left +
-            (clipRect.width / 2);
-
-
-          const playheadPosition =
-            clipCenter -
-            timelineRect.left;
-
-
-          playhead.style.left =
-            `${playheadPosition}px`;
-
-        }
-
-      }
-
-    };
+};
 
 
     /* -------------------------------------------------------
