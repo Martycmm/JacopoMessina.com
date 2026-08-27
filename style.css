@@ -1238,9 +1238,9 @@ a:hover { text-decoration: underline; }
      SECTIONS
      ------------------------------------------------------- */
 
-  .section {
-    width: calc(100% - 48px);
-  }
+ .section {
+    width: calc(80% - 48px);
+}
 
   .section h2 {
     font-size: 30px;
@@ -1453,7 +1453,7 @@ a:hover { text-decoration: underline; }
      ------------------------------------------------------- */
 
   .section {
-    width: calc(100% - 32px);
+    width: calc(90% - 32px);
     margin: 25px auto;
   }
 
