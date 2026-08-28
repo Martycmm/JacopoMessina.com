@@ -2291,3 +2291,305 @@ a:hover { text-decoration: underline; }
 .audio-divider-subtle span:nth-child(30) { height: 6px; }
 .audio-divider-subtle span:nth-child(31) { height: 4px; }
 .audio-divider-subtle span:nth-child(32) { height: 2px; }
+
+
+/* =========================================================
+   VERTICAL LEVEL SCROLLER
+   ========================================================= */
+
+.level-scroller {
+  position: fixed;
+  top: 50%;
+  right: 18px;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 62vh;
+  min-height: 300px;
+  max-height: 650px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  z-index: 900;
+
+  opacity: 0.48;
+
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+
+/* ---------------------------------------------------------
+   LABEL
+   --------------------------------------------------------- */
+
+.level-label {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 2px;
+
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+
+  margin-bottom: 12px;
+
+  color: #777;
+
+  user-select: none;
+  pointer-events: none;
+}
+
+
+/* ---------------------------------------------------------
+   TRACK
+   --------------------------------------------------------- */
+
+.level-track {
+  position: relative;
+
+  width: 34px;
+  flex: 1;
+
+  display: flex;
+  justify-content: center;
+}
+
+
+/* ---------------------------------------------------------
+   CENTRAL LINE
+   --------------------------------------------------------- */
+
+.level-line {
+  position: absolute;
+
+  top: 0;
+  bottom: 0;
+  left: 50%;
+
+  width: 1px;
+
+  transform: translateX(-50%);
+
+  background: #cfcfcf;
+}
+
+
+/* ---------------------------------------------------------
+   TICKS
+   --------------------------------------------------------- */
+
+.level-tick {
+  position: absolute;
+
+  left: 0;
+
+  width: 100%;
+
+  font-size: 7px;
+  line-height: 1;
+
+  letter-spacing: 0.5px;
+
+  color: #999;
+
+  text-align: left;
+
+  user-select: none;
+  pointer-events: none;
+}
+
+
+/* Positions */
+
+.level-0 {
+  top: 0;
+}
+
+.level-3 {
+  top: 12%;
+}
+
+.level-6 {
+  top: 25%;
+}
+
+.level-12 {
+  top: 50%;
+}
+
+.level-18 {
+  top: 75%;
+}
+
+.level-24 {
+  top: 100%;
+  transform: translateY(-100%);
+}
+
+
+/* ---------------------------------------------------------
+   TICK MARKS
+   --------------------------------------------------------- */
+
+.level-tick::after {
+  content: "";
+
+  position: absolute;
+
+  left: 23px;
+  top: 50%;
+
+  width: 8px;
+  height: 1px;
+
+  background: #bdbdbd;
+
+  transform: translateY(-50%);
+}
+
+
+/* ---------------------------------------------------------
+   KNOB
+   --------------------------------------------------------- */
+
+.level-knob {
+  position: absolute;
+
+  left: 50%;
+
+  top: 0;
+
+  width: 11px;
+  height: 11px;
+
+  transform: translate(-50%, -50%);
+
+  border: 1px solid #222;
+  border-radius: 50%;
+
+  background: #fff;
+
+  box-sizing: border-box;
+
+  cursor: grab;
+
+  z-index: 5;
+
+  transition:
+    width 0.15s ease,
+    height 0.15s ease,
+    background 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+
+.level-knob span {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  width: 3px;
+  height: 3px;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background: #222;
+}
+
+
+.level-knob:active {
+  cursor: grabbing;
+}
+
+
+/* ---------------------------------------------------------
+   HOVER
+   --------------------------------------------------------- */
+
+.level-scroller:hover {
+  opacity: 1;
+}
+
+
+.level-scroller:hover .level-knob {
+  width: 15px;
+  height: 15px;
+
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.06);
+}
+
+
+.level-scroller:hover .level-line {
+  background: #aaa;
+}
+
+
+/* ---------------------------------------------------------
+   KEYBOARD FOCUS
+   --------------------------------------------------------- */
+
+.level-knob:focus-visible {
+  outline: 1px solid #222;
+  outline-offset: 4px;
+}
+
+
+/* =========================================================
+   HIDE NATIVE SCROLLBAR
+   ========================================================= */
+
+/* Chrome / Edge / Safari */
+
+html::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+
+/* Firefox */
+
+html {
+  scrollbar-width: none;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+  .level-scroller {
+    right: 10px;
+    width: 34px;
+    height: 55vh;
+    min-height: 260px;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  .level-scroller {
+    display: none;
+  }
+
+  html {
+    scrollbar-width: auto;
+  }
+
+  html::-webkit-scrollbar {
+    width: auto;
+  }
+
+}
