@@ -1825,6 +1825,15 @@ a:hover { text-decoration: underline; }
   .audio-divider-signal polyline {
     stroke-width: 1.2;
   }
+.audio-divider-subtle {
+  width: 80%;
+  height: 22px;
+  margin: 15px auto 18px;
+}
+
+.audio-divider-subtle span:nth-child(n) {
+  transform: scaleY(.8);
+}
 
 /* =========================================================
    SMALL MOBILE
@@ -1989,6 +1998,11 @@ a:hover { text-decoration: underline; }
   .audio-divider-signal svg {
     height: 45px;
   }
+.audio-divider-subtle {
+  width: 85%;
+  height: 18px;
+  margin: 12px auto 15px;
+}
 
 /* =========================================================
    VERY SMALL MOBILE
@@ -2200,3 +2214,74 @@ a:hover { text-decoration: underline; }
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+
+/* =========================================================
+   SUBTLE AUDIO DIVIDER
+========================================================= */
+
+.audio-divider-subtle {
+  width: min(900px, 70%);
+  height: 28px;
+
+  margin: 18px auto 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  opacity: .45;
+}
+
+.audio-divider-subtle span {
+  display: block;
+
+  width: 1px;
+
+  background: #111111;
+
+  border-radius: 2px;
+
+  transform-origin: center;
+}
+
+/* Micro waveform */
+
+.audio-divider-subtle span:nth-child(1)  { height: 2px; }
+.audio-divider-subtle span:nth-child(2)  { height: 3px; }
+.audio-divider-subtle span:nth-child(3)  { height: 4px; }
+.audio-divider-subtle span:nth-child(4)  { height: 3px; }
+
+.audio-divider-subtle span:nth-child(5)  { height: 6px; }
+.audio-divider-subtle span:nth-child(6)  { height: 4px; }
+.audio-divider-subtle span:nth-child(7)  { height: 8px; }
+.audio-divider-subtle span:nth-child(8)  { height: 5px; }
+
+.audio-divider-subtle span:nth-child(9)  { height: 3px; }
+.audio-divider-subtle span:nth-child(10) { height: 4px; }
+.audio-divider-subtle span:nth-child(11) { height: 10px; }
+.audio-divider-subtle span:nth-child(12) { height: 5px; }
+
+.audio-divider-subtle span:nth-child(13) { height: 3px; }
+.audio-divider-subtle span:nth-child(14) { height: 7px; }
+.audio-divider-subtle span:nth-child(15) { height: 4px; }
+.audio-divider-subtle span:nth-child(16) { height: 3px; }
+
+.audio-divider-subtle span:nth-child(17) { height: 6px; }
+.audio-divider-subtle span:nth-child(18) { height: 11px; }
+.audio-divider-subtle span:nth-child(19) { height: 5px; }
+.audio-divider-subtle span:nth-child(20) { height: 3px; }
+
+.audio-divider-subtle span:nth-child(21) { height: 4px; }
+.audio-divider-subtle span:nth-child(22) { height: 8px; }
+.audio-divider-subtle span:nth-child(23) { height: 5px; }
+.audio-divider-subtle span:nth-child(24) { height: 3px; }
+
+.audio-divider-subtle span:nth-child(25) { height: 6px; }
+.audio-divider-subtle span:nth-child(26) { height: 4px; }
+.audio-divider-subtle span:nth-child(27) { height: 9px; }
+.audio-divider-subtle span:nth-child(28) { height: 4px; }
+
+.audio-divider-subtle span:nth-child(29) { height: 3px; }
+.audio-divider-subtle span:nth-child(30) { height: 6px; }
+.audio-divider-subtle span:nth-child(31) { height: 4px; }
+.audio-divider-subtle span:nth-child(32) { height: 2px; }
