@@ -1817,32 +1817,30 @@ a:hover { text-decoration: underline; }
     display: none;
   }
 }
-  /* -------------------------------------------------------
-     AUDIO DIVIDER — OSCILLOSCOPE
-     ------------------------------------------------------- */
+ /* -------------------------------------------------------
+   AUDIO DIVIDER — OSCILLOSCOPE
+   ------------------------------------------------------- */
 
-  .audio-divider-signal {
-    height: 55px;
-    margin: 25px auto;
-  }
-
-  .audio-divider-signal svg {
-    height: 55px;
-  }
-
-  .audio-divider-signal polyline {
-    stroke-width: 1.2;
-  }
-.audio-divider-subtle {
-  width: 80%;
-  height: 22px;
-  margin: 15px auto 18px;
+.audio-divider-signal {
+  width: 100%;
+  height: 55px;
+  margin: 25px auto;
+  overflow: hidden;
 }
 
-.audio-divider-subtle span:nth-child(n) {
-  transform: scaleY(.8);
+.audio-divider-signal svg {
+  display: block;
+  width: 100%;
+  height: 55px;
 }
 
+.audio-divider-signal path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
 /* =========================================================
    SMALL MOBILE
    480px AND BELOW
