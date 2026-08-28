@@ -2263,8 +2263,6 @@ a:hover { text-decoration: underline; }
     grid-template-columns: repeat(2, 1fr);
 
 
-       outline: 3px solid red;
-
   }
 
   /* -------------------------------------------------------
