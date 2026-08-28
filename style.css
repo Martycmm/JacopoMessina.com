@@ -190,321 +190,207 @@ a:hover { text-decoration: underline; }
 }
 
 /* =========================================================
-   AUDIO CONTROL BUTTONS
-   Pannello / apparecchiatura audio
+   AUDIO BUTTON — CONTATTAMI / REC STYLE
    ========================================================= */
 
-
-/* ---------------------------------------------------------
-   CONTATTAMI
-   --------------------------------------------------------- */
-
-.audio-button {
+.audio-button-contact {
   position: relative;
 
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 
-  min-width: 175px;
-  height: 52px;
+  min-width: 155px;
+  height: 42px;
 
   padding: 0 16px;
 
-  box-sizing: border-box;
+  background: #e6e6e6;
+  color: #111111;
 
-  color: #eeeeee;
-  background: #292929;
+  border: 0;
+  border-radius: 0;
 
-  border: 1px solid #606060;
+  box-shadow: none;
 
+  font-family: Montserrat, Helvetica, sans-serif;
   text-decoration: none;
 
-  font-family: inherit;
-
-  transition:
-    background-color 0.25s ease,
-    border-color 0.25s ease,
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
+  overflow: hidden;
 }
 
+/* LED rosso a sinistra */
 
-/* Piccola "vite" / indicatore laterale */
+.audio-button-contact .audio-button-led {
+  width: 10px;
+  height: 10px;
 
-.audio-button::before {
+  flex: 0 0 10px;
+
+  background: #e00000;
+  border-radius: 50%;
+}
+
+/* Scritta */
+
+.audio-button-contact .audio-button-label {
+  display: flex;
+  align-items: center;
+}
+
+.audio-button-contact .audio-button-text {
+  color: #111111;
+
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+}
+
+/* Nasconde gli elementi non necessari */
+
+.audio-button-contact .audio-button-kicker,
+.audio-button-contact .audio-button-mark {
+  display: none;
+}
+
+/* =========================================================
+   ANGOLI ROSSI — EFFETTO REC
+   ========================================================= */
+
+.audio-button-contact::before,
+.audio-button-contact::after {
   content: "";
 
   position: absolute;
-  left: 5px;
-  top: 5px;
 
-  width: 3px;
-  height: 3px;
+  width: 12px;
+  height: 12px;
 
-  border-radius: 50%;
-
-  background: #777;
+  pointer-events: none;
 }
 
+/* angolo superiore sinistro + inferiore destro */
 
-/* LED */
+.audio-button-contact::before {
+  top: 0;
+  left: 0;
 
-.audio-button-led {
-  width: 7px;
-  height: 7px;
-
-  flex: 0 0 7px;
-
-  border-radius: 50%;
-
-  background: #8d8d8d;
-
-  box-shadow:
-    0 0 0 1px #454545,
-    0 0 0 2px #202020;
-
-  transition:
-    background-color 0.25s ease,
-    box-shadow 0.25s ease;
+  border-top: 3px solid #e00000;
+  border-left: 3px solid #e00000;
 }
 
+.audio-button-contact::after {
+  right: 0;
+  bottom: 0;
 
-/* Testi */
-
-.audio-button-label {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  line-height: 1;
+  border-right: 3px solid #e00000;
+  border-bottom: 3px solid #e00000;
 }
 
-.audio-button-kicker {
-  margin-bottom: 5px;
-
-  font-size: 8px;
-  font-weight: 600;
-  letter-spacing: 1.8px;
-
-  color: #858585;
+.audio-button-contact:hover {
+  background: #dddddd;
+  color: #111111;
+  text-decoration: none;
+  box-shadow: none;
 }
 
-.audio-button-text {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1.4px;
-
-  color: #eeeeee;
-}
-
-
-/* Piccolo elemento finale */
-
-.audio-button-mark {
-  margin-left: auto;
-
-  font-size: 8px;
-
-  color: #777;
-
-  transition: color 0.25s ease;
-}
-
-
-/* Hover */
-
-.audio-button:hover {
-  background: #303030;
-
-  border-color: #858585;
-
-  transform: translateY(-1px);
-
-  box-shadow:
-    0 4px 14px rgba(0, 0, 0, 0.20);
-}
-
-.audio-button:hover .audio-button-led {
-  background: #d5d5d5;
-
-  box-shadow:
-    0 0 0 1px #555,
-    0 0 6px rgba(255, 255, 255, 0.28);
-}
-
-.audio-button:hover .audio-button-mark {
-  color: #d0d0d0;
-}
-
-
-/* Pressione */
-
-.audio-button:active {
-  transform: translateY(0);
-
-  box-shadow:
-    inset 0 2px 4px rgba(0, 0, 0, 0.25);
-}
-
-
-/* ---------------------------------------------------------
-   TORNA SU
-   --------------------------------------------------------- */
+/* =========================================================
+   BACK TO TOP — REWIND UP
+   ========================================================= */
 
 .audio-back-top {
   position: fixed;
 
-  right: 24px;
-  bottom: 24px;
+  right: 18px;
+  bottom: 25px;
 
-  z-index: 900;
-
-  width: 62px;
-  height: 62px;
+  z-index: 1200;
 
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
 
-  gap: 2px;
+  width: 42px;
+  height: 42px;
 
-  box-sizing: border-box;
+  background: #111111;
+  color: #ffffff;
 
-  color: #dcdcdc;
-  background: #292929;
+  border: 1px solid #444444;
+  border-radius: 2px;
 
-  border: 1px solid #5c5c5c;
+  box-shadow: 0 2px 7px rgba(0,0,0,.20);
 
   text-decoration: none;
 
-  font-family: inherit;
-
   transition:
-    background-color 0.25s ease,
-    border-color 0.25s ease,
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
+    background-color .2s ease,
+    transform .2s ease;
 }
 
+/* LED nascosto */
 
-/* Angolino tecnico */
+.audio-back-top .back-top-led {
+  display: none;
+}
 
-.audio-back-top::before {
+/* Nascondiamo la scritta */
+
+.audio-back-top .back-top-label {
+  display: none;
+}
+
+/* Doppia freccia verso l'alto */
+
+.audio-back-top .back-top-icon {
+  position: relative;
+
+  display: block;
+
+  width: 18px;
+  height: 22px;
+
+  font-size: 0;
+}
+
+/* Prima freccia */
+
+.audio-back-top .back-top-icon::before,
+.audio-back-top .back-top-icon::after {
   content: "";
 
   position: absolute;
 
-  top: 5px;
-  left: 5px;
+  left: 50%;
 
-  width: 3px;
-  height: 3px;
+  width: 10px;
+  height: 10px;
 
-  background: #777;
+  border-left: 2px solid #ffffff;
+  border-top: 2px solid #ffffff;
 
-  border-radius: 50%;
+  transform: translateX(-50%) rotate(45deg);
 }
 
+/* Freccia superiore */
 
-/* LED */
+.audio-back-top .back-top-icon::before {
+  top: 1px;
+}
 
-.back-top-led {
-  position: absolute;
+/* Freccia inferiore */
 
+.audio-back-top .back-top-icon::after {
   top: 10px;
-  right: 10px;
-
-  width: 5px;
-  height: 5px;
-
-  border-radius: 50%;
-
-  background: #777;
-
-  box-shadow:
-    0 0 0 1px #454545;
 }
-
-
-/* Freccia */
-
-.back-top-icon {
-  margin-top: 4px;
-
-  font-size: 19px;
-  line-height: 15px;
-  font-weight: 300;
-
-  color: #dcdcdc;
-}
-
-
-/* Label */
-
-.back-top-label {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  line-height: 1;
-}
-
-.back-top-kicker {
-  margin-bottom: 3px;
-
-  font-size: 6px;
-  font-weight: 600;
-  letter-spacing: 1.2px;
-
-  color: #777;
-}
-
-.back-top-text {
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: 1.3px;
-
-  color: #bdbdbd;
-}
-
-
-/* Hover */
 
 .audio-back-top:hover {
-  background: #303030;
-
-  border-color: #858585;
+  background: #222222;
+  color: #ffffff;
+  text-decoration: none;
 
   transform: translateY(-2px);
-
-  box-shadow:
-    0 5px 16px rgba(0, 0, 0, 0.22);
 }
-
-.audio-back-top:hover .back-top-led {
-  background: #d5d5d5;
-
-  box-shadow:
-    0 0 0 1px #555,
-    0 0 6px rgba(255, 255, 255, 0.25);
-}
-
-.audio-back-top:hover .back-top-icon {
-  color: #ffffff;
-}
-
-
-/* Pressione */
-
-.audio-back-top:active {
-  transform: translateY(0);
-
-  box-shadow:
-    inset 0 2px 4px rgba(0, 0, 0, 0.25);
-}
-
 
 /* =========================================================
    RESPONSIVE
