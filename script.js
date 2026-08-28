@@ -366,10 +366,11 @@ const backToTop =
     const scrollProgress =
       window.scrollY / maxScroll;
 
-    const trackHeight = track.clientHeight;
+const maxKnobPosition =
+  track.clientHeight - knob.offsetHeight;
 
-    knob.style.top =
-      (scrollProgress * trackHeight) + 'px';
+knob.style.top =
+  (scrollProgress * maxKnobPosition) + 'px';
   }
 
 
