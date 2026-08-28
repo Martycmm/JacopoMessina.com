@@ -1769,6 +1769,8 @@ a:hover { text-decoration: underline; }
 
   .site-header {
     height: 50px;
+    position: fixed;
+    width: 100%;
   }
 
   .main-nav {
