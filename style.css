@@ -1132,6 +1132,27 @@ a:hover { text-decoration: underline; }
     );
 }
 
+.clip-collaborations {
+
+  color: #d9d9d9;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(180, 180, 180, .16),
+      rgba(45, 45, 45, .30)
+    );
+}
+
+.clip-collaborations:hover {
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(210, 210, 210, .28),
+      rgba(45, 45, 45, .42)
+    );
+}
 
 .clip-equipment {
 
