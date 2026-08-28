@@ -190,94 +190,157 @@ a:hover { text-decoration: underline; }
 }
 
 /* =========================================================
-   AUDIO BUTTON — CONTATTAMI / REC STYLE
-   ========================================================= */
+AUDIO BUTTON — CONTATTAMI / REC STYLE
+========================================================= */
 
 .audio-button-contact {
+position: relative;
 
-  position: relative;
+display: inline-flex;
+align-items: center;
+gap: 12px;
 
-  background:
+min-width: 155px;
+height: 42px;
 
-    /* ALTO SINISTRA */
-    linear-gradient(#e00000, #e00000)
-      left top / 14px 3px no-repeat,
+padding: 0 16px;
 
-    linear-gradient(#e00000, #e00000)
-      left top / 3px 14px no-repeat,
+color: #111111;
 
+border: 0;
+border-radius: 0;
 
-    /* ALTO DESTRA */
-    linear-gradient(#e00000, #e00000)
-      right top / 14px 3px no-repeat,
+box-shadow: none;
 
-    linear-gradient(#e00000, #e00000)
-      right top / 3px 14px no-repeat,
+font-family: Montserrat, Helvetica, sans-serif;
+text-decoration: none;
 
+overflow: hidden;
 
-    /* BASSO SINISTRA */
-    linear-gradient(#e00000, #e00000)
-      left bottom / 14px 3px no-repeat,
+/* 4 ANGOLI ROSSI + SFONDO */
+background:
+/* ALTO SINISTRA */
+linear-gradient(#e00000, #e00000)
+left top / 14px 3px no-repeat,
 
-    linear-gradient(#e00000, #e00000)
-      left bottom / 3px 14px no-repeat,
+```
+linear-gradient(#e00000, #e00000)
+  left top / 3px 14px no-repeat,
 
+/* ALTO DESTRA */
+linear-gradient(#e00000, #e00000)
+  right top / 14px 3px no-repeat,
 
-    /* BASSO DESTRA */
-    linear-gradient(#e00000, #e00000)
-      right bottom / 14px 3px no-repeat,
+linear-gradient(#e00000, #e00000)
+  right top / 3px 14px no-repeat,
 
-    linear-gradient(#e00000, #e00000)
-      right bottom / 3px 14px no-repeat,
+/* BASSO SINISTRA */
+linear-gradient(#e00000, #e00000)
+  left bottom / 14px 3px no-repeat,
 
+linear-gradient(#e00000, #e00000)
+  left bottom / 3px 14px no-repeat,
 
-    /* SFONDO DEL PULSANTE */
-    #e6e6e6;
+/* BASSO DESTRA */
+linear-gradient(#e00000, #e00000)
+  right bottom / 14px 3px no-repeat,
+
+linear-gradient(#e00000, #e00000)
+  right bottom / 3px 14px no-repeat,
+
+/* SFONDO */
+#e6e6e6;
+```
+
 }
 
-/* LED rosso a sinistra */
+/* =========================================================
+LED ROSSO
+========================================================= */
 
 .audio-button-contact .audio-button-led {
-  width: 14px;
-  height: 14px;
+width: 14px;
+height: 14px;
 
-  flex: 0 0 14px;
+flex: 0 0 14px;
 
-  background: #e00000;
-  border-radius: 50%;
+background: #e00000;
+border-radius: 50%;
 }
-.audio-button-contact {
-  gap: 12px;
-}
-/* Scritta */
+
+/* =========================================================
+SCRITTA
+========================================================= */
 
 .audio-button-contact .audio-button-label {
-  display: flex;
-  align-items: center;
+display: flex;
+align-items: center;
 }
 
 .audio-button-contact .audio-button-text {
-  color: #111111;
+color: #111111;
 
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 1.2px;
+font-size: 13px;
+font-weight: 700;
+letter-spacing: 1.2px;
 }
 
-/* Nasconde gli elementi non necessari */
+/* =========================================================
+NASCONDE GLI ELEMENTI NON NECESSARI
+========================================================= */
 
 .audio-button-contact .audio-button-kicker,
 .audio-button-contact .audio-button-mark {
-  display: none;
+display: none;
 }
 
+/* =========================================================
+HOVER
+========================================================= */
 
 .audio-button-contact:hover {
-  background: #dddddd;
-  color: #111111;
-  text-decoration: none;
-  box-shadow: none;
+color: #111111;
+text-decoration: none;
+box-shadow: none;
+
+/* Mantiene i 4 angoli rossi */
+background:
+/* ALTO SINISTRA */
+linear-gradient(#e00000, #e00000)
+left top / 14px 3px no-repeat,
+
+```
+linear-gradient(#e00000, #e00000)
+  left top / 3px 14px no-repeat,
+
+/* ALTO DESTRA */
+linear-gradient(#e00000, #e00000)
+  right top / 14px 3px no-repeat,
+
+linear-gradient(#e00000, #e00000)
+  right top / 3px 14px no-repeat,
+
+/* BASSO SINISTRA */
+linear-gradient(#e00000, #e00000)
+  left bottom / 14px 3px no-repeat,
+
+linear-gradient(#e00000, #e00000)
+  left bottom / 3px 14px no-repeat,
+
+/* BASSO DESTRA */
+linear-gradient(#e00000, #e00000)
+  right bottom / 14px 3px no-repeat,
+
+linear-gradient(#e00000, #e00000)
+  right bottom / 3px 14px no-repeat,
+
+/* SFONDO HOVER */
+#dddddd;
+```
+
 }
+
+
 
 /* =========================================================
    BACK TO TOP — REWIND UP
