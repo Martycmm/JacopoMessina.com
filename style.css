@@ -178,18 +178,134 @@ a:hover { text-decoration: underline; }
   line-height: 1.35;
 }
 
+/* =========================================================
+   AUDIO CONTROL BUTTON — CONTATTAMI
+   ========================================================= */
+
 .button {
-  display: inline-block;
-  padding: 8px 35px;
-  background: #2756f9;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+
+  height: 42px;
+  padding: 0 18px;
+
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.04);
   color: #ffffff;
-  font-size: 16px;
-  letter-spacing: 1px;
+
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+
+  text-decoration: none;
+  white-space: nowrap;
+
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
+}
+
+/* piccolo indicatore "LED" */
+.button::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ffffff;
+  opacity: 0.7;
+  transition: opacity 0.25s ease;
+}
+
+/* freccia */
+.button::after {
+  content: "↗";
+  font-size: 14px;
+  line-height: 1;
+  opacity: 0.7;
+  transition: transform 0.25s ease, opacity 0.25s ease;
 }
 
 .button:hover {
-  background: #183fc6;
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+.button:hover::before {
+  opacity: 1;
+}
+
+.button:hover::after {
+  opacity: 1;
+  transform: translate(2px, -2px);
+}
+
+/* =========================================================
+   AUDIO CONTROL — TORNA SU
+   ========================================================= */
+
+.back-to-top {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+
+  height: 32px;
+  padding: 0 11px;
+
+  border: 1px solid #bcbcbc;
+  background: rgba(255, 255, 255, 0.88);
+  color: #333;
+
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+
   text-decoration: none;
+  white-space: nowrap;
+
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
+}
+
+/* indicatore */
+.back-to-top::before {
+  content: "";
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #555;
+}
+
+/* freccia */
+.back-to-top::after {
+  content: "↑";
+  font-size: 13px;
+  line-height: 1;
+  transition: transform 0.25s ease;
+}
+
+.back-to-top:hover {
+  background: #333;
+  border-color: #333;
+  color: #ffffff;
+}
+
+.back-to-top:hover::before {
+  background: #ffffff;
+}
+
+.back-to-top:hover::after {
+  transform: translateY(-2px);
 }
 
 /* =========================================================
