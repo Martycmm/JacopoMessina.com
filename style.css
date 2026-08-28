@@ -2161,30 +2161,31 @@ a:hover { text-decoration: underline; }
     display: none;
   }
 }
- /* -------------------------------------------------------
-   AUDIO DIVIDER — OSCILLOSCOPE
-   ------------------------------------------------------- */
+ /* =========================================================
+   AUDIO DIVIDER — WAVEFORM
+   ========================================================= */
 
-.audio-divider-signal {
+.audio-divider-waveform {
   width: 100%;
   height: 55px;
   margin: 25px auto;
   overflow: hidden;
 }
 
-.audio-divider-signal svg {
+.audio-divider-waveform svg {
   display: block;
   width: 100%;
   height: 55px;
 }
 
-.audio-divider-signal path {
+.audio-divider-waveform polyline {
   fill: none;
   stroke: currentColor;
-  stroke-width: 1.2;
+  stroke-width: 1.1;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+
 /* =========================================================
    SMALL MOBILE
    480px AND BELOW
