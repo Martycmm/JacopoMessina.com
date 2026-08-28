@@ -535,6 +535,87 @@ a:hover { text-decoration: underline; }
   text-decoration: none;
 }
 /* =========================================================
+   COLLABORATIONS / BRAND CREDITS
+   ========================================================= */
+
+.collaborations-section {
+  padding-top: 20px;
+  padding-bottom: 25px;
+}
+
+.collaborations-section h2 {
+  margin-bottom: 10px;
+}
+
+.collaborations-intro {
+  max-width: 760px;
+  margin: 0 auto 35px;
+  text-align: center;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #444444;
+}
+
+.brand-credits {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.brand-credit {
+  height: 105px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px 30px;
+
+  background: #f7f7f7;
+
+  border: 1px solid #eeeeee;
+
+  transition:
+    background-color .25s ease,
+    transform .25s ease,
+    border-color .25s ease;
+}
+
+.brand-credit img {
+  display: block;
+
+  max-width: 100%;
+  max-height: 55px;
+
+  width: auto;
+  height: auto;
+
+  object-fit: contain;
+
+  filter: grayscale(100%);
+  opacity: .72;
+
+  transition:
+    filter .25s ease,
+    opacity .25s ease,
+    transform .25s ease;
+}
+
+.brand-credit:hover {
+  background: #ffffff;
+  border-color: #d5d5d5;
+  transform: translateY(-2px);
+}
+
+.brand-credit:hover img {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: scale(1.03);
+}
+
+/* =========================================================
    TIMELINE
    ========================================================= */
 
@@ -1410,6 +1491,23 @@ a:hover { text-decoration: underline; }
   .audio-timeline {
     top: 8px;
   }
+
+     /* -------------------------------------------------------
+     COLLABORATIONS
+     ------------------------------------------------------- */
+
+  .brand-credits {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .brand-credit {
+    height: 90px;
+    padding: 16px 20px;
+  }
+
+  .brand-credit img {
+    max-height: 48px;
+  }
 }
 
 
@@ -1552,7 +1650,28 @@ a:hover { text-decoration: underline; }
   .card-actions a {
     margin: 2px;
   }
+  /* -------------------------------------------------------
+     COLLABORATIONS
+     ------------------------------------------------------- */
 
+  .collaborations-intro {
+    font-size: 14px;
+    margin-bottom: 25px;
+  }
+
+  .brand-credits {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+  }
+
+  .brand-credit {
+    height: 85px;
+    padding: 15px;
+  }
+
+  .brand-credit img {
+    max-height: 42px;
+  }
 
   /* -------------------------------------------------------
      LISTS
@@ -1752,7 +1871,22 @@ a:hover { text-decoration: underline; }
 
   }
 
+  /* -------------------------------------------------------
+     COLLABORATIONS
+     ------------------------------------------------------- */
 
+  .collaborations-section {
+    padding-top: 10px;
+  }
+
+  .brand-credit {
+    height: 75px;
+    padding: 12px;
+  }
+
+  .brand-credit img {
+    max-height: 36px;
+  }
   /* -------------------------------------------------------
      WORK
      ------------------------------------------------------- */
