@@ -312,8 +312,8 @@ const updateCurrentClip = () => {
      BACK TO TOP
      --------------------------------------------------------- */
 
-  const backToTop =
-    document.querySelector(".back-to-top");
+const backToTop =
+  document.querySelector(".audio-back-top");
 
 
   if (backToTop) {
@@ -335,8 +335,9 @@ const updateCurrentClip = () => {
 
       }
     );
+     
+  }
 
-     <script>
 /* =========================================================
    VERTICAL LEVEL SCROLLER
    ========================================================= */
@@ -562,7 +563,6 @@ const updateCurrentClip = () => {
   updateKnob();
 
 })();
-</script>
 
   }
 
