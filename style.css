@@ -179,133 +179,361 @@ a:hover { text-decoration: underline; }
 }
 
 /* =========================================================
-   AUDIO CONTROL BUTTON — CONTATTAMI
+   AUDIO CONTROL BUTTONS
+   Pannello / apparecchiatura audio
    ========================================================= */
 
-.button {
+
+/* ---------------------------------------------------------
+   CONTATTAMI
+   --------------------------------------------------------- */
+
+.audio-button {
   position: relative;
+
   display: inline-flex;
   align-items: center;
   gap: 12px;
 
-  height: 42px;
-  padding: 0 18px;
+  min-width: 175px;
+  height: 52px;
 
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  background: rgba(255, 255, 255, 0.04);
-  color: #ffffff;
+  padding: 0 16px;
 
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 1.8px;
-  text-transform: uppercase;
+  box-sizing: border-box;
+
+  color: #eeeeee;
+  background: #292929;
+
+  border: 1px solid #606060;
 
   text-decoration: none;
-  white-space: nowrap;
+
+  font-family: inherit;
 
   transition:
-    background 0.25s ease,
+    background-color 0.25s ease,
     border-color 0.25s ease,
-    color 0.25s ease;
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
-/* piccolo indicatore "LED" */
-.button::before {
+
+/* Piccola "vite" / indicatore laterale */
+
+.audio-button::before {
   content: "";
-  width: 5px;
-  height: 5px;
+
+  position: absolute;
+  left: 5px;
+  top: 5px;
+
+  width: 3px;
+  height: 3px;
+
   border-radius: 50%;
-  background: #ffffff;
-  opacity: 0.7;
-  transition: opacity 0.25s ease;
+
+  background: #777;
 }
 
-/* freccia */
-.button::after {
-  content: "↗";
-  font-size: 14px;
+
+/* LED */
+
+.audio-button-led {
+  width: 7px;
+  height: 7px;
+
+  flex: 0 0 7px;
+
+  border-radius: 50%;
+
+  background: #8d8d8d;
+
+  box-shadow:
+    0 0 0 1px #454545,
+    0 0 0 2px #202020;
+
+  transition:
+    background-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+
+/* Testi */
+
+.audio-button-label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
   line-height: 1;
-  opacity: 0.7;
-  transition: transform 0.25s ease, opacity 0.25s ease;
 }
 
-.button:hover {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.8);
+.audio-button-kicker {
+  margin-bottom: 5px;
+
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 1.8px;
+
+  color: #858585;
 }
 
-.button:hover::before {
-  opacity: 1;
+.audio-button-text {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+
+  color: #eeeeee;
 }
 
-.button:hover::after {
-  opacity: 1;
-  transform: translate(2px, -2px);
+
+/* Piccolo elemento finale */
+
+.audio-button-mark {
+  margin-left: auto;
+
+  font-size: 8px;
+
+  color: #777;
+
+  transition: color 0.25s ease;
 }
 
-/* =========================================================
-   AUDIO CONTROL — TORNA SU
-   ========================================================= */
 
-.back-to-top {
+/* Hover */
+
+.audio-button:hover {
+  background: #303030;
+
+  border-color: #858585;
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 4px 14px rgba(0, 0, 0, 0.20);
+}
+
+.audio-button:hover .audio-button-led {
+  background: #d5d5d5;
+
+  box-shadow:
+    0 0 0 1px #555,
+    0 0 6px rgba(255, 255, 255, 0.28);
+}
+
+.audio-button:hover .audio-button-mark {
+  color: #d0d0d0;
+}
+
+
+/* Pressione */
+
+.audio-button:active {
+  transform: translateY(0);
+
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+
+/* ---------------------------------------------------------
+   TORNA SU
+   --------------------------------------------------------- */
+
+.audio-back-top {
   position: fixed;
+
   right: 24px;
   bottom: 24px;
 
-  display: inline-flex;
+  z-index: 900;
+
+  width: 62px;
+  height: 62px;
+
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 9px;
+  justify-content: center;
 
-  height: 32px;
-  padding: 0 11px;
+  gap: 2px;
 
-  border: 1px solid #bcbcbc;
-  background: rgba(255, 255, 255, 0.88);
-  color: #333;
+  box-sizing: border-box;
 
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 1.4px;
-  text-transform: uppercase;
+  color: #dcdcdc;
+  background: #292929;
+
+  border: 1px solid #5c5c5c;
 
   text-decoration: none;
-  white-space: nowrap;
+
+  font-family: inherit;
 
   transition:
-    background 0.25s ease,
+    background-color 0.25s ease,
     border-color 0.25s ease,
-    color 0.25s ease;
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
-/* indicatore */
-.back-to-top::before {
+
+/* Angolino tecnico */
+
+.audio-back-top::before {
   content: "";
-  width: 4px;
-  height: 4px;
+
+  position: absolute;
+
+  top: 5px;
+  left: 5px;
+
+  width: 3px;
+  height: 3px;
+
+  background: #777;
+
   border-radius: 50%;
-  background: #555;
 }
 
-/* freccia */
-.back-to-top::after {
-  content: "↑";
-  font-size: 13px;
+
+/* LED */
+
+.back-top-led {
+  position: absolute;
+
+  top: 10px;
+  right: 10px;
+
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: #777;
+
+  box-shadow:
+    0 0 0 1px #454545;
+}
+
+
+/* Freccia */
+
+.back-top-icon {
+  margin-top: 4px;
+
+  font-size: 19px;
+  line-height: 15px;
+  font-weight: 300;
+
+  color: #dcdcdc;
+}
+
+
+/* Label */
+
+.back-top-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   line-height: 1;
-  transition: transform 0.25s ease;
 }
 
-.back-to-top:hover {
-  background: #333;
-  border-color: #333;
+.back-top-kicker {
+  margin-bottom: 3px;
+
+  font-size: 6px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+
+  color: #777;
+}
+
+.back-top-text {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1.3px;
+
+  color: #bdbdbd;
+}
+
+
+/* Hover */
+
+.audio-back-top:hover {
+  background: #303030;
+
+  border-color: #858585;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 5px 16px rgba(0, 0, 0, 0.22);
+}
+
+.audio-back-top:hover .back-top-led {
+  background: #d5d5d5;
+
+  box-shadow:
+    0 0 0 1px #555,
+    0 0 6px rgba(255, 255, 255, 0.25);
+}
+
+.audio-back-top:hover .back-top-icon {
   color: #ffffff;
 }
 
-.back-to-top:hover::before {
-  background: #ffffff;
+
+/* Pressione */
+
+.audio-back-top:active {
+  transform: translateY(0);
+
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.25);
 }
 
-.back-to-top:hover::after {
-  transform: translateY(-2px);
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  .audio-button {
+    min-width: 160px;
+    height: 48px;
+  }
+
+  .audio-back-top {
+    right: 16px;
+    bottom: 16px;
+
+    width: 56px;
+    height: 56px;
+  }
+}
+
+
+@media (max-width: 480px) {
+
+  .audio-button {
+    min-width: 150px;
+  }
+
+  .audio-button-kicker {
+    font-size: 7px;
+  }
+
+  .audio-button-text {
+    font-size: 11px;
+  }
+
+  .audio-back-top {
+    right: 12px;
+    bottom: 12px;
+  }
 }
 
 /* =========================================================
