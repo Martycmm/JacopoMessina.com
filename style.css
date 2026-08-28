@@ -94,12 +94,23 @@ a:hover { text-decoration: underline; }
 }
 
 .hamburger {
+  position: fixed;
+
+  top: 10px;
+  right: 12px;
+
+  z-index: 3000;
+
   border: 0;
-  background: transparent;
+  background: #ffffff;
+
   padding: 4px 6px;
+
   width: 36px;
   height: 30px;
+
   cursor: pointer;
+
   flex-direction: column;
   justify-content: center;
   gap: 4px;
@@ -2034,23 +2045,57 @@ a:hover { text-decoration: underline; }
   /* -------------------------------------------------------
      FOOTER
      ------------------------------------------------------- */
+.site-footer {
+  width: calc(100% - 32px);
 
-  .site-footer {
-    width: calc(100% - 32px);
-    grid-template-columns: 1fr;
-    gap: 15px;
-    padding-bottom: 20px;
-  }
+  grid-template-columns: 1fr 1fr;
 
-  .footer-contact {
-    flex-wrap: wrap;
-  }
+  gap: 18px 20px;
 
-  .footer-nav {
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
+  padding-top: 15px;
+  padding-bottom: 20px;
+
+  border: none;
+}
+
+.footer-contact {
+  grid-column: 1 / -1;
+
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+  border: none;
+}
+
+.footer-nav {
+  grid-column: 1 / -1;
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 0;
+
+  width: 100%;
+
+  border: none;
+}
+
+.footer-nav a {
+  font-size: 12px;
+
+  padding: 8px 0;
+
+  border: none;
+
+  text-decoration: none;
+}
+
+.footer-nav a:hover {
+  text-decoration: underline;
+}
 
 
   /* -------------------------------------------------------
@@ -2078,7 +2123,8 @@ a:hover { text-decoration: underline; }
     top: 6px;
     overflow-x: auto;
     overflow-y: hidden;
-  }
+   display: none !important;
+    }
 
   .timeline-header {
     min-width: 100%;
