@@ -1746,6 +1746,10 @@ a:hover { text-decoration: underline; }
 
   .behind-the-scenes {
     grid-template-columns: repeat(2, 1fr);
+
+
+       outline: 3px solid red;
+
   }
 
 
