@@ -561,10 +561,8 @@ knob.style.top =
      INITIAL POSITION
      ------------------------------------------------------- */
 
-  updateKnob();
+   updateKnob();
 
 })();
-
-  }
 
 });
