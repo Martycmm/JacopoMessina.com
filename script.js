@@ -336,6 +336,234 @@ const updateCurrentClip = () => {
       }
     );
 
+     <script>
+/* =========================================================
+   VERTICAL LEVEL SCROLLER
+   ========================================================= */
+
+(function () {
+
+  const scroller = document.querySelector('.level-scroller');
+  const knob = document.querySelector('.level-knob');
+  const track = document.querySelector('.level-track');
+
+  if (!scroller || !knob || !track) return;
+
+
+  /* -------------------------------------------------------
+     UPDATE KNOB FROM PAGE SCROLL
+     ------------------------------------------------------- */
+
+  function updateKnob() {
+
+    const maxScroll =
+      document.documentElement.scrollHeight -
+      window.innerHeight;
+
+    if (maxScroll <= 0) return;
+
+    const scrollProgress =
+      window.scrollY / maxScroll;
+
+    const trackHeight = track.clientHeight;
+
+    knob.style.top =
+      (scrollProgress * trackHeight) + 'px';
+  }
+
+
+  /* -------------------------------------------------------
+     SCROLL → KNOB
+     ------------------------------------------------------- */
+
+  window.addEventListener(
+    'scroll',
+    updateKnob,
+    { passive: true }
+  );
+
+
+  window.addEventListener(
+    'resize',
+    updateKnob
+  );
+
+
+  /* -------------------------------------------------------
+     KNOB DRAGGING
+     ------------------------------------------------------- */
+
+  let dragging = false;
+
+
+  function moveKnob(clientY) {
+
+    const rect = track.getBoundingClientRect();
+
+    let position =
+      clientY - rect.top;
+
+    position = Math.max(
+      0,
+      Math.min(position, rect.height)
+    );
+
+
+    const progress =
+      position / rect.height;
+
+
+    const maxScroll =
+      document.documentElement.scrollHeight -
+      window.innerHeight;
+
+
+    window.scrollTo({
+      top: progress * maxScroll,
+      behavior: 'auto'
+    });
+  }
+
+
+  knob.addEventListener(
+    'pointerdown',
+    function (event) {
+
+      dragging = true;
+
+      knob.setPointerCapture(event.pointerId);
+
+      document.body.style.userSelect = 'none';
+
+      moveKnob(event.clientY);
+
+      event.preventDefault();
+    }
+  );
+
+
+  knob.addEventListener(
+    'pointermove',
+    function (event) {
+
+      if (!dragging) return;
+
+      moveKnob(event.clientY);
+    }
+  );
+
+
+  knob.addEventListener(
+    'pointerup',
+    function () {
+
+      dragging = false;
+
+      document.body.style.userSelect = '';
+    }
+  );
+
+
+  knob.addEventListener(
+    'pointercancel',
+    function () {
+
+      dragging = false;
+
+      document.body.style.userSelect = '';
+    }
+  );
+
+
+  /* -------------------------------------------------------
+     CLICK ON TRACK → JUMP TO POSITION
+     ------------------------------------------------------- */
+
+  track.addEventListener(
+    'pointerdown',
+    function (event) {
+
+      if (event.target === knob ||
+          knob.contains(event.target)) {
+        return;
+      }
+
+      moveKnob(event.clientY);
+    }
+  );
+
+
+  /* -------------------------------------------------------
+     KEYBOARD CONTROL
+     ------------------------------------------------------- */
+
+  knob.addEventListener(
+    'keydown',
+    function (event) {
+
+      const current =
+        window.scrollY;
+
+      const amount =
+        window.innerHeight * 0.15;
+
+
+      if (event.key === 'ArrowUp') {
+
+        window.scrollTo({
+          top: current - amount,
+          behavior: 'smooth'
+        });
+
+        event.preventDefault();
+      }
+
+
+      if (event.key === 'ArrowDown') {
+
+        window.scrollTo({
+          top: current + amount,
+          behavior: 'smooth'
+        });
+
+        event.preventDefault();
+      }
+
+
+      if (event.key === 'Home') {
+
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+
+        event.preventDefault();
+      }
+
+
+      if (event.key === 'End') {
+
+        window.scrollTo({
+          top: document.documentElement.scrollHeight,
+          behavior: 'smooth'
+        });
+
+        event.preventDefault();
+      }
+
+    }
+  );
+
+
+  /* -------------------------------------------------------
+     INITIAL POSITION
+     ------------------------------------------------------- */
+
+  updateKnob();
+
+})();
+</script>
+
   }
 
 });
