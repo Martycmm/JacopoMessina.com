@@ -1074,31 +1074,6 @@ a:hover { text-decoration: underline; }
 
 .footer-nav a { font-size: 12px; }
 
-/* =========================================================
-   BACK TO TOP
-   ========================================================= */
-
-.back-to-top {
-  position: fixed;
-  right: 18px;
-  bottom: 40px;
-  z-index: 900;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  padding: 8px 16px;
-  background: #2756f9;
-  color: #ffffff;
-  border-radius: 2px;
-  font-size: 16px;
-  letter-spacing: 1px;
-  box-shadow: 0 2px 7px rgba(0,0,0,.2);
-}
-
-.back-to-top:hover {
-  background: #183fc6;
-  text-decoration: none;
-}
 
 /* =========================================================
    AUDIO NAVIGATION TIMELINE
@@ -1118,7 +1093,7 @@ a:hover { text-decoration: underline; }
     z-index: 1500;
 
     width: min(900px, calc(100% - 30px));
-    height: 62px;
+    height: 67px;
 
     margin: 0;
 
