@@ -194,43 +194,61 @@ a:hover { text-decoration: underline; }
    ========================================================= */
 
 .audio-button-contact {
+
   position: relative;
 
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
+  background:
 
-  min-width: 155px;
-  height: 42px;
+    /* ALTO SINISTRA */
+    linear-gradient(#e00000, #e00000)
+      left top / 14px 3px no-repeat,
 
-  padding: 0 16px;
+    linear-gradient(#e00000, #e00000)
+      left top / 3px 14px no-repeat,
 
-  background: #e6e6e6;
-  color: #111111;
 
-  border: 0;
-  border-radius: 0;
+    /* ALTO DESTRA */
+    linear-gradient(#e00000, #e00000)
+      right top / 14px 3px no-repeat,
 
-  box-shadow: none;
+    linear-gradient(#e00000, #e00000)
+      right top / 3px 14px no-repeat,
 
-  font-family: Montserrat, Helvetica, sans-serif;
-  text-decoration: none;
 
-  overflow: hidden;
+    /* BASSO SINISTRA */
+    linear-gradient(#e00000, #e00000)
+      left bottom / 14px 3px no-repeat,
+
+    linear-gradient(#e00000, #e00000)
+      left bottom / 3px 14px no-repeat,
+
+
+    /* BASSO DESTRA */
+    linear-gradient(#e00000, #e00000)
+      right bottom / 14px 3px no-repeat,
+
+    linear-gradient(#e00000, #e00000)
+      right bottom / 3px 14px no-repeat,
+
+
+    /* SFONDO DEL PULSANTE */
+    #e6e6e6;
 }
 
 /* LED rosso a sinistra */
 
 .audio-button-contact .audio-button-led {
-  width: 10px;
-  height: 10px;
+  width: 14px;
+  height: 14px;
 
-  flex: 0 0 10px;
+  flex: 0 0 14px;
 
   background: #e00000;
   border-radius: 50%;
 }
-
+.audio-button-contact {
+  gap: 12px;
+}
 /* Scritta */
 
 .audio-button-contact .audio-button-label {
@@ -253,39 +271,6 @@ a:hover { text-decoration: underline; }
   display: none;
 }
 
-/* =========================================================
-   ANGOLI ROSSI — EFFETTO REC
-   ========================================================= */
-
-.audio-button-contact::before,
-.audio-button-contact::after {
-  content: "";
-
-  position: absolute;
-
-  width: 12px;
-  height: 12px;
-
-  pointer-events: none;
-}
-
-/* angolo superiore sinistro + inferiore destro */
-
-.audio-button-contact::before {
-  top: 0;
-  left: 0;
-
-  border-top: 3px solid #e00000;
-  border-left: 3px solid #e00000;
-}
-
-.audio-button-contact::after {
-  right: 0;
-  bottom: 0;
-
-  border-right: 3px solid #e00000;
-  border-bottom: 3px solid #e00000;
-}
 
 .audio-button-contact:hover {
   background: #dddddd;
