@@ -566,3 +566,54 @@ knob.style.top =
 })();
 
 });
+
+/* =========================================================
+   CONTACT FORM — MAIL CLIENT
+   ========================================================= */
+
+const contactForm = document.getElementById("audio-contact-form");
+
+if (contactForm) {
+
+  contactForm.addEventListener("submit", function (event) {
+
+    event.preventDefault();
+
+    const name = document.getElementById("contact-name").value.trim();
+    const email = document.getElementById("contact-email").value.trim();
+    const subject = document.getElementById("contact-subject").value.trim();
+    const message = document.getElementById("contact-message").value.trim();
+
+    /*
+     * Se l'utente non inserisce un oggetto,
+     * ne utilizziamo uno predefinito.
+     */
+    const finalSubject = subject || "Richiesta di contatto";
+
+    /*
+     * Corpo della mail
+     */
+    const body =
+      "Ciao Jacopo,\n\n" +
+      message +
+      "\n\n" +
+      "--------------------------------\n" +
+      "Nome: " + name + "\n" +
+      "Email: " + email + "\n";
+
+    /*
+     * Crea il collegamento mailto
+     */
+    const mailto =
+      "mailto:jpmessina86@gmail.com" +
+      "?subject=" + encodeURIComponent(finalSubject) +
+      "&body=" + encodeURIComponent(body);
+
+    /*
+     * Apre il programma email predefinito
+     */
+    window.location.href = mailto;
+
+  });
+
+}
