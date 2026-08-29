@@ -194,82 +194,44 @@ AUDIO BUTTON — CONTATTAMI / REC STYLE
 ========================================================= */
 
 .audio-button-contact {
-position: relative;
+  position: relative;
+  overflow: hidden;
+  background: #e6e6e6;
+}
 
-display: inline-flex;
-align-items: center;
-gap: 12px;
+.corner {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+}
 
-min-width: 155px;
-height: 42px;
+.corner-tl {
+  top: 0;
+  left: 0;
+  border-top: 3px solid #e00000;
+  border-left: 3px solid #e00000;
+}
 
-padding: 0 16px;
+.corner-tr {
+  top: 0;
+  right: 0;
+  border-top: 3px solid #e00000;
+  border-right: 3px solid #e00000;
+}
 
-background-color: #e6e6e6;
-color: #111111;
+.corner-bl {
+  bottom: 0;
+  left: 0;
+  border-bottom: 3px solid #e00000;
+  border-left: 3px solid #e00000;
+}
 
-border: 0;
-border-radius: 0;
-box-shadow: none;
-
-font-family: Montserrat, Helvetica, sans-serif;
-text-decoration: none;
-
-overflow: hidden;
-
-/* I gradienti disegnano SOLO gli angoli */
-background-image:
-
-```
-/* ALTO SINISTRA */
-linear-gradient(#e00000, #e00000),
-linear-gradient(#e00000, #e00000),
-
-/* ALTO DESTRA */
-linear-gradient(#e00000, #e00000),
-linear-gradient(#e00000, #e00000),
-
-/* BASSO SINISTRA */
-linear-gradient(#e00000, #e00000),
-linear-gradient(#e00000, #e00000),
-
-/* BASSO DESTRA */
-linear-gradient(#e00000, #e00000),
-linear-gradient(#e00000, #e00000);
-```
-
-background-repeat: no-repeat;
-
-background-size:
-14px 3px,
-3px 14px,
-
-```
-14px 3px,
-3px 14px,
-
-14px 3px,
-3px 14px,
-
-14px 3px,
-3px 14px;
-```
-
-background-position:
-left top,
-left top,
-
-```
-right top,
-right top,
-
-left bottom,
-left bottom,
-
-right bottom,
-right bottom;
-```
-
+.corner-br {
+  right: 0;
+  bottom: 0;
+  border-right: 3px solid #e00000;
+  border-bottom: 3px solid #e00000;
 }
 
 /* =========================================================
