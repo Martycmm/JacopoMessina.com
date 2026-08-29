@@ -230,10 +230,10 @@ a:hover { text-decoration: underline; }
    ========================================================= */
 
 .audio-button-contact .audio-button-led {
-  width: 10px;
-  height: 10px;
+  width: 16px;
+  height: 16px;
 
-  flex: 0 0 10px;
+  flex: 0 0 16px;
 
   background: #e00000;
   border-radius: 50%;
