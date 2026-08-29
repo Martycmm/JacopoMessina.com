@@ -617,3 +617,43 @@ if (contactForm) {
   });
 
 }
+
+document.getElementById("whatsapp-submit").addEventListener("click", function () {
+
+  const name = document.getElementById("contact-name").value.trim();
+  const email = document.getElementById("contact-email").value.trim();
+  const subject = document.getElementById("contact-subject").value.trim();
+  const message = document.getElementById("contact-message").value.trim();
+
+  /* Controllo campi obbligatori */
+  if (!name || !email || !message) {
+
+    document.querySelector(".audio-contact-form").reportValidity();
+
+    return;
+  }
+
+  /* Numero di Jacopo */
+  const phone = "393318792303";
+
+  /* Testo del messaggio */
+  const whatsappMessage =
+`Ciao Jacopo,
+
+sono ${name}.
+
+Email: ${email}
+
+${subject ? "Oggetto: " + subject + "\n\n" : ""}Messaggio:
+${message}`;
+
+  /* Codifica del testo per l'URL */
+  const encodedMessage = encodeURIComponent(whatsappMessage);
+
+  /* Apertura di WhatsApp Web */
+  const whatsappURL =
+    `https://web.whatsapp.com/send?phone=${phone}&text=${encodedMessage}`;
+
+  window.open(whatsappURL, "_blank");
+
+});
