@@ -1858,7 +1858,85 @@ a:hover { text-decoration: underline; }
   transform: translateY(1px);
 }
 
+/* =========================================================
+   CONTACT ACTIONS
+   ========================================================= */
 
+.form-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+}
+
+
+/* =========================================================
+   WHATSAPP BUTTON
+   ========================================================= */
+
+.whatsapp-submit-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  min-height: 42px;
+  padding: 0 25px;
+
+  border: 1px solid #bdbdbd;
+  background: transparent;
+  color: #555;
+
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.2s ease;
+}
+
+
+/* piccolo indicatore del canale */
+
+.whatsapp-dot {
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: #777;
+
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+
+/* HOVER */
+
+.whatsapp-submit-button:hover {
+  background: #f2f2f2;
+  border-color: #999;
+  color: #111;
+}
+
+.whatsapp-submit-button:hover .whatsapp-dot {
+  background: #25D366;
+  transform: scale(1.15);
+}
+
+
+/* ACTIVE */
+
+.whatsapp-submit-button:active {
+  transform: translateY(1px);
+}
 
 /* =========================================================
    RESPONSIVE BREAKPOINTS
