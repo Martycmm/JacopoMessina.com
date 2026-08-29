@@ -189,22 +189,24 @@ a:hover { text-decoration: underline; }
   line-height: 1.35;
 }
 
-```css
 /* =========================================================
    AUDIO BUTTON — CONTATTAMI / REC STYLE
    ========================================================= */
 
 .audio-button-contact {
   position: relative;
-  display: flex;
+
+  display: inline-flex;
   align-items: center;
   justify-content: center;
 
-  width: 190px;
-  height: 52px;
+  width: 170px;
+  height: 44px;
 
+  padding: 0 18px;
   margin: 0 auto;
-  padding: 0 22px;
+
+  gap: 10px;
 
   background: #e6e6e6;
   color: #111111;
@@ -212,70 +214,14 @@ a:hover { text-decoration: underline; }
   border: 0;
   border-radius: 0;
 
-  overflow: hidden;
-  box-sizing: border-box;
+  box-shadow: none;
 
+  font-family: Montserrat, Helvetica, sans-serif;
   text-decoration: none;
-  cursor: pointer;
 
-  transition:
-    background-color .2s ease,
-    transform .2s ease;
-}
+  overflow: hidden;
 
-
-/* =========================================================
-   4 ANGOLI ROSSI
-   ========================================================= */
-
-.audio-button-contact .corner {
-  position: absolute;
-
-  width: 14px;
-  height: 14px;
-
-  pointer-events: none;
-  z-index: 3;
-}
-
-
-/* ALTO SINISTRA */
-.audio-button-contact .corner-tl {
-  top: 0;
-  left: 0;
-
-  border-top: 3px solid #e00000;
-  border-left: 3px solid #e00000;
-}
-
-
-/* ALTO DESTRA */
-.audio-button-contact .corner-tr {
-  top: 0;
-  right: 0;
-
-  border-top: 3px solid #e00000;
-  border-right: 3px solid #e00000;
-}
-
-
-/* BASSO SINISTRA */
-.audio-button-contact .corner-bl {
-  bottom: 0;
-  left: 0;
-
-  border-bottom: 3px solid #e00000;
-  border-left: 3px solid #e00000;
-}
-
-
-/* BASSO DESTRA */
-.audio-button-contact .corner-br {
-  right: 0;
-  bottom: 0;
-
-  border-right: 3px solid #e00000;
-  border-bottom: 3px solid #e00000;
+  box-sizing: border-box;
 }
 
 
@@ -284,24 +230,20 @@ a:hover { text-decoration: underline; }
    ========================================================= */
 
 .audio-button-contact .audio-button-led {
-  display: block;
+  width: 10px;
+  height: 10px;
 
-  width: 14px;
-  height: 14px;
-
-  flex: 0 0 14px;
-
-  margin-right: 10px;
+  flex: 0 0 10px;
 
   background: #e00000;
   border-radius: 50%;
 
-  animation: recPulse 2.2s ease-in-out infinite;
+  display: block;
 }
 
 
 /* =========================================================
-   SCRITTA
+   TESTO
    ========================================================= */
 
 .audio-button-contact .audio-button-label {
@@ -309,16 +251,16 @@ a:hover { text-decoration: underline; }
   align-items: center;
   justify-content: center;
 
-  position: relative;
-  z-index: 2;
+  margin: 0;
+  padding: 0;
 }
-
 
 .audio-button-contact .audio-button-text {
   color: #111111;
 
   font-size: 13px;
   font-weight: 700;
+
   letter-spacing: 1.2px;
 
   white-space: nowrap;
@@ -336,6 +278,66 @@ a:hover { text-decoration: underline; }
 
 
 /* =========================================================
+   4 ANGOLI ROSSI — REC FRAME
+   ========================================================= */
+
+.audio-button-contact .corner {
+  position: absolute;
+
+  width: 12px;
+  height: 12px;
+
+  pointer-events: none;
+
+  z-index: 2;
+}
+
+
+/* TOP LEFT */
+
+.audio-button-contact .corner-tl {
+  top: 0;
+  left: 0;
+
+  border-top: 3px solid #e00000;
+  border-left: 3px solid #e00000;
+}
+
+
+/* TOP RIGHT */
+
+.audio-button-contact .corner-tr {
+  top: 0;
+  right: 0;
+
+  border-top: 3px solid #e00000;
+  border-right: 3px solid #e00000;
+}
+
+
+/* BOTTOM LEFT */
+
+.audio-button-contact .corner-bl {
+  bottom: 0;
+  left: 0;
+
+  border-bottom: 3px solid #e00000;
+  border-left: 3px solid #e00000;
+}
+
+
+/* BOTTOM RIGHT */
+
+.audio-button-contact .corner-br {
+  right: 0;
+  bottom: 0;
+
+  border-right: 3px solid #e00000;
+  border-bottom: 3px solid #e00000;
+}
+
+
+/* =========================================================
    HOVER
    ========================================================= */
 
@@ -345,13 +347,17 @@ a:hover { text-decoration: underline; }
 
   text-decoration: none;
 
-  transform: translateY(-1px);
+  box-shadow: none;
 }
 
 
 /* =========================================================
-   ANIMAZIONE LED — REC
+   LED — LEGGERO EFFETTO REC
    ========================================================= */
+
+.audio-button-contact .audio-button-led {
+  animation: recPulse 2.2s ease-in-out infinite;
+}
 
 @keyframes recPulse {
 
@@ -363,11 +369,10 @@ a:hover { text-decoration: underline; }
   }
 
   50% {
-    opacity: .75;
-    transform: scale(.92);
-    box-shadow: 0 0 6px rgba(224, 0, 0, .35);
+    opacity: 0.75;
+    transform: scale(0.92);
+    box-shadow: 0 0 6px rgba(224, 0, 0, 0.35);
   }
-
 }
 
 
