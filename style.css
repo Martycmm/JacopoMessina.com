@@ -370,7 +370,7 @@ a:hover { text-decoration: underline; }
 
   50% {
     opacity: 0.75;
-    transform: scale(0.92);
+    transform: scale(1.2);
     box-shadow: 0 0 6px rgba(224, 0, 0, 0.35);
   }
 }
