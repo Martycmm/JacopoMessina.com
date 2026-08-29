@@ -189,138 +189,216 @@ a:hover { text-decoration: underline; }
   line-height: 1.35;
 }
 
+```css
 /* =========================================================
-AUDIO BUTTON — CONTATTAMI / REC STYLE
-========================================================= */
+   AUDIO BUTTON — CONTATTAMI / REC STYLE
+   ========================================================= */
 
 .audio-button-contact {
-position: relative;
-overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-background: #e6e6e6;
+  width: 190px;
+  height: 52px;
+
+  margin: 0 auto;
+  padding: 0 22px;
+
+  background: #e6e6e6;
+  color: #111111;
+
+  border: 0;
+  border-radius: 0;
+
+  overflow: hidden;
+  box-sizing: border-box;
+
+  text-decoration: none;
+  cursor: pointer;
+
+  transition:
+    background-color .2s ease,
+    transform .2s ease;
 }
 
+
 /* =========================================================
-4 ANGOLI ROSSI
-========================================================= */
+   4 ANGOLI ROSSI
+   ========================================================= */
 
 .audio-button-contact .corner {
-position: absolute;
+  position: absolute;
 
-width: 14px;
-height: 14px;
+  width: 14px;
+  height: 14px;
 
-pointer-events: none;
-z-index: 2;
+  pointer-events: none;
+  z-index: 3;
 }
 
+
+/* ALTO SINISTRA */
 .audio-button-contact .corner-tl {
-top: 0;
-left: 0;
+  top: 0;
+  left: 0;
 
-border-top: 3px solid #e00000;
-border-left: 3px solid #e00000;
+  border-top: 3px solid #e00000;
+  border-left: 3px solid #e00000;
 }
 
+
+/* ALTO DESTRA */
 .audio-button-contact .corner-tr {
-top: 0;
-right: 0;
+  top: 0;
+  right: 0;
 
-border-top: 3px solid #e00000;
-border-right: 3px solid #e00000;
+  border-top: 3px solid #e00000;
+  border-right: 3px solid #e00000;
 }
 
+
+/* BASSO SINISTRA */
 .audio-button-contact .corner-bl {
-bottom: 0;
-left: 0;
+  bottom: 0;
+  left: 0;
 
-border-bottom: 3px solid #e00000;
-border-left: 3px solid #e00000;
+  border-bottom: 3px solid #e00000;
+  border-left: 3px solid #e00000;
 }
 
+
+/* BASSO DESTRA */
 .audio-button-contact .corner-br {
-right: 0;
-bottom: 0;
+  right: 0;
+  bottom: 0;
 
-border-right: 3px solid #e00000;
-border-bottom: 3px solid #e00000;
+  border-right: 3px solid #e00000;
+  border-bottom: 3px solid #e00000;
 }
+
 
 /* =========================================================
-LED ROSSO
-========================================================= */
+   LED ROSSO — REC
+   ========================================================= */
 
 .audio-button-contact .audio-button-led {
-width: 14px;
-height: 14px;
+  display: block;
 
-flex: 0 0 14px;
+  width: 14px;
+  height: 14px;
 
-background: #e00000;
-border-radius: 50%;
+  flex: 0 0 14px;
+
+  margin-right: 10px;
+
+  background: #e00000;
+  border-radius: 50%;
+
+  animation: recPulse 2.2s ease-in-out infinite;
 }
 
+
 /* =========================================================
-SCRITTA
-========================================================= */
+   SCRITTA
+   ========================================================= */
 
 .audio-button-contact .audio-button-label {
-display: flex;
-align-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+  z-index: 2;
 }
+
 
 .audio-button-contact .audio-button-text {
-color: #111111;
+  color: #111111;
 
-font-size: 13px;
-font-weight: 700;
-letter-spacing: 1.2px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+
+  white-space: nowrap;
 }
 
+
 /* =========================================================
-NASCONDE GLI ELEMENTI NON NECESSARI
-========================================================= */
+   ELEMENTI NON UTILIZZATI
+   ========================================================= */
 
 .audio-button-contact .audio-button-kicker,
 .audio-button-contact .audio-button-mark {
-display: none;
+  display: none;
 }
 
+
 /* =========================================================
-HOVER
-========================================================= */
+   HOVER
+   ========================================================= */
 
 .audio-button-contact:hover {
-background: #dddddd;
+  background: #dddddd;
+  color: #111111;
 
-color: #111111;
-text-decoration: none;
-box-shadow: none;
+  text-decoration: none;
+
+  transform: translateY(-1px);
 }
+
+
 /* =========================================================
-ANIMAZIONE LED — REC CON LEGGERA LUMINOSITÀ
-========================================================= */
-
-.audio-button-contact .audio-button-led {
-animation: recPulse 2.2s ease-in-out infinite;
-}
+   ANIMAZIONE LED — REC
+   ========================================================= */
 
 @keyframes recPulse {
 
-0%,
-100% {
-opacity: 1;
-transform: scale(1);
-box-shadow: 0 0 0 rgba(224, 0, 0, 0);
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(224, 0, 0, 0);
+  }
+
+  50% {
+    opacity: .75;
+    transform: scale(.92);
+    box-shadow: 0 0 6px rgba(224, 0, 0, .35);
+  }
+
 }
 
-50% {
-opacity: 0.75;
-transform: scale(0.92);
-box-shadow: 0 0 6px rgba(224, 0, 0, 0.35);
-}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  .audio-button-contact {
+    width: 180px;
+    height: 48px;
+  }
 
 }
+
+
+@media (max-width: 480px) {
+
+  .audio-button-contact {
+    width: 170px;
+    height: 48px;
+  }
+
+  .audio-button-contact .audio-button-text {
+    font-size: 11px;
+  }
+
+}
+```
+
 
 
 /* =========================================================
