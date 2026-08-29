@@ -205,11 +205,11 @@ height: 42px;
 
 padding: 0 16px;
 
+background-color: #e6e6e6;
 color: #111111;
 
 border: 0;
 border-radius: 0;
-
 box-shadow: none;
 
 font-family: Montserrat, Helvetica, sans-serif;
@@ -217,39 +217,57 @@ text-decoration: none;
 
 overflow: hidden;
 
-/* 4 ANGOLI ROSSI + SFONDO */
-background:
-/* ALTO SINISTRA */
-linear-gradient(#e00000, #e00000)
-left top / 14px 3px no-repeat,
+/* I gradienti disegnano SOLO gli angoli */
+background-image:
 
 ```
-linear-gradient(#e00000, #e00000)
-  left top / 3px 14px no-repeat,
+/* ALTO SINISTRA */
+linear-gradient(#e00000, #e00000),
+linear-gradient(#e00000, #e00000),
 
 /* ALTO DESTRA */
-linear-gradient(#e00000, #e00000)
-  right top / 14px 3px no-repeat,
-
-linear-gradient(#e00000, #e00000)
-  right top / 3px 14px no-repeat,
+linear-gradient(#e00000, #e00000),
+linear-gradient(#e00000, #e00000),
 
 /* BASSO SINISTRA */
-linear-gradient(#e00000, #e00000)
-  left bottom / 14px 3px no-repeat,
-
-linear-gradient(#e00000, #e00000)
-  left bottom / 3px 14px no-repeat,
+linear-gradient(#e00000, #e00000),
+linear-gradient(#e00000, #e00000),
 
 /* BASSO DESTRA */
-linear-gradient(#e00000, #e00000)
-  right bottom / 14px 3px no-repeat,
+linear-gradient(#e00000, #e00000),
+linear-gradient(#e00000, #e00000);
+```
 
-linear-gradient(#e00000, #e00000)
-  right bottom / 3px 14px no-repeat,
+background-repeat: no-repeat;
 
-/* SFONDO */
-#e6e6e6;
+background-size:
+14px 3px,
+3px 14px,
+
+```
+14px 3px,
+3px 14px,
+
+14px 3px,
+3px 14px,
+
+14px 3px,
+3px 14px;
+```
+
+background-position:
+left top,
+left top,
+
+```
+right top,
+right top,
+
+left bottom,
+left bottom,
+
+right bottom,
+right bottom;
 ```
 
 }
@@ -299,48 +317,12 @@ HOVER
 ========================================================= */
 
 .audio-button-contact:hover {
+background-color: #dddddd;
+
 color: #111111;
 text-decoration: none;
 box-shadow: none;
-
-/* Mantiene i 4 angoli rossi */
-background:
-/* ALTO SINISTRA */
-linear-gradient(#e00000, #e00000)
-left top / 14px 3px no-repeat,
-
-```
-linear-gradient(#e00000, #e00000)
-  left top / 3px 14px no-repeat,
-
-/* ALTO DESTRA */
-linear-gradient(#e00000, #e00000)
-  right top / 14px 3px no-repeat,
-
-linear-gradient(#e00000, #e00000)
-  right top / 3px 14px no-repeat,
-
-/* BASSO SINISTRA */
-linear-gradient(#e00000, #e00000)
-  left bottom / 14px 3px no-repeat,
-
-linear-gradient(#e00000, #e00000)
-  left bottom / 3px 14px no-repeat,
-
-/* BASSO DESTRA */
-linear-gradient(#e00000, #e00000)
-  right bottom / 14px 3px no-repeat,
-
-linear-gradient(#e00000, #e00000)
-  right bottom / 3px 14px no-repeat,
-
-/* SFONDO HOVER */
-#dddddd;
-```
-
 }
-
-
 
 /* =========================================================
    BACK TO TOP — REWIND UP
