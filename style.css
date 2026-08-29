@@ -782,6 +782,13 @@ a:hover { text-decoration: underline; }
 }
 
 .more-link {
+  display: inline;
+  font-size: 18px;
+  line-height: 1.2;
+  margin: 15px 0 40px;
+}
+
+.inline-link {
   display: block;
   font-size: 18px;
   line-height: 1.2;
