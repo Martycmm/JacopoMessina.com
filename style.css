@@ -195,15 +195,15 @@ a:hover { text-decoration: underline; }
   min-height: 200px;
   width: min(80%, calc(100% - 64px));
   margin: 0 auto;
-  padding: 200px 35px;
+  padding: 150px 170px;
   display: flex;
   align-items: center;
   gap: 34px;
 }
 
 .profile-image {
-  width: 220px;
-  height: 220px;
+  width: 250px;
+  height: 250px;
   flex: 0 0 220px;
   object-fit: cover;
   border-radius: 50%;
@@ -2034,9 +2034,9 @@ a:hover { text-decoration: underline; }
   }
 
   .profile-image {
-    width: 180px;
-    height: 180px;
-    flex-basis: 180px;
+    width: 150px;
+    height: 150px;
+    flex-basis: 150px;
   }
 
   .hero-copy h1 {
