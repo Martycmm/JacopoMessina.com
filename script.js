@@ -4,73 +4,44 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* ---------------------------------------------------------
+  /* =========================================================
      MOBILE MENU
-     --------------------------------------------------------- */
+     ========================================================= */
 
   const hamburger = document.querySelector(".hamburger");
   const mobileMenu = document.querySelector(".mobile-menu");
 
   if (hamburger && mobileMenu) {
-
     hamburger.addEventListener("click", () => {
-
       const isOpen = mobileMenu.classList.toggle("is-open");
 
       hamburger.classList.toggle("is-open", isOpen);
-
-      hamburger.setAttribute(
-        "aria-expanded",
-        String(isOpen)
-      );
-
+      hamburger.setAttribute("aria-expanded", String(isOpen));
       hamburger.setAttribute(
         "aria-label",
         isOpen ? "Chiudi menu" : "Apri menu"
       );
-
     });
 
-
-    mobileMenu.querySelectorAll("a").forEach(link => {
-
+    mobileMenu.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", () => {
-
         mobileMenu.classList.remove("is-open");
         hamburger.classList.remove("is-open");
-
-        hamburger.setAttribute(
-          "aria-expanded",
-          "false"
-        );
-
-        hamburger.setAttribute(
-          "aria-label",
-          "Apri menu"
-        );
-
+        hamburger.setAttribute("aria-expanded", "false");
+        hamburger.setAttribute("aria-label", "Apri menu");
       });
-
     });
-
   }
 
 
-  /* ---------------------------------------------------------
+  /* =========================================================
      AUDIO NAVIGATION TIMELINE
-     --------------------------------------------------------- */
+     ========================================================= */
 
-  const clips =
-    document.querySelectorAll(".timeline-clip");
-
-  const playhead =
-    document.querySelector(".timeline-playhead");
-
-  const audioTimeline =
-    document.querySelector(".audio-timeline");
-
-  const siteHeader =
-    document.querySelector(".site-header");
+  const clips = document.querySelectorAll(".timeline-clip");
+  const playhead = document.querySelector(".timeline-playhead");
+  const audioTimeline = document.querySelector(".audio-timeline");
+  const siteHeader = document.querySelector(".site-header");
 
 
   /* ---------------------------------------------------------
@@ -78,42 +49,27 @@ document.addEventListener("DOMContentLoaded", () => {
      --------------------------------------------------------- */
 
   if (audioTimeline && siteHeader) {
-
     const updateTimelineVisibility = () => {
+      const headerBottom = siteHeader.getBoundingClientRect().bottom;
 
-      const headerBottom =
-        siteHeader.getBoundingClientRect().bottom;
-
-      if (headerBottom <= 0) {
-
-        audioTimeline.classList.add("is-visible");
-
-      } else {
-
-        audioTimeline.classList.remove("is-visible");
-
-      }
-
+      audioTimeline.classList.toggle(
+        "is-visible",
+        headerBottom <= 0
+      );
     };
-
 
     window.addEventListener(
       "scroll",
       updateTimelineVisibility,
-      {
-        passive: true
-      }
+      { passive: true }
     );
-
 
     window.addEventListener(
       "resize",
       updateTimelineVisibility
     );
 
-
     updateTimelineVisibility();
-
   }
 
 
@@ -122,36 +78,23 @@ document.addEventListener("DOMContentLoaded", () => {
      --------------------------------------------------------- */
 
   if (clips.length) {
-
     const sectionMap = [];
 
+    clips.forEach((clip) => {
+      const targetId = clip.getAttribute("href");
 
-    clips.forEach(clip => {
-
-      const targetId =
-        clip.getAttribute("href");
-
-      if (
-        !targetId ||
-        !targetId.startsWith("#")
-      ) {
+      if (!targetId || !targetId.startsWith("#")) {
         return;
       }
 
-
-      const section =
-        document.querySelector(targetId);
-
+      const section = document.querySelector(targetId);
 
       if (section) {
-
         sectionMap.push({
-          clip: clip,
-          section: section
+          clip,
+          section
         });
-
       }
-
     });
 
 
@@ -159,86 +102,55 @@ document.addEventListener("DOMContentLoaded", () => {
        AGGIORNA SEZIONE ATTIVA + PLAYHEAD
        ------------------------------------------------------- */
 
-const updateCurrentClip = () => {
+    const updateCurrentClip = () => {
+      if (!sectionMap.length) {
+        return;
+      }
 
-  if (!sectionMap.length) {
-    return;
-  }
+      const marker = window.innerHeight * 0.30;
+      let current = sectionMap[0];
 
-  const marker = window.innerHeight * 0.30;
+      sectionMap.forEach((item) => {
+        const rect = item.section.getBoundingClientRect();
 
-  let current = sectionMap[0];
+        if (rect.top <= marker) {
+          current = item;
+        }
+      });
 
-  sectionMap.forEach(item => {
+      clips.forEach((clip) => {
+        clip.classList.toggle("current", clip === current.clip);
+      });
 
-    const rect =
-      item.section.getBoundingClientRect();
+      if (playhead && audioTimeline) {
+        const clipRect = current.clip.getBoundingClientRect();
+        const timelineRect = audioTimeline.getBoundingClientRect();
 
-    if (rect.top <= marker) {
-      current = item;
-    }
+        const clipCenter =
+          clipRect.left + (clipRect.width / 2);
 
-  });
+        const playheadPosition =
+          clipCenter - timelineRect.left;
 
-  clips.forEach(clip => {
-    clip.classList.remove("current");
-  });
-
-  current.clip.classList.add("current");
-
-  if (
-    playhead &&
-    audioTimeline
-  ) {
-
-    const clipRect =
-      current.clip.getBoundingClientRect();
-
-    const timelineRect =
-      audioTimeline.getBoundingClientRect();
-
-    const clipCenter =
-      clipRect.left +
-      (clipRect.width / 2);
-
-    const playheadPosition =
-      clipCenter -
-      timelineRect.left;
-
-    playhead.style.left =
-      `${playheadPosition}px`;
-
-  }
-
-};
+        playhead.style.left = `${playheadPosition}px`;
+      }
+    };
 
 
     /* -------------------------------------------------------
-       SCROLL
+       SCROLL / RESIZE
        ------------------------------------------------------- */
 
     window.addEventListener(
       "scroll",
       updateCurrentClip,
-      {
-        passive: true
-      }
+      { passive: true }
     );
-
-
-    /* -------------------------------------------------------
-       RESIZE
-       ------------------------------------------------------- */
 
     window.addEventListener(
       "resize",
       updateCurrentClip
     );
-
-
-    /* -------------------------------------------------------
-       PRIMA INIZIALIZZAZIONE
-       ------------------------------------------------------- */
 
     updateCurrentClip();
 
@@ -247,397 +159,382 @@ const updateCurrentClip = () => {
        NAVIGAZIONE TIMELINE
        ------------------------------------------------------- */
 
-    clips.forEach(clip => {
+    clips.forEach((clip) => {
+      clip.addEventListener("click", (event) => {
+        const targetId = clip.getAttribute("href");
 
-      clip.addEventListener("click", event => {
-
-        const targetId =
-          clip.getAttribute("href");
-
-
-        if (
-          !targetId ||
-          targetId === "#"
-        ) {
+        if (!targetId || targetId === "#") {
           return;
         }
 
-
-        const target =
-          document.querySelector(targetId);
-
+        const target = document.querySelector(targetId);
 
         if (!target) {
           return;
         }
 
-
         event.preventDefault();
 
-
-        /* Altezza header */
-
-        const headerHeight = 50;
-
-
-        /* Posizione destinazione */
+        /*
+         * L'header desktop è alto 50px.
+         * Su mobile la timeline è nascosta e l'header è fixed:
+         * usiamo quindi la sua altezza reale quando disponibile.
+         */
+        const headerHeight = siteHeader
+          ? siteHeader.offsetHeight
+          : 50;
 
         const targetPosition =
           target.getBoundingClientRect().top +
           window.scrollY -
           headerHeight;
 
+        window.scrollTo({
+          top: Math.max(0, targetPosition),
+          behavior: "smooth"
+        });
+      });
+    });
+  }
 
-        /* Scroll morbido */
+
+  /* =========================================================
+     BACK TO TOP
+     ========================================================= */
+
+  const backToTop =
+    document.querySelector(".audio-back-top");
+
+  if (backToTop) {
+    backToTop.addEventListener("click", (event) => {
+      event.preventDefault();
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
+  }
+
+
+  /* =========================================================
+     VERTICAL LEVEL SCROLLER
+     ========================================================= */
+
+  const scroller = document.querySelector(".level-scroller");
+  const knob = document.querySelector(".level-knob");
+  const track = document.querySelector(".level-track");
+
+  if (scroller && knob && track) {
+
+    /* -------------------------------------------------------
+       UPDATE KNOB FROM PAGE SCROLL
+       ------------------------------------------------------- */
+
+    const updateKnob = () => {
+      const maxScroll =
+        document.documentElement.scrollHeight -
+        window.innerHeight;
+
+      if (maxScroll <= 0) {
+        knob.style.top = "0px";
+        return;
+      }
+
+      const scrollProgress = Math.min(
+        1,
+        Math.max(0, window.scrollY / maxScroll)
+      );
+
+      const maxKnobPosition =
+        Math.max(0, track.clientHeight - knob.offsetHeight);
+
+      /*
+       * The knob is translated -50%, so the usable travel is
+       * based on the track height minus the knob height.
+       */
+      knob.style.top =
+        `${scrollProgress * maxKnobPosition}px`;
+    };
+
+
+    /* -------------------------------------------------------
+       SCROLL / RESIZE
+       ------------------------------------------------------- */
+
+    window.addEventListener(
+      "scroll",
+      updateKnob,
+      { passive: true }
+    );
+
+    window.addEventListener(
+      "resize",
+      updateKnob
+    );
+
+
+    /* -------------------------------------------------------
+       KNOB DRAGGING
+       ------------------------------------------------------- */
+
+    let dragging = false;
+
+    const moveKnob = (clientY) => {
+      const rect = track.getBoundingClientRect();
+
+      if (rect.height <= 0) {
+        return;
+      }
+
+      /*
+       * Convert the pointer position into the centre position
+       * of the knob, then clamp it to the usable track range.
+       */
+      const knobHeight = knob.offsetHeight;
+      const maxPosition = Math.max(
+        0,
+        rect.height - knobHeight
+      );
+
+      let position =
+        clientY - rect.top - (knobHeight / 2);
+
+      position = Math.max(
+        0,
+        Math.min(position, maxPosition)
+      );
+
+      const progress =
+        maxPosition > 0
+          ? position / maxPosition
+          : 0;
+
+      const maxScroll =
+        Math.max(
+          0,
+          document.documentElement.scrollHeight -
+          window.innerHeight
+        );
+
+      window.scrollTo({
+        top: progress * maxScroll,
+        behavior: "auto"
+      });
+    };
+
+
+    knob.addEventListener(
+      "pointerdown",
+      (event) => {
+        dragging = true;
+
+        if (knob.setPointerCapture) {
+          knob.setPointerCapture(event.pointerId);
+        }
+
+        document.body.style.userSelect = "none";
+        moveKnob(event.clientY);
+        event.preventDefault();
+      }
+    );
+
+    knob.addEventListener(
+      "pointermove",
+      (event) => {
+        if (!dragging) {
+          return;
+        }
+
+        moveKnob(event.clientY);
+      }
+    );
+
+    const stopDragging = () => {
+      dragging = false;
+      document.body.style.userSelect = "";
+    };
+
+    knob.addEventListener("pointerup", stopDragging);
+    knob.addEventListener("pointercancel", stopDragging);
+    knob.addEventListener("lostpointercapture", stopDragging);
+
+
+    /* -------------------------------------------------------
+       CLICK ON TRACK → JUMP TO POSITION
+       ------------------------------------------------------- */
+
+    track.addEventListener(
+      "pointerdown",
+      (event) => {
+        if (
+          event.target === knob ||
+          knob.contains(event.target)
+        ) {
+          return;
+        }
+
+        moveKnob(event.clientY);
+      }
+    );
+
+
+    /* -------------------------------------------------------
+       KEYBOARD CONTROL
+       ------------------------------------------------------- */
+
+    knob.addEventListener(
+      "keydown",
+      (event) => {
+        const current = window.scrollY;
+        const amount = window.innerHeight * 0.15;
+
+        let target = null;
+
+        switch (event.key) {
+          case "ArrowUp":
+            target = current - amount;
+            break;
+
+          case "ArrowDown":
+            target = current + amount;
+            break;
+
+          case "Home":
+            target = 0;
+            break;
+
+          case "End":
+            target =
+              document.documentElement.scrollHeight -
+              window.innerHeight;
+            break;
+
+          default:
+            return;
+        }
 
         window.scrollTo({
-
-          top: Math.max(
-            0,
-            targetPosition
-          ),
-
+          top: Math.max(0, target),
           behavior: "smooth"
-
         });
 
-      });
+        event.preventDefault();
+      }
+    );
 
+
+    /* -------------------------------------------------------
+       INITIAL POSITION
+       ------------------------------------------------------- */
+
+    updateKnob();
+  }
+
+
+  /* =========================================================
+     CONTACT FORM — EMAIL + WHATSAPP
+     ========================================================= */
+
+  const contactForm =
+    document.getElementById("audio-contact-form");
+
+  const whatsappSubmit =
+    document.getElementById("whatsapp-submit");
+
+  const nameField =
+    document.getElementById("contact-name");
+
+  const emailField =
+    document.getElementById("contact-email");
+
+  const subjectField =
+    document.getElementById("contact-subject");
+
+  const messageField =
+    document.getElementById("contact-message");
+
+
+  /* ---------------------------------------------------------
+     EMAIL
+     --------------------------------------------------------- */
+
+  if (
+    contactForm &&
+    nameField &&
+    emailField &&
+    subjectField &&
+    messageField
+  ) {
+    contactForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      /*
+       * Let the browser perform its native HTML validation.
+       */
+      if (!contactForm.checkValidity()) {
+        contactForm.reportValidity();
+        return;
+      }
+
+      const name = nameField.value.trim();
+      const email = emailField.value.trim();
+      const subject = subjectField.value.trim();
+      const message = messageField.value.trim();
+
+      const finalSubject =
+        subject || "Richiesta di contatto";
+
+      const body =
+        "Ciao Jacopo,\n\n" +
+        message +
+        "\n\n" +
+        "--------------------------------\n" +
+        "Nome: " + name + "\n" +
+        "Email: " + email + "\n";
+
+      const mailto =
+        "mailto:jpmessina86@gmail.com" +
+        "?subject=" +
+        encodeURIComponent(finalSubject) +
+        "&body=" +
+        encodeURIComponent(body);
+
+      window.location.href = mailto;
     });
-
   }
 
 
   /* ---------------------------------------------------------
-     BACK TO TOP
+     WHATSAPP
      --------------------------------------------------------- */
 
-const backToTop =
-  document.querySelector(".audio-back-top");
-
-
-  if (backToTop) {
-
-    backToTop.addEventListener(
-      "click",
-      event => {
-
-        event.preventDefault();
-
-
-        window.scrollTo({
-
-          top: 0,
-
-          behavior: "smooth"
-
-        });
-
-      }
-    );
-     
-  }
-
-/* =========================================================
-   VERTICAL LEVEL SCROLLER
-   ========================================================= */
-
-(function () {
-
-  const scroller = document.querySelector('.level-scroller');
-  const knob = document.querySelector('.level-knob');
-  const track = document.querySelector('.level-track');
-
-  if (!scroller || !knob || !track) return;
-
-
-  /* -------------------------------------------------------
-     UPDATE KNOB FROM PAGE SCROLL
-     ------------------------------------------------------- */
-
-  function updateKnob() {
-
-    const maxScroll =
-      document.documentElement.scrollHeight -
-      window.innerHeight;
-
-    if (maxScroll <= 0) return;
-
-    const scrollProgress =
-      window.scrollY / maxScroll;
-
-const maxKnobPosition =
-  track.clientHeight - knob.offsetHeight;
-
-knob.style.top =
-  (scrollProgress * maxKnobPosition) + 'px';
-  }
-
-
-  /* -------------------------------------------------------
-     SCROLL → KNOB
-     ------------------------------------------------------- */
-
-  window.addEventListener(
-    'scroll',
-    updateKnob,
-    { passive: true }
-  );
-
-
-  window.addEventListener(
-    'resize',
-    updateKnob
-  );
-
-
-  /* -------------------------------------------------------
-     KNOB DRAGGING
-     ------------------------------------------------------- */
-
-  let dragging = false;
-
-
-  function moveKnob(clientY) {
-
-    const rect = track.getBoundingClientRect();
-
-    let position =
-      clientY - rect.top;
-
-    position = Math.max(
-      0,
-      Math.min(position, rect.height)
-    );
-
-
-    const progress =
-      position / rect.height;
-
-
-    const maxScroll =
-      document.documentElement.scrollHeight -
-      window.innerHeight;
-
-
-    window.scrollTo({
-      top: progress * maxScroll,
-      behavior: 'auto'
-    });
-  }
-
-
-  knob.addEventListener(
-    'pointerdown',
-    function (event) {
-
-      dragging = true;
-
-      knob.setPointerCapture(event.pointerId);
-
-      document.body.style.userSelect = 'none';
-
-      moveKnob(event.clientY);
-
-      event.preventDefault();
-    }
-  );
-
-
-  knob.addEventListener(
-    'pointermove',
-    function (event) {
-
-      if (!dragging) return;
-
-      moveKnob(event.clientY);
-    }
-  );
-
-
-  knob.addEventListener(
-    'pointerup',
-    function () {
-
-      dragging = false;
-
-      document.body.style.userSelect = '';
-    }
-  );
-
-
-  knob.addEventListener(
-    'pointercancel',
-    function () {
-
-      dragging = false;
-
-      document.body.style.userSelect = '';
-    }
-  );
-
-
-  /* -------------------------------------------------------
-     CLICK ON TRACK → JUMP TO POSITION
-     ------------------------------------------------------- */
-
-  track.addEventListener(
-    'pointerdown',
-    function (event) {
-
-      if (event.target === knob ||
-          knob.contains(event.target)) {
+  if (
+    whatsappSubmit &&
+    contactForm &&
+    nameField &&
+    emailField &&
+    subjectField &&
+    messageField
+  ) {
+    whatsappSubmit.addEventListener("click", () => {
+
+      if (!contactForm.checkValidity()) {
+        contactForm.reportValidity();
         return;
       }
 
-      moveKnob(event.clientY);
-    }
-  );
+      const name = nameField.value.trim();
+      const email = emailField.value.trim();
+      const subject = subjectField.value.trim();
+      const message = messageField.value.trim();
 
+      /*
+       * Numero di Jacopo, mantenuto come nel file originale.
+       */
+      const phone = "393318792303";
 
-  /* -------------------------------------------------------
-     KEYBOARD CONTROL
-     ------------------------------------------------------- */
-
-  knob.addEventListener(
-    'keydown',
-    function (event) {
-
-      const current =
-        window.scrollY;
-
-      const amount =
-        window.innerHeight * 0.15;
-
-
-      if (event.key === 'ArrowUp') {
-
-        window.scrollTo({
-          top: current - amount,
-          behavior: 'smooth'
-        });
-
-        event.preventDefault();
-      }
-
-
-      if (event.key === 'ArrowDown') {
-
-        window.scrollTo({
-          top: current + amount,
-          behavior: 'smooth'
-        });
-
-        event.preventDefault();
-      }
-
-
-      if (event.key === 'Home') {
-
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        });
-
-        event.preventDefault();
-      }
-
-
-      if (event.key === 'End') {
-
-        window.scrollTo({
-          top: document.documentElement.scrollHeight,
-          behavior: 'smooth'
-        });
-
-        event.preventDefault();
-      }
-
-    }
-  );
-
-
-  /* -------------------------------------------------------
-     INITIAL POSITION
-     ------------------------------------------------------- */
-
-   updateKnob();
-
-})();
-
-});
-
-/* =========================================================
-   CONTACT FORM — MAIL CLIENT
-   ========================================================= */
-
-const contactForm = document.getElementById("audio-contact-form");
-
-if (contactForm) {
-
-  contactForm.addEventListener("submit", function (event) {
-
-    event.preventDefault();
-
-    const name = document.getElementById("contact-name").value.trim();
-    const email = document.getElementById("contact-email").value.trim();
-    const subject = document.getElementById("contact-subject").value.trim();
-    const message = document.getElementById("contact-message").value.trim();
-
-    /*
-     * Se l'utente non inserisce un oggetto,
-     * ne utilizziamo uno predefinito.
-     */
-    const finalSubject = subject || "Richiesta di contatto";
-
-    /*
-     * Corpo della mail
-     */
-    const body =
-      "Ciao Jacopo,\n\n" +
-      message +
-      "\n\n" +
-      "--------------------------------\n" +
-      "Nome: " + name + "\n" +
-      "Email: " + email + "\n";
-
-    /*
-     * Crea il collegamento mailto
-     */
-    const mailto =
-      "mailto:jpmessina86@gmail.com" +
-      "?subject=" + encodeURIComponent(finalSubject) +
-      "&body=" + encodeURIComponent(body);
-
-    /*
-     * Apre il programma email predefinito
-     */
-    window.location.href = mailto;
-
-  });
-
-}
-
-document.getElementById("whatsapp-submit").addEventListener("click", function () {
-
-  const name = document.getElementById("contact-name").value.trim();
-  const email = document.getElementById("contact-email").value.trim();
-  const subject = document.getElementById("contact-subject").value.trim();
-  const message = document.getElementById("contact-message").value.trim();
-
-  /* Controllo campi obbligatori */
-  if (!name || !email || !message) {
-
-    document.querySelector(".audio-contact-form").reportValidity();
-
-    return;
-  }
-
-  /* Numero di Jacopo */
-  const phone = "393318792303";
-
-  /* Testo del messaggio */
-  const whatsappMessage =
+      const whatsappMessage =
 `Ciao Jacopo,
 
 sono ${name}.
@@ -647,13 +544,18 @@ Email: ${email}
 ${subject ? "Oggetto: " + subject + "\n\n" : ""}Messaggio:
 ${message}`;
 
-  /* Codifica del testo per l'URL */
-  const encodedMessage = encodeURIComponent(whatsappMessage);
+      const encodedMessage =
+        encodeURIComponent(whatsappMessage);
 
-  /* Apertura di WhatsApp Web */
-  const whatsappURL =
-    `https://web.whatsapp.com/send?phone=${phone}&text=${encodedMessage}`;
+      const whatsappURL =
+        `https://web.whatsapp.com/send?phone=${phone}&text=${encodedMessage}`;
 
-  window.open(whatsappURL, "_blank");
+      window.open(
+        whatsappURL,
+        "_blank",
+        "noopener,noreferrer"
+      );
+    });
+  }
 
 });
