@@ -1993,28 +1993,35 @@ a:hover { text-decoration: underline; }
      HEADER
      ------------------------------------------------------- */
 
+  /* Nasconde tutto il menu desktop */
   .desktop-nav {
     display: none;
   }
 
-  .main-nav {
-    grid-template-columns: 1fr auto;
-  }
-
+  /* Il titolo torna semplicemente a sinistra */
   .site-title {
+    order: 1;
+
     font-size: 28px;
     padding-left: 18px;
+
+    margin-right: auto;
   }
 
+  /* Hamburger a destra */
   .hamburger {
     display: flex;
+
+    order: 2;
+
+    margin-left: auto;
     margin-right: 12px;
   }
 
   .mobile-menu.is-open {
     display: flex;
   }
-
+}
 
   /* -------------------------------------------------------
      HERO
