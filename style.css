@@ -1,4 +1,3 @@
-```css
 /* =========================================================
    JACOPO MESSINA — SITE STYLE
    Cleaned / fixed version
@@ -47,137 +46,149 @@ a:hover { text-decoration: underline; }
 }
 
 
-/* ===================
-   SITE TITLE
-   =================== */
+/* =========================================================
+   LOGO / NOME — SINISTRA
+   ========================================================= */
 
 .site-title {
-  font-size: 28px;
+  order: 1;
+
+  font-size: 35px;
+  line-height: 30px;
   font-weight: 700;
-  padding-left: 20px;
+
+  padding: 0 16px;
+
   white-space: nowrap;
-  line-height: 1;
+
+  /* Spinge tutto il resto verso destra */
+  margin-right: auto;
+
+  flex-shrink: 0;
 }
 
 
-/* ===================
-   DESKTOP NAV
-   =================== */
+/* =========================================================
+   MENU — DESTRA
+   ========================================================= */
 
-.desktop-nav {
-  margin-left: auto;
-  height: 100%;
+.nav-links {
+  order: 2;
 
   display: flex;
   align-items: center;
+  height: 50px;
+
+  flex-shrink: 0;
 }
 
-.desktop-nav a {
-  height: 100%;
-  padding: 0 18px;
+.contact-links {
+  order: 3;
 
   display: flex;
   align-items: center;
+  height: 50px;
+
+  flex-shrink: 0;
+}
+
+
+/* =========================================================
+   LINK
+   ========================================================= */
+
+.nav-links a,
+.contact-links a {
+  height: 45px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 13px;
+
+  border-left: 1px solid #d0d0d0;
 
   font-size: 13px;
   font-weight: 600;
+  letter-spacing: 0.5px;
 
-  border-left: 1px solid #d5d5d5;
-}
-
-.desktop-nav a:hover {
-  background: #f3f3f3;
-  text-decoration: none;
+  white-space: nowrap;
 }
 
 
-/* ===================
-   HAMBURGER
-   =================== */
+/* Bordo finale */
+.contact-links a:last-child {
+  border-right: 1px solid #d0d0d0;
+}
+
+/* =========================================================
+   MOBILE MENU
+   ========================================================= */
+
+.hamburger,
+.mobile-menu {
+  display: none;
+}
 
 .hamburger {
-  display: none;
+  position: fixed;
 
-  width: 34px;
+  top: 10px;
+  right: 12px;
+
+  z-index: 3000;
+
+  border: 0;
+  background: #ffffff;
+
+  padding: 4px 6px;
+
+  width: 36px;
   height: 30px;
 
-  padding: 0;
-  border: 0;
-  background: transparent;
+  cursor: pointer;
 
   flex-direction: column;
   justify-content: center;
-  gap: 5px;
-
-  cursor: pointer;
+  gap: 4px;
 }
 
 .hamburger span {
   display: block;
-  width: 22px;
+  width: 23px;
   height: 2px;
   background: #111111;
-  transition:
-    transform .25s ease,
-    opacity .25s ease;
+  transition: transform .2s ease, opacity .2s ease;
 }
-
-.hamburger.is-open span:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
-}
-
-.hamburger.is-open span:nth-child(2) {
-  opacity: 0;
-}
-
-.hamburger.is-open span:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
-}
-
-
-/* ===================
-   MOBILE MENU
-   =================== */
 
 .mobile-menu {
-  display: none;
-
-  position: fixed;
+  position: absolute;
   top: 50px;
   left: 0;
-
-  width: 100%;
-
+  right: 0;
   background: #ffffff;
-  border-bottom: 1px solid #d5d5d5;
-
-  z-index: 2999;
-
+  border-bottom: 1px solid #d0d0d0;
+  box-shadow: 0 3px 8px rgba(0,0,0,.12);
   flex-direction: column;
+  z-index: 1100;
 }
 
 .mobile-menu a {
-  padding: 14px 18px;
-
-  border-top: 1px solid #eeeeee;
-
-  font-size: 14px;
+  padding: 12px 20px;
+  border-bottom: 1px solid #e5e5e5;
+  font-size: 15px;
   font-weight: 600;
 }
 
-.mobile-menu a:hover {
-  background: #f5f5f5;
-  text-decoration: none;
-}
-
+.mobile-menu a:last-child { border-bottom: 0; }
 
 /* =========================================================
    HERO
    ========================================================= */
 
 .hero {
-  width: 100%;
-  background: #ffffff;
+  background: #444444;
+  color: #ffffff;
 }
 
 .hero-inner {
@@ -214,7 +225,6 @@ a:hover { text-decoration: underline; }
   font-size: 20px;
   line-height: 1.35;
 }
-
 
 /* =========================================================
    AUDIO BUTTON — CONTATTAMI / REC STYLE
@@ -273,31 +283,56 @@ a:hover { text-decoration: underline; }
    TESTO
    ========================================================= */
 
+.audio-button-contact .audio-button-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 0;
+  padding: 0;
+}
+
 .audio-button-contact .audio-button-text {
-  font-size: 12px;
+  color: #111111;
+
+  font-size: 13px;
   font-weight: 700;
-  line-height: 1;
-  letter-spacing: .04em;
-  text-transform: uppercase;
+
+  letter-spacing: 1.2px;
+
+  white-space: nowrap;
 }
 
 
 /* =========================================================
-   CORNERS — REC STYLE
+   ELEMENTI NON UTILIZZATI
    ========================================================= */
 
-.audio-button-contact::before,
-.audio-button-contact::after {
-  content: "";
-  position: absolute;
-
-  width: 10px;
-  height: 10px;
-
-  pointer-events: none;
+.audio-button-contact .audio-button-kicker,
+.audio-button-contact .audio-button-mark {
+  display: none;
 }
 
-.audio-button-contact::before {
+
+/* =========================================================
+   4 ANGOLI ROSSI — REC FRAME
+   ========================================================= */
+
+.audio-button-contact .corner {
+  position: absolute;
+
+  width: 12px;
+  height: 12px;
+
+  pointer-events: none;
+
+  z-index: 2;
+}
+
+
+/* TOP LEFT */
+
+.audio-button-contact .corner-tl {
   top: 0;
   left: 0;
 
@@ -305,7 +340,32 @@ a:hover { text-decoration: underline; }
   border-left: 3px solid #e00000;
 }
 
-.audio-button-contact::after {
+
+/* TOP RIGHT */
+
+.audio-button-contact .corner-tr {
+  top: 0;
+  right: 0;
+
+  border-top: 3px solid #e00000;
+  border-right: 3px solid #e00000;
+}
+
+
+/* BOTTOM LEFT */
+
+.audio-button-contact .corner-bl {
+  bottom: 0;
+  left: 0;
+
+  border-bottom: 3px solid #e00000;
+  border-left: 3px solid #e00000;
+}
+
+
+/* BOTTOM RIGHT */
+
+.audio-button-contact .corner-br {
   right: 0;
   bottom: 0;
 
@@ -313,11 +373,214 @@ a:hover { text-decoration: underline; }
   border-bottom: 3px solid #e00000;
 }
 
+
+/* =========================================================
+   HOVER
+   ========================================================= */
+
 .audio-button-contact:hover {
-  background: #eeeeee;
+  background: #dddddd;
+  color: #111111;
+
   text-decoration: none;
+
+  box-shadow: none;
 }
 
+
+/* =========================================================
+   LED — LEGGERO EFFETTO REC
+   ========================================================= */
+
+.audio-button-contact .audio-button-led {
+  animation: recPulse 2.2s ease-in-out infinite;
+}
+
+@keyframes recPulse {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(224, 0, 0, 0);
+  }
+
+  50% {
+    opacity: 0.75;
+    transform: scale(1.2);
+    box-shadow: 0 0 6px rgba(224, 0, 0, 0.35);
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  .audio-button-contact {
+    width: 180px;
+    height: 48px;
+  }
+
+}
+
+
+@media (max-width: 480px) {
+
+  .audio-button-contact {
+    width: 170px;
+    height: 48px;
+  }
+
+  .audio-button-contact .audio-button-text {
+    font-size: 11px;
+  }
+
+}
+```
+
+
+
+/* =========================================================
+   BACK TO TOP — REWIND UP
+   ========================================================= */
+
+.audio-back-top {
+  position: fixed;
+
+  right: 18px;
+  bottom: 25px;
+
+  z-index: 1200;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 42px;
+  height: 42px;
+
+  background: #111111;
+  color: #ffffff;
+
+  border: 1px solid #444444;
+  border-radius: 2px;
+
+  box-shadow: 0 2px 7px rgba(0,0,0,.20);
+
+  text-decoration: none;
+
+  transition:
+    background-color .2s ease,
+    transform .2s ease;
+}
+
+/* LED nascosto */
+
+.audio-back-top .back-top-led {
+  display: none;
+}
+
+/* Nascondiamo la scritta */
+
+.audio-back-top .back-top-label {
+  display: none;
+}
+
+/* Doppia freccia verso l'alto */
+
+.audio-back-top .back-top-icon {
+  position: relative;
+
+  display: block;
+
+  width: 18px;
+  height: 22px;
+
+  font-size: 0;
+}
+
+/* Prima freccia */
+
+.audio-back-top .back-top-icon::before,
+.audio-back-top .back-top-icon::after {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+
+  width: 10px;
+  height: 10px;
+
+  border-left: 2px solid #ffffff;
+  border-top: 2px solid #ffffff;
+
+  transform: translateX(-50%) rotate(45deg);
+}
+
+/* Freccia superiore */
+
+.audio-back-top .back-top-icon::before {
+  top: 1px;
+}
+
+/* Freccia inferiore */
+
+.audio-back-top .back-top-icon::after {
+  top: 10px;
+}
+
+.audio-back-top:hover {
+  background: #222222;
+  color: #ffffff;
+  text-decoration: none;
+
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  .audio-button {
+    min-width: 160px;
+    height: 48px;
+  }
+
+  .audio-back-top {
+    right: 16px;
+    bottom: 16px;
+
+    width: 56px;
+    height: 56px;
+  }
+}
+
+
+@media (max-width: 480px) {
+
+  .audio-button {
+    min-width: 150px;
+  }
+
+  .audio-button-kicker {
+    font-size: 7px;
+  }
+
+  .audio-button-text {
+    font-size: 11px;
+  }
+
+  .audio-back-top {
+    right: 12px;
+    bottom: 12px;
+  }
+}
 
 /* =========================================================
    GENERIC SECTIONS
@@ -350,8 +613,6 @@ a:hover { text-decoration: underline; }
   width: 150px;
   height: 150px;
   margin-left: 5px;
-  object-fit: cover;
-  border-radius: 0;
 }
 
 .intro-grid p,
@@ -375,7 +636,6 @@ a:hover { text-decoration: underline; }
 }
 
 .intro-text { text-align: justify; }
-
 
 /* =========================================================
    BEHIND THE SCENES
@@ -449,7 +709,6 @@ a:hover { text-decoration: underline; }
   display: flex;
 }
 
-
 /* =========================================================
    WORK
    ========================================================= */
@@ -500,14 +759,14 @@ a:hover { text-decoration: underline; }
   display: block;
   margin-top: 7px;
   font-size: 14px;
-  color: #555555;
+  font-weight: 400;
 }
 
 .card-actions {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 3px;
+  gap: 4px;
   margin-top: 3px;
 }
 
@@ -559,25 +818,35 @@ a:hover { text-decoration: underline; }
   padding-right: 0;
 }
 
+.more-link {
+  display: inline;
+  font-size: 18px;
+  line-height: 1.2;
+  margin: 15px 0 40px;
+}
+
+.inline-link {
+  display: block;
+  font-size: 18px;
+  line-height: 1.2;
+  margin: 15px 0 40px;
+}
 
 /* =========================================================
-   VIDEO
+   VIDEO PROMO + ADVERTISING CARDS
    ========================================================= */
 
 .cards-video {
-  display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 3px;
-  margin: 15px 0 0;
 }
 
 .video-card {
-  min-width: 0;
+  position: relative;
 }
 
 .video-image {
   position: relative;
-  width: 100%;
+  display: block;
   overflow: hidden;
 }
 
@@ -613,25 +882,37 @@ a:hover { text-decoration: underline; }
 
   transition:
     opacity .2s ease,
-    transform .2s ease;
+    transform .2s ease,
+    background-color .2s ease;
+
+  pointer-events: none;
 }
 
-.video-card:hover .video-play {
+.video-image:hover .video-play {
   opacity: 1;
-  transform: translate(-50%, -50%) scale(1.05);
+
+  transform:
+    translate(-50%, -50%)
+    scale(1.10);
+
+  background: rgba(0,0,0,.88);
 }
 
-.video-card a:hover {
-  text-decoration: none;
+.video-image:hover img {
+  opacity: .82;
 }
-
 
 /* =========================================================
-   COLLABORATIONS
+   COLLABORATIONS / BRAND CREDITS
    ========================================================= */
 
 .collaborations-section {
-  padding-top: 10px;
+  padding-top: 20px;
+  padding-bottom: 25px;
+}
+
+.collaborations-section h2 {
+  margin-bottom: 10px;
 }
 
 .collaborations-intro {
@@ -702,7 +983,6 @@ a:hover { text-decoration: underline; }
   transform: scale(1.03);
 }
 
-
 /* =========================================================
    TIMELINE
    ========================================================= */
@@ -734,7 +1014,6 @@ a:hover { text-decoration: underline; }
   top: 3px;
 }
 
-
 /* =========================================================
    BOTTOM SECTION
    ========================================================= */
@@ -759,7 +1038,6 @@ a:hover { text-decoration: underline; }
   font-size: 16px;
   line-height: 1.25;
 }
-
 
 /* =========================================================
    FOOTER
@@ -795,394 +1073,891 @@ a:hover { text-decoration: underline; }
   line-height: 1;
 }
 
+.footer-item strong,
+.footer-item small { display: block; }
+
+.footer-item strong,
+.footer-item small {
+  font-size: 13px;
+  line-height: 1.1;
+}
+
 .footer-nav {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
 }
 
-.footer-nav a {
-  padding: 0 10px;
-  font-size: 12px;
-  border-left: 1px solid #d5d5d5;
-}
-
-.footer-nav a:first-child {
-  border-left: 0;
-}
+.footer-nav a { font-size: 12px; }
 
 
 /* =========================================================
-   AUDIO TIMELINE
+   AUDIO NAVIGATION TIMELINE
+   COMPACT + FIXED OVERLAY
    ========================================================= */
 
 .audio-timeline {
-  position: fixed;
-  top: 6px;
-  left: 50%;
-  transform: translateX(-50%);
+    --timeline-bg: rgba(18, 18, 18, 0.96);
+    --timeline-border: #3a3a3a;
+    --timeline-text: #d6d6d6;
 
-  width: min(100% - 30px, 1100px);
-  height: 44px;
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
 
-  background: #ffffff;
-  border: 1px solid #cccccc;
+    z-index: 1500;
 
-  z-index: 2500;
+    width: min(900px, calc(100% - 30px));
+    height: 67px;
 
-  opacity: 0;
-  pointer-events: none;
+    margin: 0;
 
-  transition: opacity .2s ease;
+    background: var(--timeline-bg);
+    border: 1px solid var(--timeline-border);
+    border-radius: 5px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 5px 25px rgba(0,0,0,.30),
+        0 1px 4px rgba(0,0,0,.25);
+
+    font-family:
+        "SFMono-Regular",
+        Consolas,
+        "Liberation Mono",
+        monospace;
+
+    color: var(--timeline-text);
+
+    /* NASCOSTA */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease,
+        visibility 0.25s ease;
 }
+/* =========================================================
+   AUDIO TIMELINE — VISIBILE DOPO L'HEADER
+========================================================= */
 
 .audio-timeline.is-visible {
-  opacity: 1;
-  pointer-events: auto;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
 }
+
+/* =========================================================
+   HEADER
+   ========================================================= */
 
 .timeline-header {
-  height: 11px;
+
+  height: 15px;
+
   display: flex;
   align-items: center;
+
+  border-bottom: 1px solid #333;
+
+  background: #1c1c1c;
+
+  font-size: 12px;
 }
+
+
+/* NAV label */
+
+.timeline-track-label {
+
+  width: 62px;
+  min-width: 62px;
+
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+
+  gap: 4px;
+
+  padding-left: 8px;
+
+  border-right: 1px solid #333;
+
+  color: #cfcfcf;
+
+  font-weight: 600;
+}
+
+.track-icon {
+  font-size: 10px;
+}
+
+
+/* Timecode */
+
+.timeline-timecode {
+
+  flex: 1;
+
+  display: flex;
+
+  justify-content: space-around;
+
+  color: #777;
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   MAIN TRACK
+   ========================================================= */
 
 .timeline-body {
-  height: 32px;
+
   display: flex;
-  align-items: stretch;
+
+  height: 52px;
+  min-height: 52px;
+
+  background: #101010;
+
+  position: relative;
 }
 
-.timeline-track-label,
+
+/* =========================================================
+   TRACK CONTROLS
+   ========================================================= */
+
 .track-controls {
-  width: 48px;
-  min-width: 48px;
+
+  width: 62px;
+  min-width: 62px;
+
+  padding: 7px;
+
+  border-right: 1px solid #333;
+
+  background: #191919;
 
   display: flex;
-  align-items: center;
-  justify-content: center;
 
-  border-right: 1px solid #d5d5d5;
-}
+  align-items: flex-start;
 
-.timeline-clips {
+  gap: 4px;
+
   position: relative;
 
-  flex: 1;
-
-  display: flex;
-  align-items: stretch;
-
-  overflow: hidden;
+  z-index: 3;
 }
 
-.timeline-clip {
-  position: relative;
 
-  min-width: 110px;
-  flex: 1;
+/* S / M */
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.track-controls button {
 
-  border-right: 1px solid #dddddd;
+  width: 20px;
+  height: 20px;
 
-  font-size: 10px;
-  font-weight: 600;
+  padding: 0;
 
-  background:
-    repeating-linear-gradient(
-      to bottom,
-      transparent 0,
-      transparent 5px,
-      #eeeeee 6px,
-      transparent 7px
-    );
+  border: 1px solid #444;
+
+  border-radius: 2px;
+
+  background: #252525;
+
+  color: #ddd;
+
+  font-family: inherit;
+
+  font-size: 8px;
+
+  font-weight: bold;
 
   cursor: pointer;
 }
 
-.timeline-clip:hover {
-  background-color: #f4f4f4;
-  text-decoration: none;
+.track-controls button:hover {
+  background: #333;
 }
 
-.timeline-clip.current {
-  background-color: #eeeeee;
+
+/* Volume */
+
+.track-volume {
+  display: none;
 }
+
+
+/* =========================================================
+   NAVIGATION CLIPS
+   ========================================================= */
+
+.timeline-clip {
+
+      position: relative;
+    flex: 1;
+    min-width: 100px;
+    height: 55px;
+    padding: 3px 8px;
+    border-right: 1px solid rgba(255, 255, 255, 0.12);
+    text-decoration: none;
+    overflow: hidden;
+    transition: background-color 0.2s ease, filter 0.2s ease;
+}
+
+
+/* Clip number */
+
+.clip-number {
+
+  display: block;
+
+  position: relative;
+
+  z-index: 2;
+
+  font-size: 10px;
+
+  font-weight: bold;
+}
+
+
+/* Clip title */
 
 .clip-title {
-  position: relative;
-  z-index: 2;
-  font-size: 10px;
-  text-align: center;
+
+  position: absolute;
+    left: 8px;
+   bottom: 8px;
+    z-index: 3;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: .5px;
 }
+
+
+/* =========================================================
+   WAVEFORM
+   ========================================================= */
+
+.waveform {
+
+    position: absolute;
+    left: 8px;
+    right: 8px;
+    top: 14px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    opacity: .65;
+}
+
+
+/* Individual waveform bars */
+
+.waveform i {
+
+  display: block;
+
+  width: 2px;
+
+  min-height: 2px;
+
+  border-radius: 1px;
+
+  background: currentColor;
+}
+
+
+/* Compact waveform */
+
+.waveform i:nth-child(1)  { height: 5px; }
+.waveform i:nth-child(2)  { height: 8px; }
+.waveform i:nth-child(3)  { height: 15px; }
+.waveform i:nth-child(4)  { height: 7px; }
+.waveform i:nth-child(5)  { height: 17px; }
+.waveform i:nth-child(6)  { height: 11px; }
+.waveform i:nth-child(7)  { height: 6px; }
+.waveform i:nth-child(8)  { height: 14px; }
+.waveform i:nth-child(9)  { height: 8px; }
+.waveform i:nth-child(10) { height: 17px; }
+.waveform i:nth-child(11) { height: 11px; }
+.waveform i:nth-child(12) { height: 5px; }
+.waveform i:nth-child(13) { height: 13px; }
+.waveform i:nth-child(14) { height: 7px; }
+.waveform i:nth-child(15) { height: 16px; }
+.waveform i:nth-child(16) { height: 10px; }
+.waveform i:nth-child(17) { height: 5px; }
+.waveform i:nth-child(18) { height: 12px; }
+.waveform i:nth-child(19) { height: 8px; }
+.waveform i:nth-child(20) { height: 15px; }
+
+
+/* =========================================================
+   COLORS
+   ========================================================= */
+
+.clip-home {
+
+  color: #7bdc52;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(77, 180, 52, .16),
+      rgba(20, 50, 20, .30)
+    );
+}
+
+.clip-home:hover {
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(77, 180, 52, .28),
+      rgba(20, 50, 20, .42)
+    );
+}
+
+
+.clip-bio {
+
+  color: #52b9e8;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(52, 150, 200, .16),
+      rgba(15, 40, 55, .30)
+    );
+}
+
+.clip-bio:hover {
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(52, 150, 200, .28),
+      rgba(15, 40, 55, .42)
+    );
+}
+
+
+.clip-portfolio {
+
+  color: #c477e8;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(150, 70, 190, .20),
+      rgba(50, 20, 65, .34)
+    );
+}
+
+.clip-portfolio:hover {
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(150, 70, 190, .32),
+      rgba(50, 20, 65, .45)
+    );
+}
+
+.clip-collaborations {
+
+  color: #d9d9d9;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(180, 180, 180, .16),
+      rgba(45, 45, 45, .30)
+    );
+}
+
+.clip-collaborations:hover {
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(210, 210, 210, .28),
+      rgba(45, 45, 45, .42)
+    );
+}
+
+.clip-equipment {
+
+  color: #f0a43c;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(210, 120, 20, .18),
+      rgba(60, 35, 10, .34)
+    );
+}
+
+.clip-equipment:hover {
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(210, 120, 20, .30),
+      rgba(60, 35, 10, .45)
+    );
+}
+
+
+.clip-contact {
+
+  color: #ee5555;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(200, 45, 45, .18),
+      rgba(60, 15, 15, .34)
+    );
+}
+
+.clip-contact:hover {
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(200, 45, 45, .30),
+      rgba(60, 15, 15, .45)
+    );
+}
+
+
+/* =========================================================
+   CURRENT PAGE
+   ========================================================= */
+
+.timeline-clip.current {
+
+  filter: brightness(1.25);
+
+  box-shadow:
+    inset 0 0 0 1px currentColor,
+    inset 0 0 12px rgba(255,255,255,.05);
+}
+
+.timeline-clip.current .waveform {
+
+  opacity: 1;
+
+  filter:
+    drop-shadow(0 0 3px currentColor);
+}
+
+
+/* =========================================================
+   TIME SCALE
+   ========================================================= */
+
+.timeline-scale {
+  display: none;
+}
+
+
+/* =========================================================
+   PLAYHEAD
+   ========================================================= */
 
 .timeline-playhead {
   position: absolute;
-  top: 0;
-  bottom: 0;
+
+  top: 19px;
+  left: 0;
 
   width: 1px;
 
-  background: #e00000;
+  background: #eeeeee;
+
+  opacity: .8;
+
+  z-index: 10;
 
   pointer-events: none;
 
-  transition: left .15s ease;
+  transition: left 0.35s ease;
+
+  box-shadow:
+    0 0 4px rgba(255,255,255,.5);
 }
 
 
-/* =========================================================
-   BACK TO TOP — REWIND UP
-   ========================================================= */
+/* Triangle marker */
 
-.audio-back-top {
-  position: fixed;
+.playhead-marker {
 
-  right: 20px;
-  bottom: 20px;
-
-  width: 42px;
-  height: 42px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: #ffffff;
-  color: #111111;
-
-  border: 1px solid #111111;
-  border-radius: 0;
-
-  box-shadow: none;
-
-  font-size: 20px;
-  line-height: 1;
-
-  cursor: pointer;
-
-  z-index: 2600;
-
-  transition:
-    background-color .2s ease,
-    color .2s ease,
-    transform .2s ease;
-}
-
-.audio-back-top:hover {
-  background: #111111;
-  color: #ffffff;
-  text-decoration: none;
-}
-
-.audio-back-top span {
-  display: inline-block;
-  transform: rotate(90deg);
-}
-
-
-/* =========================================================
-   LEVEL SCROLLER
-   ========================================================= */
-
-.level-scroller {
-  position: fixed;
-
-  right: 18px;
-  top: 50%;
-
-  transform: translateY(-50%);
-
-  width: 38px;
-  height: 65vh;
-  min-height: 300px;
-
-  z-index: 2400;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  pointer-events: none;
-}
-
-.level-track {
-  position: relative;
-
-  width: 2px;
-  height: 100%;
-
-  background: #cccccc;
-
-  pointer-events: auto;
-}
-
-.level-knob {
   position: absolute;
 
+  top: 0;
   left: 50%;
-
-  width: 18px;
-  height: 42px;
 
   transform: translateX(-50%);
 
-  background: #ffffff;
+  width: 0;
+  height: 0;
 
-  border: 2px solid #111111;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
 
-  cursor: grab;
-
-  touch-action: none;
-
-  z-index: 2;
-}
-
-.level-knob:active {
-  cursor: grabbing;
+  border-top: 6px solid #eeeeee;
 }
 
 
 /* =========================================================
-   CONTACT FORM
+   CONTACT FORM — TRANSMISSION CHANNEL
    ========================================================= */
 
 .contact-form-section {
-  width: min(100% - 64px, 1200px);
-  margin: 70px auto 40px;
+  width: min(100% - 80px, 1200px);
+  margin: 110px auto 70px;
   padding: 60px 0;
+
+  border-top: 1px solid #d8d8d8;
 }
 
+
+/* ---------------------------------------------------------
+   HEADER
+   --------------------------------------------------------- */
+
 .contact-form-header {
-  margin-bottom: 50px;
-  text-align: center;
+  max-width: 650px;
+  margin-bottom: 55px;
+}
+
+.contact-form-kicker {
+  display: inline-block;
+
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+
+  color: #888;
+
+  margin-bottom: 14px;
 }
 
 .contact-form-header h2 {
-  margin: 0;
-  font-size: 64px;
-  line-height: .95;
-  font-weight: 700;
+  margin: 0 0 18px;
+
+  font-size: clamp(42px, 6vw, 78px);
+  line-height: 0.9;
+
+  letter-spacing: -2px;
 }
+
+.contact-form-header p {
+  max-width: 560px;
+
+  margin: 0;
+
+  font-size: 16px;
+  line-height: 1.7;
+
+  color: #666;
+}
+
+
+/* =========================================================
+   FORM
+   ========================================================= */
 
 .audio-contact-form {
   width: 100%;
 }
 
-.form-field {
-  display: grid;
-  grid-template-columns: 180px 1fr;
 
-  border-top: 1px solid #111111;
+/* ---------------------------------------------------------
+   FIELD
+   --------------------------------------------------------- */
+
+.form-field {
+  position: relative;
+
+  display: grid;
+  grid-template-columns: 140px 1fr;
+
+  border-top: 1px solid #d5d5d5;
 }
+
 
 .form-field:last-of-type {
-  border-bottom: 1px solid #111111;
+  border-bottom: 1px solid #d5d5d5;
 }
+
+
+/* ---------------------------------------------------------
+   LABEL
+   --------------------------------------------------------- */
 
 .form-field label {
-  padding: 18px 0;
+  padding: 22px 25px 22px 0;
 
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 700;
+
+  letter-spacing: 1.5px;
+
+  color: #555;
 }
+
 
 .field-number {
-  display: inline-block;
-  margin-right: 8px;
-  color: #777777;
+  display: block;
+
+  margin-bottom: 6px;
+
+  font-size: 8px;
+  font-weight: 500;
+
+  color: #aaa;
 }
+
+
+/* ---------------------------------------------------------
+   INPUT
+   --------------------------------------------------------- */
 
 .form-field input,
 .form-field textarea {
   width: 100%;
 
-  padding: 18px 0;
+  padding: 22px 0;
 
-  border: 0;
-  outline: 0;
+  border: none;
+  outline: none;
 
   background: transparent;
 
   font-family: inherit;
   font-size: 16px;
 
-  resize: vertical;
+  color: #111;
+
+  box-sizing: border-box;
 }
+
+
+/* TEXTAREA */
 
 .form-field textarea {
-  min-height: 130px;
+  min-height: 170px;
+
+  resize: vertical;
+
+  line-height: 1.6;
 }
 
-.form-field input:focus,
-.form-field textarea:focus {
-  outline: none;
+
+/* ---------------------------------------------------------
+   PLACEHOLDER
+   --------------------------------------------------------- */
+
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+  color: #aaa;
+
+  opacity: 1;
+
+  transition: color 0.2s ease;
 }
+
+
+.form-field input:focus::placeholder,
+.form-field textarea:focus::placeholder {
+  color: #d0d0d0;
+}
+
+
+/* ---------------------------------------------------------
+   ACTIVE FIELD
+   --------------------------------------------------------- */
+
+.form-field:focus-within {
+  background: rgba(0, 0, 0, 0.015);
+}
+
+
+.form-field:focus-within label {
+  color: #111;
+}
+
+
+/* =========================================================
+   BOTTOM AREA
+   ========================================================= */
 
 .form-bottom {
   display: flex;
+
   align-items: center;
   justify-content: space-between;
-
-  gap: 20px;
 
   padding-top: 25px;
 }
 
-.audio-submit-button,
-.whatsapp-submit-button {
-  min-height: 42px;
 
+/* ---------------------------------------------------------
+   STATUS
+   --------------------------------------------------------- */
+
+.form-status {
+  font-size: 12px;
+
+  font-weight: 700;
+
+  letter-spacing: 1.5px;
+
+  color: #777;
+}
+
+
+.form-status::first-letter {
+  color: #d00000;
+}
+
+
+/* =========================================================
+   SEND BUTTON
+   ========================================================= */
+
+.audio-submit-button {
   display: inline-flex;
+
   align-items: center;
   justify-content: center;
 
-  padding: 10px 18px;
+  gap: 10px;
 
-  border: 1px solid #111111;
-  border-radius: 0;
+  min-height: 48px;
 
-  background: #ffffff;
-  color: #111111;
+  padding: 0 25px;
+
+  border: 1px solid #111;
+
+  background: #111;
+
+  color: #fff;
 
   font-family: inherit;
-  font-size: 12px;
+
+  font-size: 13px;
   font-weight: 700;
+
+  letter-spacing: 1.5px;
 
   cursor: pointer;
 
   transition:
-    background-color .2s ease,
-    color .2s ease,
-    border-color .2s ease,
-    transform .2s ease;
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.2s ease;
 }
 
-.audio-submit-button:hover {
-  background: #111111;
-  color: #ffffff;
-  text-decoration: none;
-}
 
-.whatsapp-submit-button {
-  gap: 8px;
-}
-
-.whatsapp-dot {
+.rec-dot {
   width: 10px;
   height: 10px;
 
   border-radius: 50%;
 
-  background: #111111;
+  background: #e00000;
+
+  transition: transform 0.25s ease;
+}
+
+
+.audio-submit-button:hover {
+  background: #fff;
+
+  color: #111;
+}
+
+
+.audio-submit-button:hover .rec-dot {
+  transform: scale(1.4);
+}
+
+
+.audio-submit-button:active {
+  transform: translateY(1px);
+}
+
+/* =========================================================
+   CONTACT ACTIONS
+   ========================================================= */
+
+.form-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+}
+
+
+/* =========================================================
+   WHATSAPP BUTTON
+   ========================================================= */
+
+.whatsapp-submit-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  min-height: 42px;
+  padding: 0 25px;
+
+  border: 1px solid #bdbdbd;
+    background: transparent;
+    color: #1DAA61;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
 
   transition:
-    background-color .2s ease,
-    transform .2s ease;
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.2s ease;
 }
+
+
+/* piccolo indicatore del canale */
+
+.whatsapp-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #1DAA61;
+    transition:
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+
+/* HOVER */
 
 .whatsapp-submit-button:hover {
   background: #f2f2f2;
@@ -1202,7 +1977,6 @@ a:hover { text-decoration: underline; }
   transform: translateY(1px);
 }
 
-
 /* =========================================================
    RESPONSIVE BREAKPOINTS
    ========================================================= */
@@ -1211,7 +1985,7 @@ a:hover { text-decoration: underline; }
 /* =========================================================
    TABLET / SMALL DESKTOP
    1100px AND BELOW
-   ========================================================= */
+========================================================= */
 
 @media (max-width: 1100px) {
 
@@ -1247,7 +2021,7 @@ a:hover { text-decoration: underline; }
   .mobile-menu.is-open {
     display: flex;
   }
-
+}
 
   /* -------------------------------------------------------
      HERO
@@ -1332,7 +2106,7 @@ a:hover { text-decoration: underline; }
   }
 
 
-  /* -------------------------------------------------------
+     /* -------------------------------------------------------
      FOOTER
      ------------------------------------------------------- */
 
@@ -1381,7 +2155,7 @@ a:hover { text-decoration: underline; }
 /* =========================================================
    TABLET
    900px AND BELOW
-   ========================================================= */
+========================================================= */
 
 @media (max-width: 900px) {
 
@@ -1444,8 +2218,7 @@ a:hover { text-decoration: underline; }
     top: 8px;
   }
 
-
-  /* -------------------------------------------------------
+     /* -------------------------------------------------------
      COLLABORATIONS
      ------------------------------------------------------- */
 
@@ -1467,7 +2240,7 @@ a:hover { text-decoration: underline; }
 /* =========================================================
    MOBILE
    700px AND BELOW
-   ========================================================= */
+========================================================= */
 
 @media (max-width: 700px) {
 
@@ -1475,7 +2248,7 @@ a:hover { text-decoration: underline; }
      HEADER
      ------------------------------------------------------- */
 
-  body {
+ body {
     padding-top: 50px;
   }
 
@@ -1499,13 +2272,13 @@ a:hover { text-decoration: underline; }
     font-size: 20px;
     padding-left: 12px;
   }
-
   .hamburger {
     position: absolute;
     top: 10px;
     right: 12px;
     z-index: 3100;
   }
+
 
 
   /* -------------------------------------------------------
@@ -1618,8 +2391,6 @@ a:hover { text-decoration: underline; }
   .card-actions a {
     margin: 2px;
   }
-
-
   /* -------------------------------------------------------
      COLLABORATIONS
      ------------------------------------------------------- */
@@ -1643,7 +2414,6 @@ a:hover { text-decoration: underline; }
     max-height: 42px;
   }
 
-
   /* -------------------------------------------------------
      LISTS
      ------------------------------------------------------- */
@@ -1655,71 +2425,71 @@ a:hover { text-decoration: underline; }
 
 
   /* -------------------------------------------------------
-     FOOTER MOBILE
-     ------------------------------------------------------- */
+   FOOTER MOBILE
+------------------------------------------------------- */
 
-  .site-footer {
-    width: calc(100% - 32px);
+.site-footer {
+  width: calc(100% - 32px);
 
-    display: grid;
-    grid-template-columns: 1fr;
+  display: grid;
+  grid-template-columns: 1fr;
 
-    gap: 22px;
+  gap: 22px;
 
-    padding-top: 20px;
-    padding-bottom: 25px;
+  padding-top: 20px;
+  padding-bottom: 25px;
 
-    border: none;
-  }
-
-
-  /* CONTATTI */
-
-  .footer-contact {
-    grid-column: auto;
-
-    display: flex;
-    flex-wrap: wrap;
-
-    gap: 18px;
-
-    border: none;
-  }
-
-  .footer-item {
-    border: none;
-  }
+  border: none;
+}
 
 
-  /* MENU */
+/* CONTATTI */
 
-  .footer-nav {
-    grid-column: auto;
+.footer-contact {
+  grid-column: auto;
 
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  flex-wrap: wrap;
 
-    column-gap: 20px;
-    row-gap: 4px;
+  gap: 18px;
 
-    width: 100%;
+  border: none;
+}
 
-    border: none;
-  }
+.footer-item {
+  border: none;
+}
 
-  .footer-nav a {
-    padding: 8px 0;
 
-    font-size: 12px;
+/* MENU */
 
-    border: none;
+.footer-nav {
+  grid-column: auto;
 
-    text-decoration: none;
-  }
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 
-  .footer-nav a:hover {
-    text-decoration: underline;
-  }
+  column-gap: 20px;
+  row-gap: 4px;
+
+  width: 100%;
+
+  border: none;
+}
+
+.footer-nav a {
+  padding: 8px 0;
+
+  font-size: 12px;
+
+  border: none;
+
+  text-decoration: none;
+}
+
+.footer-nav a:hover {
+  text-decoration: underline;
+}
 
 
   /* -------------------------------------------------------
@@ -1747,8 +2517,8 @@ a:hover { text-decoration: underline; }
     top: 6px;
     overflow-x: auto;
     overflow-y: hidden;
-    display: none !important;
-  }
+   display: none !important;
+    }
 
   .timeline-header {
     min-width: 100%;
@@ -1766,82 +2536,101 @@ a:hover { text-decoration: underline; }
     min-width: 38px;
   }
 
-
-  /* -------------------------------------------------------
-     CONTACT FORM — MOBILE
-     ------------------------------------------------------- */
-
-  .contact-form-section {
-    width: min(100% - 40px, 1200px);
-
-    margin-top: 70px;
-
-    padding: 40px 0;
+  .timeline-clip {
+    min-width: 95px;
+    height: 32px;
+    padding: 2px 4px;
   }
 
-  .contact-form-header {
-    margin-bottom: 40px;
+  .clip-number {
+    font-size: 7px;
   }
 
-  .contact-form-header h2 {
-    font-size: 48px;
+  .clip-title {
+    left: 4px;
+    font-size: 6px;
   }
 
-  .form-field {
-    grid-template-columns: 1fr;
+  .waveform {
+    left: 4px;
+    right: 4px;
+    top: 11px;
+    height: 10px;
   }
 
-  .form-field label {
-    padding:
-      16px 0
-      4px;
+  .track-controls {
+    padding: 3px;
   }
 
-  .field-number {
-    display: inline;
-
-    margin-right: 8px;
+  .track-controls button {
+    width: 13px;
+    height: 13px;
+    font-size: 5px;
   }
 
-  .form-field input,
-  .form-field textarea {
-    padding: 12px 0 20px;
+  .timeline-timecode {
+    font-size: 5px;
   }
 
-  .form-bottom {
-    flex-direction: column;
-
-    align-items: flex-start;
-
-    gap: 22px;
+  .timeline-playhead {
+    display: none;
   }
+}
+ /* =========================================================
+   AUDIO DIVIDER — WAVEFORM
+   ========================================================= */
 
-  .audio-submit-button {
-    width: 100%;
-  }
-
+.audio-divider-waveform {
+  width: 100%;
+  height: 55px;
+  margin: 25px auto;
+  overflow: hidden;
 }
 
+.audio-divider-waveform svg {
+  display: block;
+  width: 100%;
+  height: 55px;
+}
+
+.audio-divider-waveform polyline {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
 
 /* =========================================================
-   VERY SMALL MOBILE
+   SMALL MOBILE
    480px AND BELOW
-   ========================================================= */
+========================================================= */
 
 @media (max-width: 480px) {
 
+  /* -------------------------------------------------------
+     HEADER
+     ------------------------------------------------------- */
+
+  .site-title {
+    font-size: 18px;
+  }
+
+
+  /* -------------------------------------------------------
+     HERO
+     ------------------------------------------------------- */
+
   .hero-inner {
     width: calc(100% - 24px);
-    padding:
-      40px 12px
-      35px;
-    gap: 15px;
+    padding: 35px 12px;
+    gap: 14px;
   }
 
   .profile-image {
-    width: 85px;
-    height: 85px;
-    flex-basis: 85px;
+    width: 78px;
+    height: 78px;
+    flex-basis: 78px;
   }
 
   .hero-copy h1 {
@@ -1887,8 +2676,9 @@ a:hover { text-decoration: underline; }
 
   .behind-the-scenes {
     grid-template-columns: repeat(2, 1fr);
-  }
 
+
+  }
 
   /* -------------------------------------------------------
      COLLABORATIONS
@@ -1906,8 +2696,6 @@ a:hover { text-decoration: underline; }
   .brand-credit img {
     max-height: 36px;
   }
-
-
   /* -------------------------------------------------------
      WORK
      ------------------------------------------------------- */
@@ -1919,35 +2707,592 @@ a:hover { text-decoration: underline; }
     gap: 5px;
   }
 
+
+  /* -------------------------------------------------------
+     LISTS
+     ------------------------------------------------------- */
+
+  .lists ul {
+    font-size: 14px;
+  }
+  /* -------------------------------------------------------
+     FOOTER
+     ------------------------------------------------------- */
+
+   .footer-contact {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+
+  /* -------------------------------------------------------
+     AUDIO TIMELINE
+     ------------------------------------------------------- */
+
+  .audio-timeline {
+    width: calc(100vw - 10px);
+    height: 42px;
+  }
+
+  .timeline-header {
+    height: 10px;
+  }
+
+  .timeline-body {
+    height: 31px;
+  }
+
+  .timeline-track-label,
+  .track-controls {
+    width: 34px;
+    min-width: 34px;
+  }
+
+  .timeline-clip {
+    min-width: 88px;
+  }
+
+  .audio-divider-signal {
+    height: 45px;
+    margin: 20px auto;
+  }
+
+  .audio-divider-signal svg {
+    height: 45px;
+  }
+.audio-divider-subtle {
+  width: 85%;
+  height: 18px;
+  margin: 12px auto 15px;
 }
+}
+/* =========================================================
+   VERY SMALL MOBILE
+   360px AND BELOW
+========================================================= */
+
+@media (max-width: 360px) {
+
+  /* -------------------------------------------------------
+     HEADER
+     ------------------------------------------------------- */
+
+  .site-title {
+    font-size: 16px;
+  }
+
+
+  /* -------------------------------------------------------
+     HERO
+     ------------------------------------------------------- */
+
+  .hero-inner {
+    padding-left: 8px;
+    padding-right: 8px;
+    gap: 10px;
+  }
+
+  .profile-image {
+    width: 65px;
+    height: 65px;
+    flex-basis: 65px;
+  }
+
+  .hero-copy h1 {
+    font-size: 20px;
+  }
+
+  .hero-copy p {
+    font-size: 13px;
+  }
+}
+
+  /* -------------------------------------------------------
+     AUDIO TIMELINE
+     ------------------------------------------------------- */
+
+  .audio-timeline {
+    width: calc(100vw - 6px);
+    height: 40px;
+  }
+
+  .timeline-track-label,
+  .track-controls {
+    width: 30px;
+    min-width: 30px;
+  }
+
+  .timeline-track-label span:last-child {
+    display: none;
+  }
+
+  .track-icon {
+    font-size: 7px;
+  }
+
+  .track-controls button {
+    width: 11px;
+    height: 11px;
+  }
+
+  .timeline-clip {
+    min-width: 78px;
+  }
+
+  .clip-title {
+    font-size: 5px;
+  }
 
 
 /* =========================================================
-   UTILITY
-   ========================================================= */
+   AUDIO WAVE DIVIDER — VERSIONE EXTRA WIDE
+========================================================= */
 
-.text-center {
-  text-align: center;
+.audio-divider {
+  width: 100%;
+  max-width: 1400px;
+  height: 90px;
+
+  margin: 40px auto 40px;
+  padding: 0 5%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  opacity: 0.7;
 }
 
-.hidden {
-  display: none !important;
+.audio-divider span {
+  display: block;
+
+  /* Barre più sottili */
+  width: 3px;
+
+  background: #111111;
+  border-radius: 10px;
+
+  flex-shrink: 0;
 }
+
+/* Forma della waveform panoramica */
+
+.audio-divider span:nth-child(1)  { height: 8px; }
+.audio-divider span:nth-child(2)  { height: 12px; }
+.audio-divider span:nth-child(3)  { height: 18px; }
+.audio-divider span:nth-child(4)  { height: 28px; }
+.audio-divider span:nth-child(5)  { height: 45px; }
+
+.audio-divider span:nth-child(6)  { height: 65px; }
+.audio-divider span:nth-child(7)  { height: 40px; }
+.audio-divider span:nth-child(8)  { height: 25px; }
+.audio-divider span:nth-child(9)  { height: 15px; }
+.audio-divider span:nth-child(10) { height: 10px; }
+
+.audio-divider span:nth-child(11) { height: 15px; }
+.audio-divider span:nth-child(12) { height: 30px; }
+.audio-divider span:nth-child(13) { height: 55px; }
+.audio-divider span:nth-child(14) { height: 75px; }
+.audio-divider span:nth-child(15) { height: 48px; }
+
+.audio-divider span:nth-child(16) { height: 30px; }
+.audio-divider span:nth-child(17) { height: 18px; }
+.audio-divider span:nth-child(18) { height: 12px; }
+.audio-divider span:nth-child(19) { height: 20px; }
+.audio-divider span:nth-child(20) { height: 38px; }
+
+.audio-divider span:nth-child(21) { height: 60px; }
+.audio-divider span:nth-child(22) { height: 42px; }
+.audio-divider span:nth-child(23) { height: 25px; }
+.audio-divider span:nth-child(24) { height: 14px; }
+.audio-divider span:nth-child(25) { height: 9px; }
+
+/* Seconda metà: onda speculare ma non perfettamente identica */
+
+.audio-divider span:nth-child(26) { height: 12px; }
+.audio-divider span:nth-child(27) { height: 20px; }
+.audio-divider span:nth-child(28) { height: 35px; }
+.audio-divider span:nth-child(29) { height: 58px; }
+.audio-divider span:nth-child(30) { height: 42px; }
+
+.audio-divider span:nth-child(31) { height: 70px; }
+.audio-divider span:nth-child(32) { height: 50px; }
+.audio-divider span:nth-child(33) { height: 32px; }
+.audio-divider span:nth-child(34) { height: 18px; }
+.audio-divider span:nth-child(35) { height: 10px; }
+
+.audio-divider span:nth-child(36) { height: 15px; }
+.audio-divider span:nth-child(37) { height: 28px; }
+.audio-divider span:nth-child(38) { height: 45px; }
+.audio-divider span:nth-child(39) { height: 65px; }
+.audio-divider span:nth-child(40) { height: 50px; }
+
+.audio-divider span:nth-child(41) { height: 35px; }
+.audio-divider span:nth-child(42) { height: 20px; }
+.audio-divider span:nth-child(43) { height: 12px; }
+.audio-divider span:nth-child(44) { height: 18px; }
+.audio-divider span:nth-child(45) { height: 30px; }
+
+.audio-divider span:nth-child(46) { height: 48px; }
+.audio-divider span:nth-child(47) { height: 35px; }
+.audio-divider span:nth-child(48) { height: 22px; }
+.audio-divider span:nth-child(49) { height: 14px; }
+.audio-divider span:nth-child(50) { height: 8px; }
+
+/* =========================================================
+   AUDIO DIVIDER — OSCILLOSCOPE
+========================================================= */
+
+.audio-divider-signal {
+  width: 100%;
+  max-width: 1400px;
+  height: 80px;
+
+  margin: 35px auto;
+
+  display: flex;
+  align-items: center;
+
+  overflow: hidden;
+
+  opacity: .75;
+}
+
+.audio-divider-signal svg {
+  display: block;
+
+  width: 100%;
+  height: 80px;
+
+  overflow: visible;
+}
+
+.audio-divider-signal polyline {
+  fill: none;
+
+  stroke: #111111;
+  stroke-width: 1.5;
+
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* =========================================================
+   SUBTLE AUDIO DIVIDER
+========================================================= */
+
+.audio-divider-subtle {
+  width: min(900px, 70%);
+  height: 28px;
+
+  margin: 18px auto 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  opacity: .45;
+}
+
+.audio-divider-subtle span {
+  display: block;
+
+  width: 1px;
+
+  background: #111111;
+
+  border-radius: 2px;
+
+  transform-origin: center;
+}
+
+/* Micro waveform */
+
+.audio-divider-subtle span:nth-child(1)  { height: 2px; }
+.audio-divider-subtle span:nth-child(2)  { height: 3px; }
+.audio-divider-subtle span:nth-child(3)  { height: 4px; }
+.audio-divider-subtle span:nth-child(4)  { height: 3px; }
+
+.audio-divider-subtle span:nth-child(5)  { height: 6px; }
+.audio-divider-subtle span:nth-child(6)  { height: 4px; }
+.audio-divider-subtle span:nth-child(7)  { height: 8px; }
+.audio-divider-subtle span:nth-child(8)  { height: 5px; }
+
+.audio-divider-subtle span:nth-child(9)  { height: 3px; }
+.audio-divider-subtle span:nth-child(10) { height: 4px; }
+.audio-divider-subtle span:nth-child(11) { height: 10px; }
+.audio-divider-subtle span:nth-child(12) { height: 5px; }
+
+.audio-divider-subtle span:nth-child(13) { height: 3px; }
+.audio-divider-subtle span:nth-child(14) { height: 7px; }
+.audio-divider-subtle span:nth-child(15) { height: 4px; }
+.audio-divider-subtle span:nth-child(16) { height: 3px; }
+
+.audio-divider-subtle span:nth-child(17) { height: 6px; }
+.audio-divider-subtle span:nth-child(18) { height: 11px; }
+.audio-divider-subtle span:nth-child(19) { height: 5px; }
+.audio-divider-subtle span:nth-child(20) { height: 3px; }
+
+.audio-divider-subtle span:nth-child(21) { height: 4px; }
+.audio-divider-subtle span:nth-child(22) { height: 8px; }
+.audio-divider-subtle span:nth-child(23) { height: 5px; }
+.audio-divider-subtle span:nth-child(24) { height: 3px; }
+
+.audio-divider-subtle span:nth-child(25) { height: 6px; }
+.audio-divider-subtle span:nth-child(26) { height: 4px; }
+.audio-divider-subtle span:nth-child(27) { height: 9px; }
+.audio-divider-subtle span:nth-child(28) { height: 4px; }
+
+.audio-divider-subtle span:nth-child(29) { height: 3px; }
+.audio-divider-subtle span:nth-child(30) { height: 6px; }
+.audio-divider-subtle span:nth-child(31) { height: 4px; }
+.audio-divider-subtle span:nth-child(32) { height: 2px; }
 
 
 /* =========================================================
-   FOCUS ACCESSIBILITY
+   VERTICAL LEVEL SCROLLER
    ========================================================= */
 
-.hamburger:focus-visible,
-.audio-button-contact:focus-visible,
-.audio-back-top:focus-visible,
-.timeline-clip:focus-visible,
-.level-knob:focus-visible,
-.audio-submit-button:focus-visible,
-.whatsapp-submit-button:focus-visible {
-  outline: 2px solid #111111;
-  outline-offset: 3px;
+.level-scroller {
+  position: fixed;
+  top: 50%;
+  right: 18px;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 62vh;
+  min-height: 300px;
+  max-height: 650px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  z-index: 900;
+
+  opacity: 0.48;
+
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+
+/* ---------------------------------------------------------
+   LABEL
+   --------------------------------------------------------- */
+
+.level-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+
+  margin-bottom: 12px;
+
+  color: #777;
+
+  user-select: none;
+  pointer-events: none;
+}
+
+
+/* ---------------------------------------------------------
+   TRACK
+   --------------------------------------------------------- */
+
+.level-track {
+  position: relative;
+
+  width: 34px;
+  flex: 1;
+
+  display: flex;
+  justify-content: center;
+}
+
+
+/* ---------------------------------------------------------
+   CENTRAL LINE
+   --------------------------------------------------------- */
+
+.level-line {
+  position: absolute;
+
+  top: 0;
+  bottom: 0;
+  left: 50%;
+
+  width: 1px;
+
+  transform: translateX(-50%);
+
+  background: #cfcfcf;
+}
+
+
+/* ---------------------------------------------------------
+   TICKS
+   --------------------------------------------------------- */
+
+.level-tick {
+  position: absolute;
+
+  left: 0;
+
+  width: 100%;
+
+  font-size: 9px;
+  line-height: 1;
+
+  letter-spacing: 0.5px;
+
+  color: #999;
+
+  text-align: left;
+
+  user-select: none;
+  pointer-events: none;
+}
+
+
+/* Positions */
+
+.level-0 {
+  top: 0;
+}
+
+.level-3 {
+  top: 12%;
+}
+
+.level-6 {
+  top: 25%;
+}
+
+.level-12 {
+  top: 50%;
+}
+
+.level-18 {
+  top: 75%;
+}
+
+.level-24 {
+  top: 100%;
+  transform: translateY(-100%);
+}
+
+
+/* ---------------------------------------------------------
+   TICK MARKS
+   --------------------------------------------------------- */
+
+.level-tick::after {
+  content: "";
+
+  position: absolute;
+
+  left: 23px;
+  top: 50%;
+
+  width: 8px;
+  height: 1px;
+
+  background: #bdbdbd;
+
+  transform: translateY(-50%);
+}
+
+
+/* ---------------------------------------------------------
+   KNOB
+   --------------------------------------------------------- */
+
+.level-knob {
+  position: absolute;
+
+  left: 50%;
+
+  top: 0;
+
+  width: 11px;
+  height: 11px;
+
+  transform: translate(-50%, -50%);
+
+  border: 1px solid #222;
+  border-radius: 50%;
+
+  background: #fff;
+
+  box-sizing: border-box;
+
+  cursor: grab;
+
+  z-index: 5;
+
+  transition:
+    width 0.15s ease,
+    height 0.15s ease,
+    background 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+
+.level-knob span {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  width: 3px;
+  height: 3px;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background: #222;
+}
+
+
+.level-knob:active {
+  cursor: grabbing;
+}
+
+
+/* ---------------------------------------------------------
+   HOVER
+   --------------------------------------------------------- */
+
+.level-scroller:hover {
+  opacity: 1;
+}
+
+
+.level-scroller:hover .level-knob {
+  width: 15px;
+  height: 15px;
+
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.06);
+}
+
+
+.level-scroller:hover .level-line {
+  background: #aaa;
+}
+
+
+/* ---------------------------------------------------------
+   KEYBOARD FOCUS
+   --------------------------------------------------------- */
+
+.level-knob:focus-visible {
+  outline: 1px solid #222;
+  outline-offset: 4px;
 }
 
 
@@ -2008,7 +3353,7 @@ html {
      CONTACT FORM — MOBILE
      ------------------------------------------------------- */
 
-  .contact-form-section {
+.contact-form-section {
     width: min(100% - 40px, 1200px);
 
     margin-top: 70px;
@@ -2066,4 +3411,3 @@ html {
   }
 
 }
-```
