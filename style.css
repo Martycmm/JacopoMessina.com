@@ -195,15 +195,15 @@ a:hover { text-decoration: underline; }
   min-height: 200px;
   width: min(80%, calc(100% - 64px));
   margin: 0 auto;
-  padding: 150px 170px;
+  padding: 200px 35px;
   display: flex;
   align-items: center;
   gap: 34px;
 }
 
 .profile-image {
-  width: 250px;
-  height: 250px;
+  width: 220px;
+  height: 220px;
   flex: 0 0 220px;
   object-fit: cover;
   border-radius: 50%;
@@ -1993,35 +1993,28 @@ a:hover { text-decoration: underline; }
      HEADER
      ------------------------------------------------------- */
 
-  /* Nasconde tutto il menu desktop */
   .desktop-nav {
     display: none;
   }
 
-  /* Il titolo torna semplicemente a sinistra */
-  .site-title {
-    order: 1;
-
-    font-size: 28px;
-    padding-left: 18px;
-
-    margin-right: auto;
+  .main-nav {
+    grid-template-columns: 1fr auto;
   }
 
-  /* Hamburger a destra */
+  .site-title {
+    font-size: 28px;
+    padding-left: 18px;
+  }
+
   .hamburger {
     display: flex;
-
-    order: 2;
-
-    margin-left: auto;
     margin-right: 12px;
   }
 
   .mobile-menu.is-open {
     display: flex;
   }
-}
+
 
   /* -------------------------------------------------------
      HERO
@@ -2034,9 +2027,9 @@ a:hover { text-decoration: underline; }
   }
 
   .profile-image {
-    width: 150px;
-    height: 150px;
-    flex-basis: 150px;
+    width: 180px;
+    height: 180px;
+    flex-basis: 180px;
   }
 
   .hero-copy h1 {
@@ -2752,7 +2745,7 @@ a:hover { text-decoration: underline; }
   .timeline-clip {
     min-width: 88px;
   }
-
+}
   .audio-divider-signal {
     height: 45px;
     margin: 20px auto;
@@ -2766,7 +2759,7 @@ a:hover { text-decoration: underline; }
   height: 18px;
   margin: 12px auto 15px;
 }
-}
+
 /* =========================================================
    VERY SMALL MOBILE
    360px AND BELOW
@@ -2806,7 +2799,7 @@ a:hover { text-decoration: underline; }
   .hero-copy p {
     font-size: 13px;
   }
-}
+
 
   /* -------------------------------------------------------
      AUDIO TIMELINE
@@ -2843,7 +2836,7 @@ a:hover { text-decoration: underline; }
   .clip-title {
     font-size: 5px;
   }
-
+}
 
 /* =========================================================
    AUDIO WAVE DIVIDER — VERSIONE EXTRA WIDE
