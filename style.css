@@ -38,50 +38,87 @@ a:hover { text-decoration: underline; }
 .main-nav {
   width: 100%;
   height: 50px;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+
+  display: flex;
   align-items: center;
+
+  overflow: hidden;
 }
 
-.nav-links,
-.contact-links {
-  display: flex;
-  height: 50px;
-  align-items: center;
-  min-width: 0;
+
+/* =========================================================
+   LOGO / NOME — SINISTRA
+   ========================================================= */
+
+.site-title {
+  order: 1;
+
+  font-size: 35px;
+  line-height: 30px;
+  font-weight: 700;
+
+  padding: 0 16px;
+
+  white-space: nowrap;
+
+  /* Spinge tutto il resto verso destra */
+  margin-right: auto;
+
+  flex-shrink: 0;
 }
+
+
+/* =========================================================
+   MENU — DESTRA
+   ========================================================= */
 
 .nav-links {
-  justify-content: flex-start;
+  order: 2;
+
+  display: flex;
+  align-items: center;
+  height: 50px;
+
+  flex-shrink: 0;
 }
 
 .contact-links {
-  justify-content: flex-end;
+  order: 3;
+
+  display: flex;
+  align-items: center;
+  height: 50px;
+
+  flex-shrink: 0;
 }
+
+
+/* =========================================================
+   LINK
+   ========================================================= */
 
 .nav-links a,
 .contact-links a {
   height: 45px;
+
   display: flex;
   align-items: center;
+
   padding: 0 13px;
+
   border-left: 1px solid #d0d0d0;
+
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.5px;
+
   white-space: nowrap;
 }
 
+
+/* Bordo finale */
 .contact-links a:last-child {
   border-right: 1px solid #d0d0d0;
-}
-
-.site-title {
-  font-size: 35px;
-  line-height: 30px;
-  font-weight: 700;
-  padding: 0 16px;
-  white-space: nowrap;
 }
 
 /* =========================================================
