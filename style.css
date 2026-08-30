@@ -2028,14 +2028,14 @@ a:hover { text-decoration: underline; }
 
   .hero-inner {
     width: calc(100% - 48px);
-    padding: 80px 30px;
+    padding: 150px 90px;
     gap: 30px;
   }
 
   .profile-image {
-    width: 150px;
-    height: 150px;
-    flex-basis: 150px;
+    width: 220px;
+    height: 220px;
+    flex-basis: 220px;
   }
 
   .hero-copy h1 {
