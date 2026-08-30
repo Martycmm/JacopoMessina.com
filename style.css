@@ -1,6 +1,5 @@
 /* =========================================================
    JACOPO MESSINA — SITE STYLE
-   Cleaned / fixed version
    ========================================================= */
 
 * { box-sizing: border-box; }
@@ -439,7 +438,7 @@ a:hover { text-decoration: underline; }
   }
 
 }
-```
+
 
 
 
@@ -2143,7 +2142,7 @@ a:hover { text-decoration: underline; }
      BACK TO TOP
      ------------------------------------------------------- */
 
-  .back-to-top {
+  .audio-back-top {
     right: 14px;
     bottom: 25px;
     padding: 7px 12px;
@@ -2496,13 +2495,13 @@ a:hover { text-decoration: underline; }
      BACK TO TOP
      ------------------------------------------------------- */
 
-  .back-to-top {
+  .audio-back-top {
     right: 10px;
     bottom: 18px;
     padding: 7px 10px;
   }
 
-  .back-to-top span {
+  .audio-back-top span {
     display: none;
   }
 
@@ -2729,11 +2728,6 @@ a:hover { text-decoration: underline; }
   /* -------------------------------------------------------
      AUDIO TIMELINE
      ------------------------------------------------------- */
-
-  .audio-timeline {
-    width: calc(100vw - 10px);
-    height: 42px;
-  }
 
   .timeline-header {
     height: 10px;
@@ -3410,4 +3404,31 @@ html {
     width: 100%;
   }
 
+}
+
+
+/* =========================================================
+   FINAL CLEANUP / ACCESSIBILITY
+   ========================================================= */
+
+.audio-button-contact:focus-visible,
+.audio-submit-button:focus-visible,
+.whatsapp-submit-button:focus-visible,
+.timeline-clip:focus-visible,
+.audio-back-top:focus-visible,
+.hamburger:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+/* Prevent accidental text selection while dragging the level knob. */
+.level-knob {
+  touch-action: none;
+}
+
+/* Mobile fixed header: anchor targets should not hide under it. */
+@media (max-width: 700px) {
+  section[id] {
+    scroll-margin-top: 60px;
+  }
 }
