@@ -903,31 +903,29 @@ a:hover { text-decoration: underline; }
 /* =========================================================
    IMDb — LINK LISTA COMPLETA
 ========================================================= */
-
-.imdb-more {
-  margin: 28px 0 8px;
-  font-family: Montserrat, Helvetica, sans-serif;
-  font-size: 18px;
-  line-height: 1.5;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  color: #2e2828;
-  text-transform: uppercase;
-}
-
 .inline-link {
-  display: inline;
+  position: relative;
   color: #242243;
   font-weight: 700;
   text-decoration: none;
-  border-bottom: 1px solid #242243;
-  padding-bottom: 2px;
-  transition: all 0.2s ease;
+  padding-left: 13px;
+  transition: color 0.2s ease;
+}
+
+.inline-link::before {
+  content: "";
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #242243;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .inline-link:hover {
-  background: #242243;
-  color: #fff;
+  color: #000;
 }
 
 /* =========================================================
