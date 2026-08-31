@@ -1673,7 +1673,7 @@ a:hover { text-decoration: underline; }
 .contact-form-section {
   width: min(100% - 80px, 1200px);
   margin: 110px auto 70px;
-  padding: 60px 0;
+  padding: 5px 0;
 
   border-top: 1px solid #d8d8d8;
 }
@@ -1697,7 +1697,7 @@ a:hover { text-decoration: underline; }
 
   color: #888;
 
-  margin-bottom: 14px;
+  margin-bottom: 60px;
 }
 
 .contact-form-header h2 {
