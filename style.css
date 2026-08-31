@@ -903,6 +903,15 @@ a:hover { text-decoration: underline; }
 /* =========================================================
    IMDb — LINK LISTA COMPLETA
 ========================================================= */
+.imdb-more {
+  margin: 26px 0 8px;
+  font-family: Montserrat, Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.3px;
+  color: #555;
+}
+
 .inline-link {
   position: relative;
   color: #242243;
