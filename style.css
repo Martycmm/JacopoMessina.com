@@ -899,10 +899,10 @@ a:hover { text-decoration: underline; }
 .video-image:hover img {
   opacity: .82;
 }
-
 /* =========================================================
    IMDb — LINK LISTA COMPLETA
 ========================================================= */
+
 .imdb-more {
   margin: 26px 0 8px;
   font-family: Montserrat, Helvetica, sans-serif;
@@ -910,26 +910,28 @@ a:hover { text-decoration: underline; }
   line-height: 1.5;
   letter-spacing: 0.3px;
   color: #555;
+  text-align: left;
+}
+
+.imdb-line {
+  white-space: nowrap;
 }
 
 .inline-link {
+  display: inline;
   color: #242243;
   font-size: 17px;
   font-weight: 800;
   letter-spacing: 1px;
   text-transform: uppercase;
   text-decoration: none;
-  transition: letter-spacing 0.25s ease;
-}
-
-.inline-link:hover {
-  letter-spacing: 2px;
+  transition: letter-spacing 0.25s ease, color 0.25s ease;
 }
 
 .inline-link:hover {
   color: #000;
+  letter-spacing: 2px;
 }
-
 /* =========================================================
    COLLABORATIONS / BRAND CREDITS
    ========================================================= */
