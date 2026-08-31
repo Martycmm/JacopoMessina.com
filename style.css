@@ -913,24 +913,17 @@ a:hover { text-decoration: underline; }
 }
 
 .inline-link {
-  position: relative;
   color: #242243;
-  font-weight: 700;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
   text-decoration: none;
-  padding-left: 13px;
-  transition: color 0.2s ease;
+  transition: letter-spacing 0.25s ease;
 }
 
-.inline-link::before {
-  content: "";
-  position: absolute;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #242243;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
+.inline-link:hover {
+  letter-spacing: 2px;
 }
 
 .inline-link:hover {
