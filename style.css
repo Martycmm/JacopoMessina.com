@@ -2833,6 +2833,8 @@ a:hover { text-decoration: underline; }
     width: calc(100% - 24px);
     padding: 35px 12px;
     gap: 14px;
+     margin: 0 10px 0 10px;
+
   }
 
   .profile-image {
@@ -2856,6 +2858,7 @@ a:hover { text-decoration: underline; }
 
   .section {
     width: calc(100% - 24px);
+     margin: 10px 10px auto 10px
   }
 
   .section h2 {
@@ -2923,14 +2926,24 @@ a:hover { text-decoration: underline; }
   .lists ul {
     font-size: 14px;
   }
+
+   
   /* -------------------------------------------------------
      FOOTER
      ------------------------------------------------------- */
 
    .footer-contact {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 14px;
+        flex-direction: row;
+        align-items: stretch;
+        gap: 7px;
+      height: 100px;
+  }
+ /* -------------------------------------------------------
+     CONTACT FORM — MOBILE
+     ------------------------------------------------------- */
+
+.contact-form-section {
+   margin-bottom: 0px;
   }
 
 
