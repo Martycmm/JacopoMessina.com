@@ -431,6 +431,171 @@ document.addEventListener("DOMContentLoaded", () => {
     updateKnob();
   }
 
+/* =========================================================
+   BTS LIGHTBOX
+========================================================= */
+   
+document.addEventListener("DOMContentLoaded", function () {
+
+  const items = document.querySelectorAll(".bts-item img");
+
+  const lightbox = document.getElementById("bts-lightbox");
+  const lightboxImage = document.getElementById("bts-lightbox-image");
+  const counter = document.getElementById("bts-counter");
+
+  const closeButton = document.querySelector(".bts-close");
+  const prevButton = document.querySelector(".bts-prev");
+  const nextButton = document.querySelector(".bts-next");
+
+  let currentIndex = 0;
+
+
+  /* =========================
+     APRI IMMAGINE
+  ========================== */
+
+  function openLightbox(index) {
+
+    currentIndex = index;
+
+    const image = items[currentIndex];
+
+    lightboxImage.src = image.src;
+    lightboxImage.alt = image.alt;
+
+    counter.textContent =
+      (currentIndex + 1) + " / " + items.length;
+
+    lightbox.classList.add("is-open");
+
+    document.body.style.overflow = "hidden";
+  }
+
+
+  /* =========================
+     CHIUDI
+  ========================== */
+
+  function closeLightbox() {
+
+    lightbox.classList.remove("is-open");
+
+    document.body.style.overflow = "";
+  }
+
+
+  /* =========================
+     IMMAGINE PRECEDENTE
+  ========================== */
+
+  function showPrevious() {
+
+    currentIndex--;
+
+    if (currentIndex < 0) {
+      currentIndex = items.length - 1;
+    }
+
+    updateImage();
+  }
+
+
+  /* =========================
+     IMMAGINE SUCCESSIVA
+  ========================== */
+
+  function showNext() {
+
+    currentIndex++;
+
+    if (currentIndex >= items.length) {
+      currentIndex = 0;
+    }
+
+    updateImage();
+  }
+
+
+  /* =========================
+     AGGIORNA IMMAGINE
+  ========================== */
+
+  function updateImage() {
+
+    const image = items[currentIndex];
+
+    lightboxImage.src = image.src;
+    lightboxImage.alt = image.alt;
+
+    counter.textContent =
+      (currentIndex + 1) + " / " + items.length;
+  }
+
+
+  /* =========================
+     CLICK SULLE FOTO
+  ========================== */
+
+  items.forEach(function (image, index) {
+
+    image.parentElement.addEventListener("click", function () {
+
+      openLightbox(index);
+
+    });
+
+  });
+
+
+  /* =========================
+     CONTROLLI
+  ========================== */
+
+  closeButton.addEventListener("click", closeLightbox);
+
+  prevButton.addEventListener("click", showPrevious);
+
+  nextButton.addEventListener("click", showNext);
+
+
+  /* =========================
+     CLICK SULLO SFONDO
+  ========================== */
+
+  lightbox.addEventListener("click", function (event) {
+
+    if (event.target === lightbox) {
+      closeLightbox();
+    }
+
+  });
+
+
+  /* =========================
+     TASTIERA
+  ========================== */
+
+  document.addEventListener("keydown", function (event) {
+
+    if (!lightbox.classList.contains("is-open")) {
+      return;
+    }
+
+    if (event.key === "Escape") {
+      closeLightbox();
+    }
+
+    if (event.key === "ArrowLeft") {
+      showPrevious();
+    }
+
+    if (event.key === "ArrowRight") {
+      showNext();
+    }
+
+  });
+
+});
 
   /* =========================================================
      CONTACT FORM — EMAIL + WHATSAPP
