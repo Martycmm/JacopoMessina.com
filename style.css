@@ -131,7 +131,7 @@ a:hover { text-decoration: underline; }
 }
 
 .hamburger {
-  position: fixed;
+  position: absolute;
 
   top: 10px;
   right: 12px;
@@ -417,16 +417,6 @@ a:hover { text-decoration: underline; }
    MOBILE
    ========================================================= */
 
-@media (max-width: 700px) {
-
-  .audio-button-contact {
-    width: 180px;
-    height: 48px;
-  }
-
-}
-
-
 @media (max-width: 480px) {
 
   .audio-button-contact {
@@ -542,22 +532,6 @@ a:hover { text-decoration: underline; }
 /* =========================================================
    RESPONSIVE
    ========================================================= */
-
-@media (max-width: 700px) {
-
-  .audio-button {
-    min-width: 160px;
-    height: 48px;
-  }
-
-  .audio-back-top {
-    right: 16px;
-    bottom: 16px;
-
-    width: 56px;
-    height: 56px;
-  }
-}
 
 
 @media (max-width: 480px) {
@@ -2273,7 +2247,7 @@ a:hover { text-decoration: underline; }
 
 
 /* =========================================================
-   MOBILE
+   MOBILE ONLY SECTION
    700px AND BELOW
 ========================================================= */
 
@@ -2283,37 +2257,78 @@ a:hover { text-decoration: underline; }
      HEADER
      ------------------------------------------------------- */
 
- body {
+ html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  body {
     padding-top: 50px;
   }
+
+
+ /* -------------------------------------------------------
+     HEADER
+     ------------------------------------------------------- */
 
   .site-header {
     position: fixed;
     top: 0;
     left: 0;
+   right:0;
 
     width: 100%;
+    max-width: 100%;
     height: 50px;
+
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
 
     z-index: 3000;
   }
 
-
   .main-nav {
+    width: 100%;
+    max-width: 100%;
     height: 50px;
+
+    display: grid;
+    grid-template-columns: 1fr auto;
+
+    box-sizing: border-box;
   }
 
   .site-title {
     font-size: 20px;
     padding-left: 12px;
+    white-space: nowrap;
   }
+
+  .desktop-nav {
+    display: none;
+  }
+
   .hamburger {
     position: absolute;
     top: 10px;
     right: 12px;
+
+    display: flex;
+
+    margin: 0;
     z-index: 3100;
   }
 
+  .mobile-menu.is-open {
+    display: flex;
+  }
 
 
   /* -------------------------------------------------------
@@ -2321,10 +2336,14 @@ a:hover { text-decoration: underline; }
      ------------------------------------------------------- */
 
   .hero-inner {
-    width: calc(100% - 32px);
+   width: 100%;
+     max-width: 100%;
     min-height: 190px;
+     margin: 0;
     padding: 45px 18px 40px;
     gap: 20px;
+         
+    box-sizing: border-box;
   }
 
   .profile-image {
@@ -2346,7 +2365,14 @@ a:hover { text-decoration: underline; }
     padding: 8px 24px;
     font-size: 14px;
   }
+/* =========================================================
+   AUDIO BUTTON CONTATTAMI - REC STYLE
+   ========================================================= */
 
+  .audio-button-contact {
+    width: 180px;
+    height: 48px;
+  }
 
   /* -------------------------------------------------------
      SECTIONS
@@ -2610,6 +2636,109 @@ a:hover { text-decoration: underline; }
   .timeline-playhead {
     display: none;
   }
+
+   /* =========================================================
+   VERTICAL LEVEL SCROLLER
+   ========================================================= */
+
+  .level-scroller {
+    display: none;
+  }
+
+  html {
+    scrollbar-width: auto;
+  }
+
+  html::-webkit-scrollbar {
+    width: auto;
+  }
+
+  /* -------------------------------------------------------
+     CONTACT FORM — MOBILE
+     ------------------------------------------------------- */
+
+.contact-form-section {
+    width: min(100% - 40px, 1200px);
+
+    margin-top: 70px;
+
+    padding: 40px 0;
+  }
+
+
+  .contact-form-header {
+    margin-bottom: 40px;
+  }
+
+
+  .contact-form-header h2 {
+    font-size: 48px;
+  }
+
+
+  .form-field {
+    grid-template-columns: 1fr;
+  }
+
+
+  .form-field label {
+    padding:
+      16px 0
+      4px;
+  }
+
+
+  .field-number {
+    display: inline;
+
+    margin-right: 8px;
+  }
+
+
+  .form-field input,
+  .form-field textarea {
+    padding: 12px 0 20px;
+  }
+
+
+  .form-bottom {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 22px;
+  }
+
+
+  .audio-submit-button {
+    width: 100%;
+  }
+
+/* =========================================================
+   BACK TO TOP - REWIND UP
+   ========================================================= */
+
+  .audio-button {
+    min-width: 160px;
+    height: 48px;
+  }
+
+  .audio-back-top {
+   position: fixed;
+     left: auto;
+    right: 16px;
+    bottom: 16px;
+
+    width: 56px;
+    height: 56px;
+     
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    z-index: 2900;
+  }
+
 }
  /* =========================================================
    AUDIO DIVIDER — WAVEFORM
@@ -3410,83 +3539,4 @@ html {
 }
 
 
-/* =========================================================
-   MOBILE
-   ========================================================= */
 
-@media (max-width: 700px) {
-
-  .level-scroller {
-    display: none;
-  }
-
-  html {
-    scrollbar-width: auto;
-  }
-
-  html::-webkit-scrollbar {
-    width: auto;
-  }
-
-  /* -------------------------------------------------------
-     CONTACT FORM — MOBILE
-     ------------------------------------------------------- */
-
-.contact-form-section {
-    width: min(100% - 40px, 1200px);
-
-    margin-top: 70px;
-
-    padding: 40px 0;
-  }
-
-
-  .contact-form-header {
-    margin-bottom: 40px;
-  }
-
-
-  .contact-form-header h2 {
-    font-size: 48px;
-  }
-
-
-  .form-field {
-    grid-template-columns: 1fr;
-  }
-
-
-  .form-field label {
-    padding:
-      16px 0
-      4px;
-  }
-
-
-  .field-number {
-    display: inline;
-
-    margin-right: 8px;
-  }
-
-
-  .form-field input,
-  .form-field textarea {
-    padding: 12px 0 20px;
-  }
-
-
-  .form-bottom {
-    flex-direction: column;
-
-    align-items: flex-start;
-
-    gap: 22px;
-  }
-
-
-  .audio-submit-button {
-    width: 100%;
-  }
-
-}
