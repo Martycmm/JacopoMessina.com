@@ -432,12 +432,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 /* =========================================================
-   BTS LIGHTBOX
+   BTS LIGHTBOX — GALLERY UNICA
 ========================================================= */
-   
+
 document.addEventListener("DOMContentLoaded", function () {
 
-  const items = document.querySelectorAll(".bts-item img");
+  const items = document.querySelectorAll(".bts-item");
+  const images = document.querySelectorAll(".bts-item img");
 
   const lightbox = document.getElementById("bts-lightbox");
   const lightboxImage = document.getElementById("bts-lightbox-image");
@@ -450,21 +451,33 @@ document.addEventListener("DOMContentLoaded", function () {
   let currentIndex = 0;
 
 
-  /* =========================
-     APRI IMMAGINE
-  ========================== */
+  /* =========================================================
+     AGGIORNA IMMAGINE
+  ========================================================= */
 
-  function openLightbox(index) {
+  function updateImage() {
 
-    currentIndex = index;
+    const image = images[currentIndex];
 
-    const image = items[currentIndex];
+    if (!image) return;
 
     lightboxImage.src = image.src;
     lightboxImage.alt = image.alt;
 
     counter.textContent =
-      (currentIndex + 1) + " / " + items.length;
+      (currentIndex + 1) + " / " + images.length;
+  }
+
+
+  /* =========================================================
+     APRI LIGHTBOX
+  ========================================================= */
+
+  function openLightbox(index) {
+
+    currentIndex = index;
+
+    updateImage();
 
     lightbox.classList.add("is-open");
 
@@ -472,43 +485,46 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 
-  /* =========================
-     CHIUDI
-  ========================== */
+  /* =========================================================
+     CHIUDI LIGHTBOX
+  ========================================================= */
 
   function closeLightbox() {
 
     lightbox.classList.remove("is-open");
 
     document.body.style.overflow = "";
+
+    lightboxImage.src = "";
+    lightboxImage.alt = "";
   }
 
 
-  /* =========================
-     IMMAGINE PRECEDENTE
-  ========================== */
+  /* =========================================================
+     PRECEDENTE
+  ========================================================= */
 
   function showPrevious() {
 
     currentIndex--;
 
     if (currentIndex < 0) {
-      currentIndex = items.length - 1;
+      currentIndex = images.length - 1;
     }
 
     updateImage();
   }
 
 
-  /* =========================
-     IMMAGINE SUCCESSIVA
-  ========================== */
+  /* =========================================================
+     SUCCESSIVA
+  ========================================================= */
 
   function showNext() {
 
     currentIndex++;
 
-    if (currentIndex >= items.length) {
+    if (currentIndex >= images.length) {
       currentIndex = 0;
     }
 
@@ -516,29 +532,13 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 
-  /* =========================
-     AGGIORNA IMMAGINE
-  ========================== */
+  /* =========================================================
+     CLICK SULLE IMMAGINI
+  ========================================================= */
 
-  function updateImage() {
+  items.forEach(function (item, index) {
 
-    const image = items[currentIndex];
-
-    lightboxImage.src = image.src;
-    lightboxImage.alt = image.alt;
-
-    counter.textContent =
-      (currentIndex + 1) + " / " + items.length;
-  }
-
-
-  /* =========================
-     CLICK SULLE FOTO
-  ========================== */
-
-  items.forEach(function (image, index) {
-
-    image.parentElement.addEventListener("click", function () {
+    item.addEventListener("click", function () {
 
       openLightbox(index);
 
@@ -547,9 +547,9 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
 
-  /* =========================
-     CONTROLLI
-  ========================== */
+  /* =========================================================
+     PULSANTI
+  ========================================================= */
 
   closeButton.addEventListener("click", closeLightbox);
 
@@ -558,9 +558,9 @@ document.addEventListener("DOMContentLoaded", function () {
   nextButton.addEventListener("click", showNext);
 
 
-  /* =========================
+  /* =========================================================
      CLICK SULLO SFONDO
-  ========================== */
+  ========================================================= */
 
   lightbox.addEventListener("click", function (event) {
 
@@ -571,9 +571,9 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
 
-  /* =========================
+  /* =========================================================
      TASTIERA
-  ========================== */
+  ========================================================= */
 
   document.addEventListener("keydown", function (event) {
 
@@ -594,6 +594,39 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
   });
+
+
+  /* =========================================================
+     SWIPE MOBILE
+  ========================================================= */
+
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  lightbox.addEventListener("touchstart", function (event) {
+
+    touchStartX = event.changedTouches[0].screenX;
+
+  }, { passive: true });
+
+
+  lightbox.addEventListener("touchend", function (event) {
+
+    touchEndX = event.changedTouches[0].screenX;
+
+    const distance = touchEndX - touchStartX;
+
+    if (Math.abs(distance) < 50) {
+      return;
+    }
+
+    if (distance > 0) {
+      showPrevious();
+    } else {
+      showNext();
+    }
+
+  }, { passive: true });
 
 });
 
