@@ -2314,16 +2314,6 @@ a:hover { text-decoration: underline; }
   }
 
 
-  /* -------------------------------------------------------
-     BACK TO TOP
-     ------------------------------------------------------- */
-
-  .back-to-top {
-    right: 14px;
-    bottom: 25px;
-    padding: 7px 12px;
-    font-size: 14px;
-  }
 }
 
 
@@ -2730,22 +2720,6 @@ a:hover { text-decoration: underline; }
   text-decoration: underline;
 }
 
-
-  /* -------------------------------------------------------
-     BACK TO TOP
-     ------------------------------------------------------- */
-
-  .back-to-top {
-    right: 10px;
-    bottom: 18px;
-    padding: 7px 10px;
-  }
-
-  .back-to-top span {
-    display: none;
-  }
-
-
   /* -------------------------------------------------------
      AUDIO TIMELINE
      ------------------------------------------------------- */
@@ -2965,9 +2939,41 @@ a:hover { text-decoration: underline; }
   opacity: 0.55;
 }
 
-
 /* =========================================================
-   TABLET
+   HERO + BIOGRAFIA
+   FOTO SOPRA IL TESTO
+========================================================= */
+
+.hero-inner,
+.intro-grid {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Foto Hero */
+.hero-inner .profile-image {
+  width: 260px;
+  height: 260px;
+  flex: 0 0 260px;
+  margin: 0 auto 25px;
+}
+
+/* Foto Biografia */
+.intro-grid .profile-image {
+  width: 240px;
+  height: 240px;
+  flex: 0 0 240px;
+  margin: 0 auto 25px;
+}
+
+/* Testo */
+.hero-copy,
+.intro-grid p {
+  width: 100%;
+}
+/* =========================================================
+   TABLET MAX WIDTH 600px
    ========================================================= */
 
 @media (max-width: 600px) {
