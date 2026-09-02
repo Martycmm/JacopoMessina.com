@@ -414,24 +414,6 @@ a:hover { text-decoration: underline; }
 
 
 /* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media (max-width: 480px) {
-
-  .audio-button-contact {
-    width: 170px;
-    height: 48px;
-  }
-
-  .audio-button-contact .audio-button-text {
-    font-size: 11px;
-  }
-
-}
-
-
-/* =========================================================
    BACK TO TOP — REWIND UP
    ========================================================= */
 
@@ -529,30 +511,6 @@ a:hover { text-decoration: underline; }
   transform: translateY(-2px);
 }
 
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
-
-
-@media (max-width: 480px) {
-
-  .audio-button {
-    min-width: 150px;
-  }
-
-  .audio-button-kicker {
-    font-size: 7px;
-  }
-
-  .audio-button-text {
-    font-size: 11px;
-  }
-
-  .audio-back-top {
-    right: 12px;
-    bottom: 12px;
-  }
-}
 
 /* =========================================================
    GENERIC SECTIONS
@@ -2313,9 +2271,38 @@ a:hover { text-decoration: underline; }
     font-size: 9px;
   }
 
-
 }
 
+/* =========================================================
+   TABLET 1010px → 701px
+   FIX ELEMENTI LATERALI
+   ========================================================= */
+
+@media (max-width: 1010px) and (min-width: 701px) {
+
+  .level-scroller {
+    position: fixed;
+    right: 8px;
+    left: auto;
+
+    width: 30px;
+    max-width: 30px;
+
+    transform: translateY(-50%);
+  }
+
+  .audio-back-top {
+    position: fixed;
+    right: 8px;
+    left: auto;
+
+    width: 56px;
+    height: 56px;
+
+    margin: 0;
+  }
+
+}
 
 /* =========================================================
    TABLET
@@ -3155,7 +3142,6 @@ a:hover { text-decoration: underline; }
   .timeline-clip {
     min-width: 88px;
   }
-}
   .audio-divider-signal {
     height: 45px;
     margin: 20px auto;
@@ -3170,6 +3156,37 @@ a:hover { text-decoration: underline; }
   margin: 12px auto 15px;
 }
 
+  .audio-button {
+    min-width: 150px;
+  }
+
+  .audio-button-kicker {
+    font-size: 7px;
+  }
+
+  .audio-button-text {
+    font-size: 11px;
+  }
+
+  .audio-back-top {
+    right: 12px;
+    bottom: 12px;
+  }
+   
+   /* =========================================================
+  AUDIO BUTTON CONTACT
+   ========================================================= */
+
+  .audio-button-contact {
+    width: 170px;
+    height: 48px;
+  }
+
+  .audio-button-contact .audio-button-text {
+    font-size: 11px;
+  }
+
+}
 /* =========================================================
    VERY SMALL MOBILE
    360px AND BELOW
