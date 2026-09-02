@@ -1066,7 +1066,7 @@ a:hover { text-decoration: underline; }
 }
 
 .imdb-line {
-  white-space: nowrap;
+  white-space: break-spaces;
 }
 
 .inline-link {
@@ -2659,7 +2659,7 @@ a:hover { text-decoration: underline; }
 
   .lists {
     grid-template-columns: 1fr;
-    gap: 18px;
+    gap: 0px;
   }
 
 
@@ -2837,10 +2837,8 @@ a:hover { text-decoration: underline; }
 
 .contact-form-section {
     width: min(100% - 40px, 1200px);
-
-    margin-top: 70px;
-
-    padding: 40px 0;
+        margin-top: 35px;
+        padding: 10px 0;
   }
 
 
