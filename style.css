@@ -1635,11 +1635,21 @@ min-width: 95px;
 font-size: 9px;
 }
 }
+
 /* =========================================================
 TABLET 1010px → 701px
 FIX ELEMENTI LATERALI
 \========================================================= */
 @media (max-width: 1010px) and (min-width: 701px) {
+
+html,
+ body {
+ width: 100%;
+  max-width: 100%;
+min-width: 0;
+overflow-x: hidden !important;
+    }
+    
 .level-scroller {
 position: fixed;
 right: 8px;
@@ -1649,19 +1659,51 @@ width: 30px;
 max-width: 30px; 
 
 transform: translateY(-50%); 
+display: none !important;
+visibility: hidden !important;
+pointer-events: none !important;
 
 }
+     .audio-timeline {
+        position: fixed !important;
+        top: 8px !important;
+        left: 50% !important;
+        right: auto !important;
+        width: calc(100vw - 24px) !important;
+        max-width: calc(100vw - 24px) !important;
+        min-width: 0 !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+        transform: translateX(-50%) !important;
+    }
+
+    .audio-timeline .timeline-body,
+    .audio-timeline .timeline-header {
+        min-width: 0 !important;
+        max-width: 100% !important;
+    }
+
+    .audio-timeline .timeline-clip {
+        min-width: 0 !important;
+        flex: 1 1 0 !important;
+    }
+    
 .audio-back-top {
-position: fixed;
-right: 8px;
-left: auto;
-
-width: 56px; 
-height: 56px; 
-
-margin: 0; 
-
-}
+        position: fixed !important;
+        top: auto !important;
+        right: 12px !important;
+        bottom: 16px !important;
+        left: auto !important;
+        width: 44px !important;
+        height: 44px !important;
+        min-width: 44px !important;
+        max-width: 44px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+        transform: none !important;
+        z-index: 9999 !important;
+    }
 }
 /* =========================================================
 TABLET
