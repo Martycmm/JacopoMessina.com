@@ -1,173 +1,668 @@
 /* =========================================================
-   JACOPO MESSINA — SITE JAVASCRIPT
+   JACOPO MESSINA — SITE SCRIPT
+   Complete / stable version
    ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* =========================================================
-     MOBILE MENU
-     ========================================================= */
+  /* =======================================================
+     UTILITIES
+     ======================================================= */
 
-  const hamburger = document.querySelector(".hamburger");
-  const mobileMenu = document.querySelector(".mobile-menu");
+  const $ = (selector, parent = document) =>
+    parent.querySelector(selector);
+
+  const $$ = (selector, parent = document) =>
+    Array.from(parent.querySelectorAll(selector));
+
+
+  /* =======================================================
+     HEADER / MOBILE MENU
+     ======================================================= */
+
+  const hamburger = $(".hamburger");
+  const mobileMenu = $("#mobile-menu");
 
   if (hamburger && mobileMenu) {
-    hamburger.addEventListener("click", () => {
-      const isOpen = mobileMenu.classList.toggle("is-open");
 
-      hamburger.classList.toggle("is-open", isOpen);
-      hamburger.setAttribute("aria-expanded", String(isOpen));
-      hamburger.setAttribute(
-        "aria-label",
-        isOpen ? "Chiudi menu" : "Apri menu"
-      );
-    });
-
-    mobileMenu.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", () => {
-        mobileMenu.classList.remove("is-open");
-        hamburger.classList.remove("is-open");
-        hamburger.setAttribute("aria-expanded", "false");
-        hamburger.setAttribute("aria-label", "Apri menu");
-      });
-    });
-  }
-
-
-  /* =========================================================
-     AUDIO NAVIGATION TIMELINE
-     ========================================================= */
-
-  const clips = document.querySelectorAll(".timeline-clip");
-  const playhead = document.querySelector(".timeline-playhead");
-  const audioTimeline = document.querySelector(".audio-timeline");
-  const siteHeader = document.querySelector(".site-header");
-
-
-  /* ---------------------------------------------------------
-     TIMELINE — VISIBILITY
-     --------------------------------------------------------- */
-
-  if (audioTimeline && siteHeader) {
-    const updateTimelineVisibility = () => {
-      const headerBottom = siteHeader.getBoundingClientRect().bottom;
-
-      audioTimeline.classList.toggle(
-        "is-visible",
-        headerBottom <= 0
-      );
+    const openMenu = () => {
+      mobileMenu.classList.add("is-open");
+      hamburger.setAttribute("aria-expanded", "true");
+      hamburger.setAttribute("aria-label", "Chiudi menu");
+      document.body.classList.add("menu-open");
     };
 
-    window.addEventListener(
-      "scroll",
-      updateTimelineVisibility,
-      { passive: true }
-    );
+    const closeMenu = () => {
+      mobileMenu.classList.remove("is-open");
+      hamburger.setAttribute("aria-expanded", "false");
+      hamburger.setAttribute("aria-label", "Apri menu");
+      document.body.classList.remove("menu-open");
+    };
 
-    window.addEventListener(
-      "resize",
-      updateTimelineVisibility
-    );
+    const toggleMenu = () => {
+      if (mobileMenu.classList.contains("is-open")) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    };
 
-    updateTimelineVisibility();
-  }
+    hamburger.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      toggleMenu();
+    });
 
+    /* Chiudi cliccando un link */
+    $$(".mobile-menu a").forEach((link) => {
+      link.addEventListener("click", () => {
+        closeMenu();
+      });
+    });
 
-  /* ---------------------------------------------------------
-     TIMELINE — CURRENT SECTION
-     --------------------------------------------------------- */
+    /* Chiudi cliccando fuori */
+    document.addEventListener("click", (event) => {
 
-  if (clips.length) {
-    const sectionMap = [];
-
-    clips.forEach((clip) => {
-      const targetId = clip.getAttribute("href");
-
-      if (!targetId || !targetId.startsWith("#")) {
+      if (!mobileMenu.classList.contains("is-open")) {
         return;
       }
 
-      const section = document.querySelector(targetId);
+      if (
+        !mobileMenu.contains(event.target) &&
+        !hamburger.contains(event.target)
+      ) {
+        closeMenu();
+      }
+    });
 
-      if (section) {
-        sectionMap.push({
-          clip,
-          section
+    /* ESC */
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeMenu();
+      }
+    });
+
+    /* Se torniamo desktop, reset */
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 1100) {
+        closeMenu();
+      }
+    });
+  }
+
+
+  /* =======================================================
+     SMOOTH ANCHOR SCROLL
+     ======================================================= */
+
+  const header = $(".site-header");
+
+  $$('a[href^="#"]').forEach((link) => {
+
+    link.addEventListener("click", (event) => {
+
+      const href = link.getAttribute("href");
+
+      if (
+        !href ||
+        href === "#" ||
+        href === "#top"
+      ) {
+        return;
+      }
+
+      const target = document.querySelector(href);
+
+      if (!target) {
+        return;
+      }
+
+      event.preventDefault();
+
+      const headerHeight =
+        header && getComputedStyle(header).position === "fixed"
+          ? header.offsetHeight
+          : 0;
+
+      const targetTop =
+        target.getBoundingClientRect().top +
+        window.scrollY -
+        headerHeight;
+
+      window.scrollTo({
+        top: Math.max(0, targetTop),
+        behavior: "smooth"
+      });
+    });
+
+  });
+
+
+  /* =======================================================
+     BACK TO TOP
+     ======================================================= */
+
+  const backTop = $(".audio-back-top");
+
+  if (backTop) {
+
+    backTop.addEventListener("click", (event) => {
+
+      event.preventDefault();
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    });
+
+  }
+
+
+  /* =======================================================
+     BTS LIGHTBOX
+     ======================================================= */
+
+  /*
+     L'HTML attuale usa checkbox + label.
+     Non modifichiamo quella struttura.
+
+     Questo JS aggiunge:
+     - apertura/chiusura affidabile
+     - ESC
+     - blocco scroll del body
+     - navigazione precedente/successiva
+     - click sullo sfondo per chiudere
+  */
+
+  const btsToggles = $$(".lightbox-toggle");
+
+  if (btsToggles.length) {
+
+    const btsCards = [];
+    const btsLightboxes = [];
+
+    btsToggles.forEach((toggle) => {
+
+      const id = toggle.id;
+
+      const card = document.querySelector(
+        `label[for="${id}"].card`
+      );
+
+      /*
+         Il lightbox associato viene cercato
+         immediatamente dopo il checkbox.
+      */
+      let lightbox = toggle.nextElementSibling;
+
+      if (
+        lightbox &&
+        lightbox.classList.contains("lightbox")
+      ) {
+        btsLightboxes.push(lightbox);
+      } else {
+        lightbox = null;
+      }
+
+      if (card && lightbox) {
+
+        const image = $("img", lightbox);
+
+        btsCards.push({
+          toggle,
+          card,
+          lightbox,
+          image
         });
       }
+
     });
 
 
-    /* -------------------------------------------------------
-       AGGIORNA SEZIONE ATTIVA + PLAYHEAD
-       ------------------------------------------------------- */
+    let currentBtsIndex = -1;
 
-    const updateCurrentClip = () => {
-      if (!sectionMap.length) {
-        return;
-      }
 
-      const marker = window.innerHeight * 0.30;
-      let current = sectionMap[0];
+    const closeAllBts = () => {
 
-      sectionMap.forEach((item) => {
-        const rect = item.section.getBoundingClientRect();
-
-        if (rect.top <= marker) {
-          current = item;
-        }
+      btsCards.forEach((item) => {
+        item.toggle.checked = false;
+        item.lightbox.classList.remove("is-open");
       });
 
-      clips.forEach((clip) => {
-        clip.classList.toggle("current", clip === current.clip);
-      });
+      document.body.classList.remove("lightbox-open");
 
-      if (playhead && audioTimeline) {
-        const clipRect = current.clip.getBoundingClientRect();
-        const timelineRect = audioTimeline.getBoundingClientRect();
-
-        const clipCenter =
-          clipRect.left + (clipRect.width / 2);
-
-        const playheadPosition =
-          clipCenter - timelineRect.left;
-
-        playhead.style.left = `${playheadPosition}px`;
-      }
+      currentBtsIndex = -1;
     };
 
 
-    /* -------------------------------------------------------
-       SCROLL / RESIZE
-       ------------------------------------------------------- */
+    const openBts = (index) => {
 
-    window.addEventListener(
-      "scroll",
-      updateCurrentClip,
-      { passive: true }
-    );
+      if (
+        index < 0 ||
+        index >= btsCards.length
+      ) {
+        return;
+      }
 
-    window.addEventListener(
-      "resize",
-      updateCurrentClip
-    );
+      closeAllBts();
 
-    updateCurrentClip();
+      const item = btsCards[index];
+
+      item.toggle.checked = true;
+      item.lightbox.classList.add("is-open");
+
+      document.body.classList.add("lightbox-open");
+
+      currentBtsIndex = index;
+
+      /*
+         Manteniamo il focus fuori dal documento
+         quando possibile.
+      */
+      requestAnimationFrame(() => {
+
+        const closeButton =
+          $(".lightbox-close", item.lightbox);
+
+        if (closeButton) {
+          closeButton.focus({ preventScroll: true });
+        }
+
+      });
+
+    };
 
 
-    /* -------------------------------------------------------
-       NAVIGAZIONE TIMELINE
-       ------------------------------------------------------- */
+    const nextBts = () => {
 
-    clips.forEach((clip) => {
+      if (!btsCards.length) {
+        return;
+      }
+
+      const next =
+        currentBtsIndex < btsCards.length - 1
+          ? currentBtsIndex + 1
+          : 0;
+
+      openBts(next);
+    };
+
+
+    const previousBts = () => {
+
+      if (!btsCards.length) {
+        return;
+      }
+
+      const previous =
+        currentBtsIndex > 0
+          ? currentBtsIndex - 1
+          : btsCards.length - 1;
+
+      openBts(previous);
+    };
+
+
+    /*
+       Apertura cliccando sulle immagini.
+    */
+    btsCards.forEach((item, index) => {
+
+      item.card.addEventListener("click", (event) => {
+
+        event.preventDefault();
+
+        openBts(index);
+
+      });
+
+
+      /*
+         Chiudi.
+      */
+      const closeButton =
+        $(".lightbox-close", item.lightbox);
+
+      if (closeButton) {
+
+        closeButton.addEventListener("click", (event) => {
+
+          event.preventDefault();
+          event.stopPropagation();
+
+          closeAllBts();
+
+        });
+
+      }
+
+
+      /*
+         Click sul background.
+      */
+      const background =
+        $(".lightbox-background", item.lightbox);
+
+      if (background) {
+
+        background.addEventListener("click", (event) => {
+
+          event.preventDefault();
+
+          closeAllBts();
+
+        });
+
+      }
+
+    });
+
+
+    /*
+       Tastiera.
+    */
+    document.addEventListener("keydown", (event) => {
+
+      if (currentBtsIndex === -1) {
+        return;
+      }
+
+      switch (event.key) {
+
+        case "Escape":
+          closeAllBts();
+          break;
+
+        case "ArrowRight":
+          event.preventDefault();
+          nextBts();
+          break;
+
+        case "ArrowLeft":
+          event.preventDefault();
+          previousBts();
+          break;
+
+      }
+
+    });
+
+
+    /*
+       Supporto swipe touch.
+    */
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    document.addEventListener("touchstart", (event) => {
+
+      if (currentBtsIndex === -1) {
+        return;
+      }
+
+      if (!event.touches.length) {
+        return;
+      }
+
+      touchStartX = event.touches[0].clientX;
+      touchStartY = event.touches[0].clientY;
+
+    }, {
+      passive: true
+    });
+
+
+    document.addEventListener("touchend", (event) => {
+
+      if (currentBtsIndex === -1) {
+        return;
+      }
+
+      if (!event.changedTouches.length) {
+        return;
+      }
+
+      const endX =
+        event.changedTouches[0].clientX;
+
+      const endY =
+        event.changedTouches[0].clientY;
+
+      const dx = endX - touchStartX;
+      const dy = endY - touchStartY;
+
+      /*
+         Consideriamo swipe solo se
+         prevalentemente orizzontale.
+      */
+      if (
+        Math.abs(dx) > 50 &&
+        Math.abs(dx) > Math.abs(dy)
+      ) {
+
+        if (dx < 0) {
+          nextBts();
+        } else {
+          previousBts();
+        }
+
+      }
+
+    }, {
+      passive: true
+    });
+
+  }
+
+
+  /* =======================================================
+     AUDIO TIMELINE
+     ======================================================= */
+
+  const audioTimeline = $(".audio-timeline");
+  const timelineBody = $(".timeline-body");
+  const timelineClips = $$(".timeline-clip");
+
+  if (
+    audioTimeline &&
+    timelineBody &&
+    timelineClips.length
+  ) {
+
+    /*
+       Sezioni associate ai clip.
+    */
+    const sections = timelineClips
+      .map((clip) => {
+
+        const href = clip.getAttribute("href");
+
+        if (!href || !href.startsWith("#")) {
+          return null;
+        }
+
+        const section = document.querySelector(href);
+
+        if (!section) {
+          return null;
+        }
+
+        return {
+          clip,
+          section
+        };
+
+      })
+      .filter(Boolean);
+
+
+    /*
+       Playhead.
+    */
+    let playhead =
+      $(".timeline-playhead", audioTimeline);
+
+    if (!playhead) {
+
+      playhead =
+        document.createElement("div");
+
+      playhead.className =
+        "timeline-playhead";
+
+      playhead.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+      const marker =
+        document.createElement("span");
+
+      marker.className =
+        "playhead-marker";
+
+      playhead.appendChild(marker);
+
+      timelineBody.appendChild(playhead);
+
+    }
+
+
+    /*
+       Aggiorna posizione playhead.
+       Il playhead segue la sezione attiva.
+    */
+    const updatePlayhead = (index) => {
+
+      if (
+        index < 0 ||
+        index >= timelineClips.length
+      ) {
+        return;
+      }
+
+      const clip =
+        timelineClips[index];
+
+      const bodyRect =
+        timelineBody.getBoundingClientRect();
+
+      const clipRect =
+        clip.getBoundingClientRect();
+
+      const left =
+        clipRect.left -
+        bodyRect.left;
+
+      playhead.style.left =
+        `${Math.max(0, left)}px`;
+
+    };
+
+
+    /*
+       Determina la sezione attualmente visibile.
+       Usa una soglia nella parte alta dello schermo
+       invece di controllare solamente scrollY.
+    */
+    const updateCurrentClip = () => {
+
+      if (!sections.length) {
+        return;
+      }
+
+      const viewportHeight =
+        window.innerHeight;
+
+      const activationPoint =
+        viewportHeight * 0.30;
+
+      let activeIndex = 0;
+
+      sections.forEach((item, index) => {
+
+        const rect =
+          item.section.getBoundingClientRect();
+
+        if (rect.top <= activationPoint) {
+          activeIndex = index;
+        }
+
+      });
+
+
+      timelineClips.forEach((clip, index) => {
+
+        clip.classList.toggle(
+          "current",
+          index === activeIndex
+        );
+
+      });
+
+
+      updatePlayhead(activeIndex);
+
+    };
+
+
+    /*
+       Timeline visibile dopo una certa quantità
+       di scroll.
+    */
+    const updateTimelineVisibility = () => {
+
+      /*
+         Su mobile il CSS la nasconde.
+         Non facciamo nulla in quel caso.
+      */
+      if (window.innerWidth <= 700) {
+        audioTimeline.classList.remove("is-visible");
+        return;
+      }
+
+      const threshold = 80;
+
+      if (window.scrollY > threshold) {
+
+        audioTimeline.classList.add(
+          "is-visible"
+        );
+
+      } else {
+
+        audioTimeline.classList.remove(
+          "is-visible"
+        );
+
+      }
+
+    };
+
+
+    /*
+       Click sui clip.
+       Lo scroll viene gestito qui per avere
+       lo stesso comportamento del resto del sito.
+    */
+    timelineClips.forEach((clip, index) => {
+
       clip.addEventListener("click", (event) => {
-        const targetId = clip.getAttribute("href");
 
-        if (!targetId || targetId === "#") {
+        const href =
+          clip.getAttribute("href");
+
+        if (
+          !href ||
+          !href.startsWith("#")
+        ) {
           return;
         }
 
-        const target = document.querySelector(targetId);
+        const target =
+          document.querySelector(href);
 
         if (!target) {
           return;
@@ -175,722 +670,1070 @@ document.addEventListener("DOMContentLoaded", () => {
 
         event.preventDefault();
 
-        /*
-         * L'header desktop è alto 50px.
-         * Su mobile la timeline è nascosta e l'header è fixed:
-         * usiamo quindi la sua altezza reale quando disponibile.
-         */
-        const headerHeight = siteHeader
-          ? siteHeader.offsetHeight
-          : 50;
+        const headerHeight =
+          header &&
+          getComputedStyle(header).position === "fixed"
+            ? header.offsetHeight
+            : 0;
 
-        const targetPosition =
+        const top =
           target.getBoundingClientRect().top +
           window.scrollY -
           headerHeight;
 
         window.scrollTo({
-          top: Math.max(0, targetPosition),
+          top: Math.max(0, top),
           behavior: "smooth"
         });
+
+        timelineClips.forEach((item) => {
+          item.classList.remove("current");
+        });
+
+        clip.classList.add("current");
+
+        updatePlayhead(index);
+
       });
+
     });
+
+
+    /*
+       Scroll performance:
+       requestAnimationFrame evita una quantità
+       eccessiva di ricalcoli durante lo scroll.
+    */
+    let timelineFrame = null;
+
+    const handleTimelineScroll = () => {
+
+      if (timelineFrame !== null) {
+        return;
+      }
+
+      timelineFrame =
+        requestAnimationFrame(() => {
+
+          updateTimelineVisibility();
+          updateCurrentClip();
+
+          timelineFrame = null;
+
+        });
+
+    };
+
+
+    window.addEventListener(
+      "scroll",
+      handleTimelineScroll,
+      { passive: true }
+    );
+
+
+    window.addEventListener(
+      "resize",
+      () => {
+
+        updateTimelineVisibility();
+        updateCurrentClip();
+
+      },
+      { passive: true }
+    );
+
+
+    updateTimelineVisibility();
+    updateCurrentClip();
+
   }
 
 
-  /* =========================================================
-     BACK TO TOP
-     ========================================================= */
+  /* =======================================================
+     LEVEL SCROLLER
+     ======================================================= */
 
-  const backToTop =
-    document.querySelector(".audio-back-top");
+  const levelScroller = $(".level-scroller");
+  const levelTrack = $(".level-track");
+  const levelKnob = $(".level-knob");
 
-  if (backToTop) {
-    backToTop.addEventListener("click", (event) => {
-      event.preventDefault();
+  /*
+     IMPORTANTE:
+     il controllo viene disabilitato dal CSS
+     tra 701 e 1010px e sotto i 700px.
+     Il JS quindi non forza la sua visualizzazione.
+  */
 
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-    });
-  }
+  if (
+    levelScroller &&
+    levelTrack &&
+    levelKnob
+  ) {
 
+    let dragging = false;
 
-  /* =========================================================
-   VERTICAL LEVEL SCROLLER
-   ========================================================= */
-
-const scroller = document.querySelector(".level-scroller");
-const knob = document.querySelector(".level-knob");
-const track = document.querySelector(".level-track");
-
-if (scroller && knob && track) {
-
-  /* -------------------------------------------------------
-     STATE
-     ------------------------------------------------------- */
-
-  let dragging = false;
-  let animationFrame = null;
-
-
-  /* -------------------------------------------------------
-     GET PAGE SCROLL LIMIT
-     ------------------------------------------------------- */
-
-  const getMaxScroll = () => {
-    return Math.max(
-      0,
-      document.documentElement.scrollHeight -
-      window.innerHeight
+    /*
+       Evitiamo che il browser tenti di fare
+       selezione testo / drag nativo.
+    */
+    levelKnob.addEventListener(
+      "dragstart",
+      (event) => {
+        event.preventDefault();
+      }
     );
-  };
 
 
-  /* -------------------------------------------------------
-     GET KNOB TRAVEL
-     ------------------------------------------------------- */
+    /*
+       Limiti reali del knob.
+       Il centro del knob deve rimanere
+       dentro il track.
+    */
+    const getTrackMetrics = () => {
 
-  const getMaxKnobPosition = () => {
-    return Math.max(
-      0,
-      track.clientHeight - knob.offsetHeight
-    );
-  };
+      const trackRect =
+        levelTrack.getBoundingClientRect();
+
+      const knobRect =
+        levelKnob.getBoundingClientRect();
+
+      const halfKnob =
+        knobRect.height / 2;
+
+      const minY =
+        trackRect.top + halfKnob;
+
+      const maxY =
+        trackRect.bottom - halfKnob;
+
+      return {
+        minY,
+        maxY,
+        range: Math.max(
+          1,
+          maxY - minY
+        )
+      };
+
+    };
 
 
-  /* -------------------------------------------------------
-     UPDATE KNOB FROM PAGE SCROLL
-     ------------------------------------------------------- */
+    /*
+       Scroll massimo reale.
+    */
+    const getMaxScroll = () => {
 
-  const updateKnob = () => {
-
-    if (dragging) {
-      return;
-    }
-
-    const maxScroll = getMaxScroll();
-    const maxKnobPosition = getMaxKnobPosition();
-
-    if (maxScroll <= 0 || maxKnobPosition <= 0) {
-      knob.style.top = "0px";
-      return;
-    }
-
-    const progress = Math.min(
-      1,
-      Math.max(
+      return Math.max(
         0,
-        window.scrollY / maxScroll
-      )
-    );
+        document.documentElement.scrollHeight -
+        window.innerHeight
+      );
 
-    knob.style.top =
-      `${progress * maxKnobPosition}px`;
-  };
-
-
-  /* -------------------------------------------------------
-     SCHEDULE KNOB UPDATE
-     ------------------------------------------------------- */
-
-  const scheduleUpdate = () => {
-
-    if (animationFrame) {
-      return;
-    }
-
-    animationFrame = requestAnimationFrame(() => {
-      animationFrame = null;
-      updateKnob();
-    });
-  };
-
-
-  /* -------------------------------------------------------
-     SCROLL / RESIZE
-     ------------------------------------------------------- */
-
-  window.addEventListener(
-    "scroll",
-    scheduleUpdate,
-    { passive: true }
-  );
-
-  window.addEventListener(
-    "resize",
-    scheduleUpdate
-  );
-
-
-  /* -------------------------------------------------------
-     MOVE KNOB
-     ------------------------------------------------------- */
-
-  const moveKnob = (clientY) => {
-
-    const rect = track.getBoundingClientRect();
-
-    if (rect.height <= 0) {
-      return;
-    }
-
-    const knobHeight = knob.offsetHeight;
-
-    const maxPosition = Math.max(
-      0,
-      rect.height - knobHeight
-    );
-
-    /*
-     * Pointer position → knob position.
-     *
-     * We subtract half of the knob height so the
-     * pointer stays in the centre of the knob.
-     */
-    let position =
-      clientY -
-      rect.top -
-      (knobHeight / 2);
-
-    position = Math.max(
-      0,
-      Math.min(
-        position,
-        maxPosition
-      )
-    );
-
-    const progress =
-      maxPosition > 0
-        ? position / maxPosition
-        : 0;
-
-    const maxScroll = getMaxScroll();
-
-    const target =
-      progress * maxScroll;
+    };
 
 
     /*
-     * IMPORTANT:
-     *
-     * Update the knob immediately.
-     * This prevents the visual position from waiting
-     * for the scroll event.
-     */
-    knob.style.top = `${position}px`;
+       Da scroll -> posizione knob.
+    */
+    const updateKnobFromScroll = () => {
+
+      if (dragging) {
+        return;
+      }
+
+      const maxScroll =
+        getMaxScroll();
+
+      const scrollTop =
+        window.scrollY;
+
+      const progress =
+        maxScroll > 0
+          ? Math.min(
+              1,
+              Math.max(
+                0,
+                scrollTop / maxScroll
+              )
+            )
+          : 0;
+
+      const {
+        minY,
+        range
+      } = getTrackMetrics();
+
+      /*
+         Posizionamento relativo al track.
+         top è relativo all'elemento .level-track.
+      */
+      const trackRect =
+        levelTrack.getBoundingClientRect();
+
+      const y =
+        (minY - trackRect.top) +
+        progress * range;
+
+      levelKnob.style.top =
+        `${y}px`;
+
+    };
 
 
     /*
-     * Scroll instantly.
-     * No smooth animation while dragging.
-     */
-    window.scrollTo({
-      top: target,
-      behavior: "auto"
-    });
-  };
+       Da coordinate pointer -> scroll.
+       Questa è la parte fondamentale per eliminare
+       il comportamento "a scatti".
+    */
+    const updateScrollFromPointer = (
+      clientY
+    ) => {
+
+      const {
+        minY,
+        maxY,
+        range
+      } = getTrackMetrics();
+
+      const clampedY =
+        Math.min(
+          maxY,
+          Math.max(
+            minY,
+            clientY
+          )
+        );
+
+      const progress =
+        (clampedY - minY) /
+        range;
+
+      const maxScroll =
+        getMaxScroll();
+
+      const targetScroll =
+        progress * maxScroll;
+
+      /*
+         Durante il drag NON usiamo
+         behavior:smooth.
+
+         È proprio questo che evita
+         l'effetto "insegue il mouse" / scatti.
+      */
+      window.scrollTo({
+        top: targetScroll,
+        behavior: "auto"
+      });
+
+    };
 
 
-  /* -------------------------------------------------------
-     POINTER DOWN
-     * Mouse
-     * Touch
-     * Pen
-     * ------------------------------------------------------- */
+    /*
+       POINTER DOWN
+       Funziona con:
+       - mouse
+       - trackpad
+       - touch
+       - penna
+    */
+    const startDrag = (event) => {
 
-  knob.addEventListener(
-    "pointerdown",
-    (event) => {
+      /*
+         Solo primary pointer.
+      */
+      if (
+        event.isPrimary === false
+      ) {
+        return;
+      }
 
       dragging = true;
 
-      /*
-       * Stop CSS transitions while dragging.
-       */
-      scroller.classList.add("is-dragging");
+      levelScroller.classList.add(
+        "is-dragging"
+      );
 
       /*
-       * Capture the pointer so dragging continues
-       * even if the finger/mouse briefly leaves the knob.
-       */
+         Pointer capture:
+         fondamentale quando il mouse
+         esce dal pallino durante il drag.
+      */
       try {
-        knob.setPointerCapture(event.pointerId);
+        levelKnob.setPointerCapture(
+          event.pointerId
+        );
       } catch (error) {
-        /* Pointer capture not supported */
+        /* Browser legacy: nessun problema */
       }
 
       /*
-       * Prevent browser text selection / native touch gestures.
-       */
+         Evita selezione testo e scrolling
+         involontario sul touch.
+      */
       event.preventDefault();
 
-      document.body.style.userSelect = "none";
+      updateScrollFromPointer(
+        event.clientY
+      );
 
-      moveKnob(event.clientY);
-    }
-  );
+    };
 
 
-  /* -------------------------------------------------------
-     POINTER MOVE
-     ------------------------------------------------------- */
-
-  knob.addEventListener(
-    "pointermove",
-    (event) => {
+    /*
+       POINTER MOVE
+    */
+    const moveDrag = (event) => {
 
       if (!dragging) {
         return;
       }
 
-      event.preventDefault();
-
-      moveKnob(event.clientY);
-    }
-  );
-
-
-  /* -------------------------------------------------------
-     STOP DRAGGING
-     ------------------------------------------------------- */
-
-  const stopDragging = () => {
-
-    if (!dragging) {
-      return;
-    }
-
-    dragging = false;
-
-    scroller.classList.remove("is-dragging");
-
-    document.body.style.userSelect = "";
-
-    /*
-     * Re-sync the knob with the actual page position
-     * after dragging ends.
-     */
-    updateKnob();
-  };
-
-
-  knob.addEventListener(
-    "pointerup",
-    stopDragging
-  );
-
-  knob.addEventListener(
-    "pointercancel",
-    stopDragging
-  );
-
-  knob.addEventListener(
-    "lostpointercapture",
-    stopDragging
-  );
-
-
-  /* -------------------------------------------------------
-     CLICK / TOUCH ON TRACK
-     ------------------------------------------------------- */
-
-  track.addEventListener(
-    "pointerdown",
-    (event) => {
-
-      /*
-       * Don't trigger the track jump when clicking
-       * directly on the knob.
-       */
       if (
-        event.target === knob ||
-        knob.contains(event.target)
+        event.isPrimary === false
       ) {
         return;
       }
 
       event.preventDefault();
 
-      moveKnob(event.clientY);
-    }
-  );
+      updateScrollFromPointer(
+        event.clientY
+      );
+
+    };
 
 
-  /* -------------------------------------------------------
-     KEYBOARD CONTROL
-     ------------------------------------------------------- */
+    /*
+       POINTER UP
+    */
+    const stopDrag = (event) => {
 
-  knob.addEventListener(
-    "keydown",
-    (event) => {
-
-      const current = window.scrollY;
-      const amount = window.innerHeight * 0.15;
-
-      let target = null;
-
-      switch (event.key) {
-
-        case "ArrowUp":
-          target = current - amount;
-          break;
-
-        case "ArrowDown":
-          target = current + amount;
-          break;
-
-        case "Home":
-          target = 0;
-          break;
-
-        case "End":
-          target = getMaxScroll();
-          break;
-
-        default:
-          return;
-      }
-
-      window.scrollTo({
-        top: Math.max(
-          0,
-          Math.min(
-            target,
-            getMaxScroll()
-          )
-        ),
-        behavior: "smooth"
-      });
-
-      event.preventDefault();
-    }
-  );
-
-
-  /* -------------------------------------------------------
-     INITIAL POSITION
-     ------------------------------------------------------- */
-
-  updateKnob();
-}
-   
-
-  /* =========================================================
-     CONTACT FORM — EMAIL + WHATSAPP
-     ========================================================= */
-
-  const contactForm =
-    document.getElementById("audio-contact-form");
-
-  const whatsappSubmit =
-    document.getElementById("whatsapp-submit");
-
-  const nameField =
-    document.getElementById("contact-name");
-
-  const emailField =
-    document.getElementById("contact-email");
-
-  const subjectField =
-    document.getElementById("contact-subject");
-
-  const messageField =
-    document.getElementById("contact-message");
-
-
-  /* ---------------------------------------------------------
-     EMAIL
-     --------------------------------------------------------- */
-
-  if (
-    contactForm &&
-    nameField &&
-    emailField &&
-    subjectField &&
-    messageField
-  ) {
-    contactForm.addEventListener("submit", (event) => {
-      event.preventDefault();
-
-      /*
-       * Let the browser perform its native HTML validation.
-       */
-      if (!contactForm.checkValidity()) {
-        contactForm.reportValidity();
+      if (!dragging) {
         return;
       }
 
-      const name = nameField.value.trim();
-      const email = emailField.value.trim();
-      const subject = subjectField.value.trim();
-      const message = messageField.value.trim();
+      dragging = false;
 
-      const finalSubject =
-        subject || "Richiesta di contatto";
+      levelScroller.classList.remove(
+        "is-dragging"
+      );
 
-      const body =
-        "Ciao Jacopo,\n\n" +
-        message +
-        "\n\n" +
-        "--------------------------------\n" +
-        "Nome: " + name + "\n" +
-        "Email: " + email + "\n";
+      try {
+        if (
+          levelKnob.hasPointerCapture(
+            event.pointerId
+          )
+        ) {
+          levelKnob.releasePointerCapture(
+            event.pointerId
+          );
+        }
+      } catch (error) {
+        /* Browser legacy */
+      }
 
-      const mailto =
-        "mailto:jpmessina86@gmail.com" +
-        "?subject=" +
-        encodeURIComponent(finalSubject) +
-        "&body=" +
-        encodeURIComponent(body);
+      /*
+         Allineamento finale.
+      */
+      updateKnobFromScroll();
 
-      window.location.href = mailto;
-    });
+    };
+
+
+    levelKnob.addEventListener(
+      "pointerdown",
+      startDrag,
+      {
+        passive: false
+      }
+    );
+
+    levelKnob.addEventListener(
+      "pointermove",
+      moveDrag,
+      {
+        passive: false
+      }
+    );
+
+    levelKnob.addEventListener(
+      "pointerup",
+      stopDrag,
+      {
+        passive: false
+      }
+    );
+
+    levelKnob.addEventListener(
+      "pointercancel",
+      stopDrag,
+      {
+        passive: false
+      }
+    );
+
+
+    /*
+       Se il browser perde il pointer capture.
+    */
+    levelKnob.addEventListener(
+      "lostpointercapture",
+      () => {
+
+        if (dragging) {
+
+          dragging = false;
+
+          levelScroller.classList.remove(
+            "is-dragging"
+          );
+
+          updateKnobFromScroll();
+
+        }
+
+      }
+    );
+
+
+    /*
+       Click sulla TRACK:
+       permette di saltare direttamente
+       a qualsiasi punto della pagina.
+    */
+    levelTrack.addEventListener(
+      "pointerdown",
+      (event) => {
+
+        /*
+           Se stiamo cliccando direttamente
+           il knob, lascia lavorare il drag.
+        */
+        if (
+          event.target === levelKnob ||
+          levelKnob.contains(event.target)
+        ) {
+          return;
+        }
+
+        /*
+           Solo primary pointer.
+        */
+        if (
+          event.isPrimary === false
+        ) {
+          return;
+        }
+
+        event.preventDefault();
+
+        updateScrollFromPointer(
+          event.clientY
+        );
+
+      },
+      {
+        passive: false
+      }
+    );
+
+
+    /*
+       Anche il livello LABEL può essere usato
+       come area di navigazione se si clicca.
+       Non lo rendiamo però trascinabile.
+    */
+
+
+    /*
+       Tastiera:
+       il pallino è tabindex=0.
+       Frecce, PageUp/PageDown, Home/End.
+    */
+    levelKnob.addEventListener(
+      "keydown",
+      (event) => {
+
+        const maxScroll =
+          getMaxScroll();
+
+        if (maxScroll <= 0) {
+          return;
+        }
+
+        const current =
+          window.scrollY;
+
+        const viewport =
+          window.innerHeight;
+
+        let target = current;
+
+        switch (event.key) {
+
+          case "ArrowUp":
+            target = current - 100;
+            break;
+
+          case "ArrowDown":
+            target = current + 100;
+            break;
+
+          case "PageUp":
+            target = current - viewport * 0.8;
+            break;
+
+          case "PageDown":
+            target = current + viewport * 0.8;
+            break;
+
+          case "Home":
+            target = 0;
+            break;
+
+          case "End":
+            target = maxScroll;
+            break;
+
+          default:
+            return;
+
+        }
+
+        event.preventDefault();
+
+        window.scrollTo({
+          top: Math.max(
+            0,
+            Math.min(
+              maxScroll,
+              target
+            )
+          ),
+          behavior: "smooth"
+        });
+
+      }
+    );
+
+
+    /*
+       Aggiornamento knob durante scroll.
+       requestAnimationFrame evita scatti
+       causati da troppi layout recalculation.
+    */
+    let levelFrame = null;
+
+    const handleLevelScroll = () => {
+
+      if (dragging) {
+        return;
+      }
+
+      if (levelFrame !== null) {
+        return;
+      }
+
+      levelFrame =
+        requestAnimationFrame(() => {
+
+          updateKnobFromScroll();
+
+          levelFrame = null;
+
+        });
+
+    };
+
+
+    window.addEventListener(
+      "scroll",
+      handleLevelScroll,
+      {
+        passive: true
+      }
+    );
+
+
+    window.addEventListener(
+      "resize",
+      () => {
+
+        /*
+           Dopo un resize il track cambia
+           altezza: ricalcoliamo.
+        */
+        updateKnobFromScroll();
+
+      },
+      {
+        passive: true
+      }
+    );
+
+
+    /*
+       Prima sincronizzazione.
+    */
+    updateKnobFromScroll();
+
   }
 
 
-  /* ---------------------------------------------------------
-     WHATSAPP
-     --------------------------------------------------------- */
+  /* =======================================================
+     CONTACT FORM — EMAIL
+     ======================================================= */
 
-  if (
-    whatsappSubmit &&
-    contactForm &&
-    nameField &&
-    emailField &&
-    subjectField &&
-    messageField
-  ) {
-    whatsappSubmit.addEventListener("click", () => {
+  const contactForm =
+    $("#audio-contact-form");
 
-      if (!contactForm.checkValidity()) {
-        contactForm.reportValidity();
+  if (contactForm) {
+
+    const nameInput =
+      $("#contact-name");
+
+    const emailInput =
+      $("#contact-email");
+
+    const subjectInput =
+      $("#contact-subject");
+
+    const messageInput =
+      $("#contact-message");
+
+    const status =
+      $(".form-status", contactForm);
+
+    const submitButton =
+      $(".audio-submit-button", contactForm);
+
+
+    const setStatus = (
+      text,
+      type = "normal"
+    ) => {
+
+      if (!status) {
         return;
       }
 
-      const name = nameField.value.trim();
-      const email = emailField.value.trim();
-      const subject = subjectField.value.trim();
-      const message = messageField.value.trim();
+      status.textContent = text;
 
-      /*
-       * Numero di Jacopo, mantenuto come nel file originale.
-       */
-      const phone = "393318792303";
+      status.dataset.status =
+        type;
 
-      const whatsappMessage =
-`Ciao Jacopo,
+    };
 
-sono ${name}.
+
+    const validEmail = (email) => {
+
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        .test(email);
+
+    };
+
+
+    contactForm.addEventListener(
+      "submit",
+      (event) => {
+
+        event.preventDefault();
+
+        const name =
+          nameInput
+            ? nameInput.value.trim()
+            : "";
+
+        const email =
+          emailInput
+            ? emailInput.value.trim()
+            : "";
+
+        const subject =
+          subjectInput
+            ? subjectInput.value.trim()
+            : "";
+
+        const message =
+          messageInput
+            ? messageInput.value.trim()
+            : "";
+
+
+        /*
+           Validazione.
+        */
+        if (!name) {
+
+          setStatus(
+            "● INSERISCI IL TUO NOME",
+            "error"
+          );
+
+          nameInput?.focus();
+
+          return;
+
+        }
+
+
+        if (
+          !email ||
+          !validEmail(email)
+        ) {
+
+          setStatus(
+            "● INSERISCI UNA EMAIL VALIDA",
+            "error"
+          );
+
+          emailInput?.focus();
+
+          return;
+
+        }
+
+
+        if (!message) {
+
+          setStatus(
+            "● INSERISCI UN MESSAGGIO",
+            "error"
+          );
+
+          messageInput?.focus();
+
+          return;
+
+        }
+
+
+        /*
+           Costruiamo la mail.
+        */
+        const recipient =
+          "jpmessina86@gmail.com";
+
+        const finalSubject =
+          subject ||
+          "Richiesta dal sito Jacopo Messina";
+
+        const body =
+`Nome: ${name}
 
 Email: ${email}
 
-${subject ? "Oggetto: " + subject + "\n\n" : ""}Messaggio:
+Messaggio:
 ${message}`;
 
-      const encodedMessage =
-        encodeURIComponent(whatsappMessage);
 
-      const whatsappURL =
-        `https://web.whatsapp.com/send?phone=${phone}&text=${encodedMessage}`;
-
-      window.open(
-        whatsappURL,
-        "_blank",
-        "noopener,noreferrer"
-      );
-    });
-  }
-
-/* =========================================================
-   BEHIND THE SCENES — LIGHTBOX GALLERY
-========================================================= */
-
-  const items = document.querySelectorAll(".bts-item img");
-  const lightbox = document.getElementById("bts-lightbox");
-  const lightboxImage = document.getElementById("bts-lightbox-image");
-  const counter = document.getElementById("bts-counter");
-
-  const closeButton = document.querySelector(".bts-close");
-  const prevButton = document.querySelector(".bts-prev");
-  const nextButton = document.querySelector(".bts-next");
-
-  let currentIndex = 0;
+        const mailto =
+          "mailto:" +
+          recipient +
+          "?subject=" +
+          encodeURIComponent(finalSubject) +
+          "&body=" +
+          encodeURIComponent(body);
 
 
-  /* -------------------------------------------------------
-     CONTROLLO
-  ------------------------------------------------------- */
+        setStatus(
+          "● APERTURA CLIENT EMAIL...",
+          "sending"
+        );
 
-  if (
-    !items.length ||
-    !lightbox ||
-    !lightboxImage ||
-    !counter ||
-    !closeButton ||
-    !prevButton ||
-    !nextButton
-  ) {
-    console.warn("BTS Lightbox: elementi mancanti nell'HTML.");
-    return;
+
+        /*
+           Apriamo il client email
+           senza lasciare la pagina.
+        */
+        window.location.href =
+          mailto;
+
+
+        /*
+           Dopo un breve intervallo
+           ripristiniamo lo stato.
+        */
+        window.setTimeout(() => {
+
+          setStatus(
+            "● CHANNEL OPEN",
+            "normal"
+          );
+
+        }, 2500);
+
+      }
+    );
+
   }
 
 
-  /* -------------------------------------------------------
-     APRI LIGHTBOX
-  ------------------------------------------------------- */
+  /* =======================================================
+     WHATSAPP
+     ======================================================= */
 
-  function openLightbox(index) {
+  const whatsappButton =
+    $("#whatsapp-submit");
 
-    currentIndex = index;
+  if (whatsappButton) {
 
-    const image = items[currentIndex];
+    whatsappButton.addEventListener(
+      "click",
+      () => {
 
-    lightboxImage.src = image.src;
-    lightboxImage.alt = image.alt;
+        const nameInput =
+          $("#contact-name");
 
-    counter.textContent =
-      (currentIndex + 1) + " / " + items.length;
+        const emailInput =
+          $("#contact-email");
 
-    lightbox.classList.add("is-open");
+        const subjectInput =
+          $("#contact-subject");
 
-    document.body.style.overflow = "hidden";
+        const messageInput =
+          $("#contact-message");
+
+        const status =
+          $(".form-status");
+
+
+        const name =
+          nameInput
+            ? nameInput.value.trim()
+            : "";
+
+        const email =
+          emailInput
+            ? emailInput.value.trim()
+            : "";
+
+        const subject =
+          subjectInput
+            ? subjectInput.value.trim()
+            : "";
+
+        const message =
+          messageInput
+            ? messageInput.value.trim()
+            : "";
+
+
+        /*
+           WhatsApp non deve necessariamente
+           richiedere email valida, ma nome
+           e messaggio sono utili.
+        */
+        if (!name) {
+
+          if (status) {
+            status.textContent =
+              "● INSERISCI IL TUO NOME";
+          }
+
+          nameInput?.focus();
+
+          return;
+
+        }
+
+
+        if (!message) {
+
+          if (status) {
+            status.textContent =
+              "● INSERISCI UN MESSAGGIO";
+          }
+
+          messageInput?.focus();
+
+          return;
+
+        }
+
+
+        const whatsappNumber =
+          "393318792303";
+
+
+        let text =
+`Ciao Jacopo, sono ${name}.`;
+
+
+        if (subject) {
+          text +=
+            `\n\nOggetto: ${subject}`;
+        }
+
+
+        if (email) {
+          text +=
+            `\n\nLa mia email: ${email}`;
+        }
+
+
+        text +=
+          `\n\n${message}`;
+
+
+        const whatsappUrl =
+          "https://wa.me/" +
+          whatsappNumber +
+          "?text=" +
+          encodeURIComponent(text);
+
+
+        if (status) {
+          status.textContent =
+            "● APERTURA WHATSAPP...";
+        }
+
+
+        window.open(
+          whatsappUrl,
+          "_blank",
+          "noopener,noreferrer"
+        );
+
+
+        window.setTimeout(() => {
+
+          if (status) {
+            status.textContent =
+              "● CHANNEL OPEN";
+          }
+
+        }, 2500);
+
+      }
+    );
+
   }
 
 
-  /* -------------------------------------------------------
-     CHIUDI LIGHTBOX
-  ------------------------------------------------------- */
+  /* =======================================================
+     FORM FIELD ACTIVE STATE
+     ======================================================= */
 
-  function closeLightbox() {
+  $$(".form-field").forEach((field) => {
 
-    lightbox.classList.remove("is-open");
+    const input =
+      $("input, textarea", field);
 
-    document.body.style.overflow = "";
-
-    lightboxImage.src = "";
-    lightboxImage.alt = "";
-  }
-
-
-  /* -------------------------------------------------------
-     IMMAGINE PRECEDENTE
-  ------------------------------------------------------- */
-
-  function showPrevious() {
-
-    currentIndex--;
-
-    if (currentIndex < 0) {
-      currentIndex = items.length - 1;
-    }
-
-    updateImage();
-  }
-
-
-  /* -------------------------------------------------------
-     IMMAGINE SUCCESSIVA
-  ------------------------------------------------------- */
-
-  function showNext() {
-
-    currentIndex++;
-
-    if (currentIndex >= items.length) {
-      currentIndex = 0;
-    }
-
-    updateImage();
-  }
-
-
-  /* -------------------------------------------------------
-     AGGIORNA IMMAGINE
-  ------------------------------------------------------- */
-
-  function updateImage() {
-
-    const image = items[currentIndex];
-
-    lightboxImage.src = image.src;
-    lightboxImage.alt = image.alt;
-
-    counter.textContent =
-      (currentIndex + 1) + " / " + items.length;
-  }
-
-
-  /* -------------------------------------------------------
-     CLICK SULLE IMMAGINI
-  ------------------------------------------------------- */
-
-  items.forEach(function (image, index) {
-
-    image.addEventListener("click", function () {
-      openLightbox(index);
-    });
-
-  });
-
-
-  /* -------------------------------------------------------
-     PULSANTI
-  ------------------------------------------------------- */
-
-  closeButton.addEventListener("click", function (event) {
-    event.stopPropagation();
-    closeLightbox();
-  });
-
-  prevButton.addEventListener("click", function (event) {
-    event.stopPropagation();
-    showPrevious();
-  });
-
-  nextButton.addEventListener("click", function (event) {
-    event.stopPropagation();
-    showNext();
-  });
-
-
-  /* -------------------------------------------------------
-     CLICK SULLO SFONDO
-  ------------------------------------------------------- */
-
-  lightbox.addEventListener("click", function (event) {
-
-    if (event.target === lightbox) {
-      closeLightbox();
-    }
-
-  });
-
-
-  /* -------------------------------------------------------
-     TASTIERA
-  ------------------------------------------------------- */
-
-  document.addEventListener("keydown", function (event) {
-
-    if (!lightbox.classList.contains("is-open")) {
+    if (!input) {
       return;
     }
 
-    if (event.key === "Escape") {
-      closeLightbox();
-    }
 
-    if (event.key === "ArrowLeft") {
-      showPrevious();
-    }
+    const updateFieldState = () => {
 
-    if (event.key === "ArrowRight") {
-      showNext();
-    }
+      field.classList.toggle(
+        "has-value",
+        input.value.trim() !== ""
+      );
+
+      field.classList.toggle(
+        "is-focused",
+        document.activeElement === input
+      );
+
+    };
+
+
+    input.addEventListener(
+      "focus",
+      updateFieldState
+    );
+
+    input.addEventListener(
+      "blur",
+      updateFieldState
+    );
+
+    input.addEventListener(
+      "input",
+      updateFieldState
+    );
+
+    updateFieldState();
 
   });
+
+
+  /* =======================================================
+     EXTERNAL LINKS
+     ======================================================= */
+
+  /*
+     I link esterni già impostati con target="_blank"
+     mantengono noopener.
+  */
+
+  $$('a[target="_blank"]').forEach((link) => {
+
+    const rel =
+      link.getAttribute("rel") || "";
+
+    const values =
+      new Set(
+        rel
+          .split(/\s+/)
+          .filter(Boolean)
+      );
+
+    values.add("noopener");
+    values.add("noreferrer");
+
+    link.setAttribute(
+      "rel",
+      Array.from(values).join(" ")
+    );
+
+  });
+
+
+  /* =======================================================
+     IMAGE ERROR HANDLING
+     ======================================================= */
+
+  $$("img").forEach((image) => {
+
+    image.addEventListener(
+      "error",
+      () => {
+
+        image.classList.add(
+          "image-load-error"
+        );
+
+      }
+    );
+
+  });
+
+
+  /* =======================================================
+     INITIAL PAGE STATE
+     ======================================================= */
+
+  /*
+     Forza un primo aggiornamento dopo che
+     tutte le immagini hanno avuto modo di
+     influenzare l'altezza della pagina.
+  */
+  window.setTimeout(() => {
+
+    window.dispatchEvent(
+      new Event("resize")
+    );
+
+    window.dispatchEvent(
+      new Event("scroll")
+    );
+
+  }, 100);
+
 
 });
