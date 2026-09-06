@@ -218,219 +218,365 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =========================================================
-     VERTICAL LEVEL SCROLLER
-     ========================================================= */
+   VERTICAL LEVEL SCROLLER
+   ========================================================= */
 
-  const scroller = document.querySelector(".level-scroller");
-  const knob = document.querySelector(".level-knob");
-  const track = document.querySelector(".level-track");
+const scroller = document.querySelector(".level-scroller");
+const knob = document.querySelector(".level-knob");
+const track = document.querySelector(".level-track");
 
-  if (scroller && knob && track) {
+if (scroller && knob && track) {
 
-    /* -------------------------------------------------------
-       UPDATE KNOB FROM PAGE SCROLL
-       ------------------------------------------------------- */
+  /* -------------------------------------------------------
+     STATE
+     ------------------------------------------------------- */
 
-    const updateKnob = () => {
-      const maxScroll =
-        document.documentElement.scrollHeight -
-        window.innerHeight;
+  let dragging = false;
+  let animationFrame = null;
 
-      if (maxScroll <= 0) {
-        knob.style.top = "0px";
+
+  /* -------------------------------------------------------
+     GET PAGE SCROLL LIMIT
+     ------------------------------------------------------- */
+
+  const getMaxScroll = () => {
+    return Math.max(
+      0,
+      document.documentElement.scrollHeight -
+      window.innerHeight
+    );
+  };
+
+
+  /* -------------------------------------------------------
+     GET KNOB TRAVEL
+     ------------------------------------------------------- */
+
+  const getMaxKnobPosition = () => {
+    return Math.max(
+      0,
+      track.clientHeight - knob.offsetHeight
+    );
+  };
+
+
+  /* -------------------------------------------------------
+     UPDATE KNOB FROM PAGE SCROLL
+     ------------------------------------------------------- */
+
+  const updateKnob = () => {
+
+    if (dragging) {
+      return;
+    }
+
+    const maxScroll = getMaxScroll();
+    const maxKnobPosition = getMaxKnobPosition();
+
+    if (maxScroll <= 0 || maxKnobPosition <= 0) {
+      knob.style.top = "0px";
+      return;
+    }
+
+    const progress = Math.min(
+      1,
+      Math.max(
+        0,
+        window.scrollY / maxScroll
+      )
+    );
+
+    knob.style.top =
+      `${progress * maxKnobPosition}px`;
+  };
+
+
+  /* -------------------------------------------------------
+     SCHEDULE KNOB UPDATE
+     ------------------------------------------------------- */
+
+  const scheduleUpdate = () => {
+
+    if (animationFrame) {
+      return;
+    }
+
+    animationFrame = requestAnimationFrame(() => {
+      animationFrame = null;
+      updateKnob();
+    });
+  };
+
+
+  /* -------------------------------------------------------
+     SCROLL / RESIZE
+     ------------------------------------------------------- */
+
+  window.addEventListener(
+    "scroll",
+    scheduleUpdate,
+    { passive: true }
+  );
+
+  window.addEventListener(
+    "resize",
+    scheduleUpdate
+  );
+
+
+  /* -------------------------------------------------------
+     MOVE KNOB
+     ------------------------------------------------------- */
+
+  const moveKnob = (clientY) => {
+
+    const rect = track.getBoundingClientRect();
+
+    if (rect.height <= 0) {
+      return;
+    }
+
+    const knobHeight = knob.offsetHeight;
+
+    const maxPosition = Math.max(
+      0,
+      rect.height - knobHeight
+    );
+
+    /*
+     * Pointer position → knob position.
+     *
+     * We subtract half of the knob height so the
+     * pointer stays in the centre of the knob.
+     */
+    let position =
+      clientY -
+      rect.top -
+      (knobHeight / 2);
+
+    position = Math.max(
+      0,
+      Math.min(
+        position,
+        maxPosition
+      )
+    );
+
+    const progress =
+      maxPosition > 0
+        ? position / maxPosition
+        : 0;
+
+    const maxScroll = getMaxScroll();
+
+    const target =
+      progress * maxScroll;
+
+
+    /*
+     * IMPORTANT:
+     *
+     * Update the knob immediately.
+     * This prevents the visual position from waiting
+     * for the scroll event.
+     */
+    knob.style.top = `${position}px`;
+
+
+    /*
+     * Scroll instantly.
+     * No smooth animation while dragging.
+     */
+    window.scrollTo({
+      top: target,
+      behavior: "auto"
+    });
+  };
+
+
+  /* -------------------------------------------------------
+     POINTER DOWN
+     * Mouse
+     * Touch
+     * Pen
+     * ------------------------------------------------------- */
+
+  knob.addEventListener(
+    "pointerdown",
+    (event) => {
+
+      dragging = true;
+
+      /*
+       * Stop CSS transitions while dragging.
+       */
+      scroller.classList.add("is-dragging");
+
+      /*
+       * Capture the pointer so dragging continues
+       * even if the finger/mouse briefly leaves the knob.
+       */
+      try {
+        knob.setPointerCapture(event.pointerId);
+      } catch (error) {
+        /* Pointer capture not supported */
+      }
+
+      /*
+       * Prevent browser text selection / native touch gestures.
+       */
+      event.preventDefault();
+
+      document.body.style.userSelect = "none";
+
+      moveKnob(event.clientY);
+    }
+  );
+
+
+  /* -------------------------------------------------------
+     POINTER MOVE
+     ------------------------------------------------------- */
+
+  knob.addEventListener(
+    "pointermove",
+    (event) => {
+
+      if (!dragging) {
         return;
       }
 
-      const scrollProgress = Math.min(
-        1,
-        Math.max(0, window.scrollY / maxScroll)
-      );
+      event.preventDefault();
 
-      const maxKnobPosition =
-        Math.max(0, track.clientHeight - knob.offsetHeight);
+      moveKnob(event.clientY);
+    }
+  );
+
+
+  /* -------------------------------------------------------
+     STOP DRAGGING
+     ------------------------------------------------------- */
+
+  const stopDragging = () => {
+
+    if (!dragging) {
+      return;
+    }
+
+    dragging = false;
+
+    scroller.classList.remove("is-dragging");
+
+    document.body.style.userSelect = "";
+
+    /*
+     * Re-sync the knob with the actual page position
+     * after dragging ends.
+     */
+    updateKnob();
+  };
+
+
+  knob.addEventListener(
+    "pointerup",
+    stopDragging
+  );
+
+  knob.addEventListener(
+    "pointercancel",
+    stopDragging
+  );
+
+  knob.addEventListener(
+    "lostpointercapture",
+    stopDragging
+  );
+
+
+  /* -------------------------------------------------------
+     CLICK / TOUCH ON TRACK
+     ------------------------------------------------------- */
+
+  track.addEventListener(
+    "pointerdown",
+    (event) => {
 
       /*
-       * The knob is translated -50%, so the usable travel is
-       * based on the track height minus the knob height.
+       * Don't trigger the track jump when clicking
+       * directly on the knob.
        */
-      knob.style.top =
-        `${scrollProgress * maxKnobPosition}px`;
-    };
-
-
-    /* -------------------------------------------------------
-       SCROLL / RESIZE
-       ------------------------------------------------------- */
-
-    window.addEventListener(
-      "scroll",
-      updateKnob,
-      { passive: true }
-    );
-
-    window.addEventListener(
-      "resize",
-      updateKnob
-    );
-
-
-    /* -------------------------------------------------------
-       KNOB DRAGGING
-       ------------------------------------------------------- */
-
-    let dragging = false;
-
-    const moveKnob = (clientY) => {
-      const rect = track.getBoundingClientRect();
-
-      if (rect.height <= 0) {
+      if (
+        event.target === knob ||
+        knob.contains(event.target)
+      ) {
         return;
       }
 
-      /*
-       * Convert the pointer position into the centre position
-       * of the knob, then clamp it to the usable track range.
-       */
-      const knobHeight = knob.offsetHeight;
-      const maxPosition = Math.max(
-        0,
-        rect.height - knobHeight
-      );
+      event.preventDefault();
 
-      let position =
-        clientY - rect.top - (knobHeight / 2);
+      moveKnob(event.clientY);
+    }
+  );
 
-      position = Math.max(
-        0,
-        Math.min(position, maxPosition)
-      );
 
-      const progress =
-        maxPosition > 0
-          ? position / maxPosition
-          : 0;
+  /* -------------------------------------------------------
+     KEYBOARD CONTROL
+     ------------------------------------------------------- */
 
-      const maxScroll =
-        Math.max(
-          0,
-          document.documentElement.scrollHeight -
-          window.innerHeight
-        );
+  knob.addEventListener(
+    "keydown",
+    (event) => {
+
+      const current = window.scrollY;
+      const amount = window.innerHeight * 0.15;
+
+      let target = null;
+
+      switch (event.key) {
+
+        case "ArrowUp":
+          target = current - amount;
+          break;
+
+        case "ArrowDown":
+          target = current + amount;
+          break;
+
+        case "Home":
+          target = 0;
+          break;
+
+        case "End":
+          target = getMaxScroll();
+          break;
+
+        default:
+          return;
+      }
 
       window.scrollTo({
-        top: progress * maxScroll,
-        behavior: "auto"
+        top: Math.max(
+          0,
+          Math.min(
+            target,
+            getMaxScroll()
+          )
+        ),
+        behavior: "smooth"
       });
-    };
+
+      event.preventDefault();
+    }
+  );
 
 
-    knob.addEventListener(
-      "pointerdown",
-      (event) => {
-        dragging = true;
+  /* -------------------------------------------------------
+     INITIAL POSITION
+     ------------------------------------------------------- */
 
-        if (knob.setPointerCapture) {
-          knob.setPointerCapture(event.pointerId);
-        }
-
-        document.body.style.userSelect = "none";
-        moveKnob(event.clientY);
-        event.preventDefault();
-      }
-    );
-
-    knob.addEventListener(
-      "pointermove",
-      (event) => {
-        if (!dragging) {
-          return;
-        }
-
-        moveKnob(event.clientY);
-      }
-    );
-
-    const stopDragging = () => {
-      dragging = false;
-      document.body.style.userSelect = "";
-    };
-
-    knob.addEventListener("pointerup", stopDragging);
-    knob.addEventListener("pointercancel", stopDragging);
-    knob.addEventListener("lostpointercapture", stopDragging);
-
-
-    /* -------------------------------------------------------
-       CLICK ON TRACK → JUMP TO POSITION
-       ------------------------------------------------------- */
-
-    track.addEventListener(
-      "pointerdown",
-      (event) => {
-        if (
-          event.target === knob ||
-          knob.contains(event.target)
-        ) {
-          return;
-        }
-
-        moveKnob(event.clientY);
-      }
-    );
-
-
-    /* -------------------------------------------------------
-       KEYBOARD CONTROL
-       ------------------------------------------------------- */
-
-    knob.addEventListener(
-      "keydown",
-      (event) => {
-        const current = window.scrollY;
-        const amount = window.innerHeight * 0.15;
-
-        let target = null;
-
-        switch (event.key) {
-          case "ArrowUp":
-            target = current - amount;
-            break;
-
-          case "ArrowDown":
-            target = current + amount;
-            break;
-
-          case "Home":
-            target = 0;
-            break;
-
-          case "End":
-            target =
-              document.documentElement.scrollHeight -
-              window.innerHeight;
-            break;
-
-          default:
-            return;
-        }
-
-        window.scrollTo({
-          top: Math.max(0, target),
-          behavior: "smooth"
-        });
-
-        event.preventDefault();
-      }
-    );
-
-
-    /* -------------------------------------------------------
-       INITIAL POSITION
-       ------------------------------------------------------- */
-
-    updateKnob();
-  }
-
+  updateKnob();
+}
+   
 
   /* =========================================================
      CONTACT FORM — EMAIL + WHATSAPP
