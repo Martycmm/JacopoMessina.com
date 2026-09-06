@@ -2686,66 +2686,76 @@ transform: translateY(-50%);
 KNOB
 --------------------------------------------------------- */
 .level-knob {
-position: absolute;
-left: 50%;
-top: 0;
-width: 11px;
-height: 11px;
-transform: translate(-50%, -50%);
-border: 1px solid #222;
-border-radius: 50%;
-background: #fff;
-box-sizing: border-box;
-cursor: grab;
-z-index: 5;
-    
-transition:
-width 0.15s ease,
-height 0.15s ease,
-background 0.15s ease,
-box-shadow 0.15s ease;
-    
-          touch-action: none;
+    position: absolute;
+    left: 50%;
+    top: 0;
+
+    width: 15px;
+    height: 15px;
+
+    transform: translate(-50%, -50%);
+
+    border: 1px solid #222;
+    border-radius: 50%;
+    background: #fff;
+
+    box-sizing: border-box;
+
+    cursor: grab;
+    z-index: 5;
+
+    touch-action: none;
     user-select: none;
     -webkit-user-select: none;
-    cursor: grab;
-    
+
+    outline: 1px solid #222;
+    outline-offset: 4px;
+
+    transition:
+        width 0.15s ease,
+        height 0.15s ease,
+        background 0.15s ease,
+        box-shadow 0.15s ease;
 }
 
 .level-scroller.is-dragging .level-knob {
-        cursor: grabbing;
+    cursor: grabbing;
     transition: none !important;
 }
 
-
 .level-knob span {
-position: absolute;
-top: 50%;
-left: 50%;
-width: 3px;
-height: 3px;
-transform: translate(-50%, -50%);
-border-radius: 50%;
-background: #222;
-}
-.level-knob {
-cursor: grabbing;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 3px;
+    height: 3px;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+    background: #222;
+
+    pointer-events: none;
 }
 
 /* ---------------------------------------------------------
 HOVER
 --------------------------------------------------------- */
 .level-scroller {
-opacity: 1;
+    opacity: 1;
 }
+
 .level-scroller .level-knob {
-width: 15px;
-height: 15px;
-box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.06);
+    width: 15px;
+    height: 15px;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.06);
 }
+
 .level-scroller .level-line {
-background: #aaa;
+    background: #aaa;
 }
+
 /* ---------------------------------------------------------
 KEYBOARD FOCUS
 --------------------------------------------------------- */
