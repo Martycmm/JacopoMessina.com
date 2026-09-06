@@ -2696,12 +2696,23 @@ background: #fff;
 box-sizing: border-box;
 cursor: grab;
 z-index: 5;
+    
 transition:
 width 0.15s ease,
 height 0.15s ease,
 background 0.15s ease,
 box-shadow 0.15s ease;
+    
+      touch-action: none;
+  user-select: none;
+    
 }
+
+.level-scroller.is-dragging .level-knob {
+  transition: none;
+}
+
+
 .level-knob span {
 position: absolute;
 top: 50%;
@@ -2715,6 +2726,7 @@ background: #222;
 .level-knob {
 cursor: grabbing;
 }
+
 /* ---------------------------------------------------------
 HOVER
 --------------------------------------------------------- */
