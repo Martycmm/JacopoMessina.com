@@ -2071,9 +2071,11 @@ font-size: 5px;
 .timeline-playhead {
 display: none;
 }
+    
 /* =========================================================
 VERTICAL LEVEL SCROLLER
 \========================================================= */
+    
 .level-scroller {
 display: none;
 }
@@ -2703,13 +2705,16 @@ height 0.15s ease,
 background 0.15s ease,
 box-shadow 0.15s ease;
     
-      touch-action: none;
-  user-select: none;
+          touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: grab;
     
 }
 
 .level-scroller.is-dragging .level-knob {
-  transition: none;
+        cursor: grabbing;
+    transition: none !important;
 }
 
 
