@@ -750,7 +750,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
-  /* =======================================================
+    /* =======================================================
      LEVEL SCROLLER
      ======================================================= */
 
@@ -758,359 +758,233 @@ document.addEventListener("DOMContentLoaded", () => {
   const levelTrack = $(".level-track");
   const levelKnob = $(".level-knob");
 
-  /*
-     IMPORTANTE:
-     il controllo viene disabilitato dal CSS
-     tra 701 e 1010px e sotto i 700px.
-     Il JS quindi non forza la sua visualizzazione.
-  */
-
-  if (
-    levelScroller &&
-    levelTrack &&
-    levelKnob
-  ) {
-
+  if (levelScroller && levelTrack && levelKnob) {
     let dragging = false;
+    let activePointerId = null;
+    let levelFrame = null;
 
-    /*
-       Evitiamo che il browser tenti di fare
-       selezione testo / drag nativo.
-    */
-    levelKnob.addEventListener(
-      "dragstart",
-      (event) => {
-        event.preventDefault();
-      }
+    levelKnob.setAttribute("role", "slider");
+    levelKnob.setAttribute("aria-orientation", "vertical");
+    levelKnob.setAttribute("aria-valuemin", "0");
+    levelKnob.setAttribute("aria-valuemax", "100");
+    levelKnob.setAttribute(
+      "tabindex",
+      levelKnob.getAttribute("tabindex") || "0"
     );
 
+    levelKnob.addEventListener("dragstart", (event) => {
+      event.preventDefault();
+    });
 
-    /*
-       Limiti reali del knob.
-       Il centro del knob deve rimanere
-       dentro il track.
-    */
-    const getTrackMetrics = () => {
+    const clamp = (value, min, max) =>
+      Math.min(max, Math.max(min, value));
 
-      const trackRect =
-        levelTrack.getBoundingClientRect();
-
-      const knobRect =
-        levelKnob.getBoundingClientRect();
-
-      const halfKnob =
-        knobRect.height / 2;
-
-      const minY =
-        trackRect.top + halfKnob;
-
-      const maxY =
-        trackRect.bottom - halfKnob;
-
-      return {
-        minY,
-        maxY,
-        range: Math.max(
-          1,
-          maxY - minY
-        )
-      };
-
-    };
-
-
-    /*
-       Scroll massimo reale.
-    */
-    const getMaxScroll = () => {
-
-      return Math.max(
+    const getMaxScroll = () =>
+      Math.max(
         0,
-        document.documentElement.scrollHeight -
-        window.innerHeight
+        document.documentElement.scrollHeight - window.innerHeight
       );
 
+    const getTrackMetrics = () => {
+      const trackRect = levelTrack.getBoundingClientRect();
+      const knobRect = levelKnob.getBoundingClientRect();
+
+      const halfKnob = knobRect.height / 2;
+
+      const minY = trackRect.top + halfKnob;
+      const maxY = trackRect.bottom - halfKnob;
+
+      return {
+        trackRect,
+        minY,
+        maxY,
+        range: Math.max(1, maxY - minY)
+      };
     };
 
+    const getProgressFromScroll = () => {
+      const maxScroll = getMaxScroll();
 
-    /*
-       Da scroll -> posizione knob.
-    */
-    const updateKnobFromScroll = () => {
-
-      if (dragging) {
-        return;
+      if (maxScroll <= 0) {
+        return 0;
       }
 
-      const maxScroll =
-        getMaxScroll();
+      return clamp(window.scrollY / maxScroll, 0, 1);
+    };
 
-      const scrollTop =
-        window.scrollY;
-
-      const progress =
-        maxScroll > 0
-          ? Math.min(
-              1,
-              Math.max(
-                0,
-                scrollTop / maxScroll
-              )
-            )
-          : 0;
-
+    const setKnobPosition = (progress) => {
       const {
+        trackRect,
         minY,
         range
       } = getTrackMetrics();
 
-      /*
-         Posizionamento relativo al track.
-         top è relativo all'elemento .level-track.
-      */
-      const trackRect =
-        levelTrack.getBoundingClientRect();
+      const safeProgress = clamp(progress, 0, 1);
 
-      const y =
-        (minY - trackRect.top) +
-        progress * range;
+      const localY =
+        minY -
+        trackRect.top +
+        safeProgress * range;
 
-      levelKnob.style.top =
-        `${y}px`;
+      levelKnob.style.top = `${localY}px`;
+      levelKnob.style.transform = "translate(-50%, -50%)";
 
+      levelKnob.setAttribute(
+        "aria-valuenow",
+        String(Math.round(safeProgress * 100))
+      );
     };
 
+    const updateKnobFromScroll = () => {
+      setKnobPosition(getProgressFromScroll());
+    };
 
-    /*
-       Da coordinate pointer -> scroll.
-       Questa è la parte fondamentale per eliminare
-       il comportamento "a scatti".
-    */
-    const updateScrollFromPointer = (
-      clientY
-    ) => {
-
+    const updateScrollFromPointer = (clientY) => {
       const {
         minY,
         maxY,
         range
       } = getTrackMetrics();
 
-      const clampedY =
-        Math.min(
-          maxY,
-          Math.max(
-            minY,
-            clientY
-          )
-        );
+      const clampedY = clamp(clientY, minY, maxY);
 
       const progress =
-        (clampedY - minY) /
-        range;
-
-      const maxScroll =
-        getMaxScroll();
+        (clampedY - minY) / range;
 
       const targetScroll =
-        progress * maxScroll;
+        progress * getMaxScroll();
 
       /*
-         Durante il drag NON usiamo
-         behavior:smooth.
-
-         È proprio questo che evita
-         l'effetto "insegue il mouse" / scatti.
+         Durante il trascinamento lo scroll è immediato.
+         Niente behavior:smooth.
       */
       window.scrollTo({
         top: targetScroll,
+        left: 0,
         behavior: "auto"
       });
 
+      /*
+         Aggiornamento immediato del knob:
+         non aspettiamo il successivo evento scroll.
+      */
+      setKnobPosition(progress);
     };
 
-
-    /*
-       POINTER DOWN
-       Funziona con:
-       - mouse
-       - trackpad
-       - touch
-       - penna
-    */
     const startDrag = (event) => {
-
-      /*
-         Solo primary pointer.
-      */
-      if (
-        event.isPrimary === false
-      ) {
+      if (event.isPrimary === false) {
         return;
       }
 
       dragging = true;
+      activePointerId = event.pointerId;
 
-      levelScroller.classList.add(
-        "is-dragging"
-      );
+      levelScroller.classList.add("is-dragging");
+      levelKnob.classList.add("is-dragging");
 
-      /*
-         Pointer capture:
-         fondamentale quando il mouse
-         esce dal pallino durante il drag.
-      */
       try {
-        levelKnob.setPointerCapture(
-          event.pointerId
-        );
+        levelKnob.setPointerCapture(event.pointerId);
       } catch (error) {
-        /* Browser legacy: nessun problema */
+        /* Supporto browser legacy */
       }
 
-      /*
-         Evita selezione testo e scrolling
-         involontario sul touch.
-      */
       event.preventDefault();
 
-      updateScrollFromPointer(
-        event.clientY
-      );
-
+      updateScrollFromPointer(event.clientY);
     };
 
-
-    /*
-       POINTER MOVE
-    */
     const moveDrag = (event) => {
-
-      if (!dragging) {
-        return;
-      }
-
       if (
-        event.isPrimary === false
+        !dragging ||
+        event.pointerId !== activePointerId
       ) {
         return;
       }
 
       event.preventDefault();
 
-      updateScrollFromPointer(
-        event.clientY
-      );
-
+      updateScrollFromPointer(event.clientY);
     };
 
-
-    /*
-       POINTER UP
-    */
     const stopDrag = (event) => {
-
       if (!dragging) {
         return;
       }
 
-      dragging = false;
+      if (
+        activePointerId !== null &&
+        event.pointerId !== undefined &&
+        event.pointerId !== activePointerId
+      ) {
+        return;
+      }
 
-      levelScroller.classList.remove(
-        "is-dragging"
-      );
+      dragging = false;
+      activePointerId = null;
+
+      levelScroller.classList.remove("is-dragging");
+      levelKnob.classList.remove("is-dragging");
 
       try {
         if (
-          levelKnob.hasPointerCapture(
-            event.pointerId
-          )
+          event.pointerId !== undefined &&
+          levelKnob.hasPointerCapture(event.pointerId)
         ) {
-          levelKnob.releasePointerCapture(
-            event.pointerId
-          );
+          levelKnob.releasePointerCapture(event.pointerId);
         }
       } catch (error) {
-        /* Browser legacy */
+        /* Supporto browser legacy */
       }
 
-      /*
-         Allineamento finale.
-      */
       updateKnobFromScroll();
-
     };
-
 
     levelKnob.addEventListener(
       "pointerdown",
       startDrag,
-      {
-        passive: false
-      }
+      { passive: false }
     );
 
     levelKnob.addEventListener(
       "pointermove",
       moveDrag,
-      {
-        passive: false
-      }
+      { passive: false }
     );
 
     levelKnob.addEventListener(
       "pointerup",
       stopDrag,
-      {
-        passive: false
-      }
+      { passive: false }
     );
 
     levelKnob.addEventListener(
       "pointercancel",
       stopDrag,
-      {
-        passive: false
-      }
+      { passive: false }
     );
 
-
-    /*
-       Se il browser perde il pointer capture.
-    */
     levelKnob.addEventListener(
       "lostpointercapture",
       () => {
-
         if (dragging) {
-
           dragging = false;
+          activePointerId = null;
 
-          levelScroller.classList.remove(
-            "is-dragging"
-          );
+          levelScroller.classList.remove("is-dragging");
+          levelKnob.classList.remove("is-dragging");
 
           updateKnobFromScroll();
-
         }
-
       }
     );
 
-
     /*
-       Click sulla TRACK:
-       permette di saltare direttamente
-       a qualsiasi punto della pagina.
+       Click/tap sul track:
+       porta il knob direttamente al punto indicato.
     */
     levelTrack.addEventListener(
       "pointerdown",
       (event) => {
-
-        /*
-           Se stiamo cliccando direttamente
-           il knob, lascia lavorare il drag.
-        */
         if (
           event.target === levelKnob ||
           levelKnob.contains(event.target)
@@ -1118,167 +992,98 @@ document.addEventListener("DOMContentLoaded", () => {
           return;
         }
 
-        /*
-           Solo primary pointer.
-        */
-        if (
-          event.isPrimary === false
-        ) {
+        if (event.isPrimary === false) {
           return;
         }
 
         event.preventDefault();
 
-        updateScrollFromPointer(
-          event.clientY
-        );
-
+        updateScrollFromPointer(event.clientY);
       },
-      {
-        passive: false
-      }
+      { passive: false }
     );
 
-
     /*
-       Anche il livello LABEL può essere usato
-       come area di navigazione se si clicca.
-       Non lo rendiamo però trascinabile.
+       Tastiera.
     */
+    levelKnob.addEventListener("keydown", (event) => {
+      const maxScroll = getMaxScroll();
 
+      if (maxScroll <= 0) {
+        return;
+      }
 
-    /*
-       Tastiera:
-       il pallino è tabindex=0.
-       Frecce, PageUp/PageDown, Home/End.
-    */
-    levelKnob.addEventListener(
-      "keydown",
-      (event) => {
+      const current = window.scrollY;
+      const viewport = window.innerHeight;
 
-        const maxScroll =
-          getMaxScroll();
+      let target = current;
 
-        if (maxScroll <= 0) {
+      switch (event.key) {
+        case "ArrowUp":
+          target = current - 100;
+          break;
+
+        case "ArrowDown":
+          target = current + 100;
+          break;
+
+        case "PageUp":
+          target = current - viewport * 0.8;
+          break;
+
+        case "PageDown":
+          target = current + viewport * 0.8;
+          break;
+
+        case "Home":
+          target = 0;
+          break;
+
+        case "End":
+          target = maxScroll;
+          break;
+
+        default:
           return;
-        }
-
-        const current =
-          window.scrollY;
-
-        const viewport =
-          window.innerHeight;
-
-        let target = current;
-
-        switch (event.key) {
-
-          case "ArrowUp":
-            target = current - 100;
-            break;
-
-          case "ArrowDown":
-            target = current + 100;
-            break;
-
-          case "PageUp":
-            target = current - viewport * 0.8;
-            break;
-
-          case "PageDown":
-            target = current + viewport * 0.8;
-            break;
-
-          case "Home":
-            target = 0;
-            break;
-
-          case "End":
-            target = maxScroll;
-            break;
-
-          default:
-            return;
-
-        }
-
-        event.preventDefault();
-
-        window.scrollTo({
-          top: Math.max(
-            0,
-            Math.min(
-              maxScroll,
-              target
-            )
-          ),
-          behavior: "smooth"
-        });
-
       }
-    );
 
+      event.preventDefault();
+
+      window.scrollTo({
+        top: clamp(target, 0, maxScroll),
+        behavior: "smooth"
+      });
+    });
 
     /*
-       Aggiornamento knob durante scroll.
-       requestAnimationFrame evita scatti
-       causati da troppi layout recalculation.
+       Aggiornamento durante lo scroll.
     */
-    let levelFrame = null;
-
     const handleLevelScroll = () => {
-
-      if (dragging) {
+      if (dragging || levelFrame !== null) {
         return;
       }
 
-      if (levelFrame !== null) {
-        return;
-      }
-
-      levelFrame =
-        requestAnimationFrame(() => {
-
-          updateKnobFromScroll();
-
-          levelFrame = null;
-
-        });
-
+      levelFrame = requestAnimationFrame(() => {
+        updateKnobFromScroll();
+        levelFrame = null;
+      });
     };
-
 
     window.addEventListener(
       "scroll",
       handleLevelScroll,
-      {
-        passive: true
-      }
+      { passive: true }
     );
-
 
     window.addEventListener(
       "resize",
       () => {
-
-        /*
-           Dopo un resize il track cambia
-           altezza: ricalcoliamo.
-        */
         updateKnobFromScroll();
-
       },
-      {
-        passive: true
-      }
+      { passive: true }
     );
 
-
-    /*
-       Prima sincronizzazione.
-    */
     updateKnobFromScroll();
-
   }
 
 
