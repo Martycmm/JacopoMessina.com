@@ -2888,3 +2888,91 @@ min-height: 260px;
         z-index: 2900;
     }
 }
+
+/* =========================================================
+   LEVEL SCROLLER — FIX RESPONSIVE + TOUCH
+   Inserire DOPO tutte le altre regole .level-scroller
+   ========================================================= */
+
+.level-scroller {
+  display: block;
+  position: fixed;
+  top: 50%;
+  right: 18px;
+  z-index: 1000;
+  width: 42px;
+  transform: translateY(-50%);
+  pointer-events: auto;
+}
+
+.level-track {
+  position: relative;
+  width: 100%;
+  height: min(70vh, 520px);
+  min-height: 180px;
+  touch-action: none;
+}
+
+.level-knob {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 28px;
+  height: 28px;
+  margin: 0;
+  transform: translate(-50%, -50%);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  will-change: top;
+}
+
+.level-knob:active,
+.level-knob.is-dragging,
+.level-scroller.is-dragging .level-knob {
+  cursor: grabbing;
+}
+
+.level-scroller.is-dragging,
+.level-scroller.is-dragging * {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+@media (max-width: 1010px) {
+  .level-scroller {
+    display: block;
+    right: 10px;
+    width: 34px;
+  }
+
+  .level-track {
+    height: min(68vh, 460px);
+    min-height: 160px;
+  }
+
+  .level-knob {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+@media (max-width: 700px) {
+  .level-scroller {
+    display: block;
+    right: 6px;
+    width: 32px;
+  }
+
+  .level-track {
+    height: min(62vh, 380px);
+    min-height: 150px;
+  }
+
+  .level-knob {
+    width: 28px;
+    height: 28px;
+  }
+}
